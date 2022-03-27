@@ -9,19 +9,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String email;
     private String pais;
+	private int puntos;
 	@JsonIgnore
 	private String password;
 	//private Collection<? extends GrantedAuthority> authorities;
-	public UserDetailsImpl(String username, String email, String password, String pais) {
+	public UserDetailsImpl(String username, String email, String password, String pais, int puntos) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
         this.pais = pais;
+		this.puntos = puntos;
 
 	}
 	public static UserDetailsImpl build(Usuario user) {
@@ -29,7 +32,7 @@ public class UserDetailsImpl implements UserDetails {
 				user.getUsername(),
 				user.getEmail(),
 				user.getPassword(),
-                user.getPais());
+                user.getPais(), user.getPuntos());
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -40,6 +43,9 @@ public class UserDetailsImpl implements UserDetails {
 	}
     public String getPais() {
 		return pais;
+	}
+	public int getPuntos(){
+		return puntos;
 	}
 	@Override
 	public String getPassword() {
