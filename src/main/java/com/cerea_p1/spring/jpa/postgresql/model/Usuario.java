@@ -1,17 +1,10 @@
 package com.cerea_p1.spring.jpa.postgresql.model;
 
-/* import java.util.ArrayList;
-import java.util.List;
-import java.util.Collection; */
-
 import javax.persistence.*;
-//import javax.validation.constraints.*;
-
-//import  org.springframework.security.core.GrantedAuthority;
-//import  org.springframework.security.core.userdetails.UserDetails;
+import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "Usuario", 
+@Table(name = "usuario", 
             uniqueConstraints = { 
                 @UniqueConstraint(columnNames = "nombre_de_usuario"),
                 @UniqueConstraint(columnNames = "correo_electronico")
@@ -19,14 +12,14 @@ import javax.persistence.*;
 public class Usuario {
 
     @Id
- //   @Pattern(regexp = ".+[@].+[\\.].+")
+    @Pattern(regexp = ".+[@].+[\\.].+")
     @Column(name = "correo_electronico", nullable = false, length = 60)
     private String email;
 
     @Column(name = "nombre_de_usuario", nullable = false, length = 50)
     private String username;
     
- //   @NotNull
+    @NotNull
     @Column(name="contrasena", nullable = false, length = 30)
     private String password;
     
@@ -34,11 +27,11 @@ public class Usuario {
     // @OneToMany(mappedBy = "usuario")
     // private List<Amigo> amigos = new ArrayList<Amigo>();
 
-//    @NotNull
+    @NotNull
     @Column(name="pais", nullable = false, length = 70)
     private String pais;
 
-//    @NotNull
+    @NotNull
     @Column(name="puntos", nullable = false)
     private int puntos;
 
@@ -94,29 +87,4 @@ public class Usuario {
     public String toString(){
         return "[name= " + this.username + ", email=" + this.email + ", pais=" + this.pais + ", puntos=" + this.puntos + "]";
     }
-
-    /* @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    } */
 }
