@@ -1,8 +1,6 @@
 
 package com.cerea_p1.spring.jpa.postgresql.payload.response;
 
-import java.util.List;
-
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
