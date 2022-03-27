@@ -1,4 +1,4 @@
-/* package com.cerea_p1.spring.jpa.postgresql.security.jwt;
+package com.cerea_p1.spring.jpa.postgresql.security.jwt;
 
 import java.util.Date;
 import org.slf4j.Logger;
@@ -41,4 +41,4 @@ public class JwtUtils {
     }
     return false;
   }
-} */
+}
