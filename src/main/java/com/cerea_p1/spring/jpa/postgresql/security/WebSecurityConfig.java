@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.annotation.Resource;
+
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.AuthEntryPointJwt;
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.AuthTokenFilter;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceImpl;
@@ -24,8 +27,8 @@ import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceIm
 		// jsr250Enabled = true,
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	UserDetailsServiceImpl userDetailsService;
+	@Resource
+	UserDetailsService userDetailsService;
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 	@Bean
