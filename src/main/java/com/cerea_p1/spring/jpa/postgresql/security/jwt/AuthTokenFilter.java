@@ -17,11 +17,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
+
   @Autowired
   private JwtUtils jwtUtils;
+
   @Autowired
   private UserDetailsServiceImpl userDetailsService;
+
   private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
+  
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {

@@ -9,12 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 
-@Service("userDetailsService")
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
   @Autowired
   UsuarioRepository userRepository;
+
   @Override
-  //@Transactional
+  @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     Usuario user = userRepository.findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));

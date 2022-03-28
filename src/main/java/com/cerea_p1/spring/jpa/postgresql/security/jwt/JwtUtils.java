@@ -8,25 +8,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
+
 @Component
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
   @Value("${bezkoder.app.jwtSecret}")
   private String jwtSecret;
-  @Value("${bezkoder.app.jwtExpirationMs}")
+  @Value("${server.servlet.session.timeout}")
   private int jwtExpirationMs;
   public String generateJwtToken(Authentication authentication) {
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
     return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
-        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs)).signWith(SignatureAlgorithm.HS512, jwtSecret)
+        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .compact();
   }
   public String getUserNameFromJwtToken(String token) {
-    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    return Jwts.parser().parseClaimsJws(token).getBody().getSubject();
   }
   public boolean validateJwtToken(String authToken) {
     try {
-      Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+      Jwts.parser().parseClaimsJws(authToken);
       return true;
     } catch (SignatureException e) {
       logger.error("Invalid JWT signature: {}", e.getMessage());
