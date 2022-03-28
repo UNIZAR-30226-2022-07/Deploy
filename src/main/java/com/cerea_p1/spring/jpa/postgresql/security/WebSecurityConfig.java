@@ -28,7 +28,7 @@ import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceIm
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	UserDetailsService userDetailsService;
+	UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 	@Bean
