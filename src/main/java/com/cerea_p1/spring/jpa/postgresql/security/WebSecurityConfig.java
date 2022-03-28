@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		super.setContentNegotationStrategy(contentNegotiationStrategy);
 	}
 //	@Bean
-	@Bean
+//	@Bean
 	@Override
 	@SuppressWarnings("deprecation")
 	public UserDetailsService userDetailsService() {
