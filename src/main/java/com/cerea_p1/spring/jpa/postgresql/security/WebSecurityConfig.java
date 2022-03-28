@@ -59,9 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void setContentNegotationStrategy(org.springframework.web.accept.ContentNegotiationStrategy contentNegotiationStrategy){
 		super.setContentNegotationStrategy(contentNegotiationStrategy);
 	}
-//	@Override
+	@Override
 //	@Bean
-//	protected UserDetailsService userDetailsService(){
-//		return super.userDetailsServiceBean();
-//	}
+	protected UserDetailsService userDetailsService(){
+		return super.userDetailsService();
+	}
 }
