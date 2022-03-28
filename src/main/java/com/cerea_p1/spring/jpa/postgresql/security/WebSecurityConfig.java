@@ -25,7 +25,7 @@ import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceIm
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	UserDetailsService userDetailsService;
+	UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 	@Bean
@@ -59,9 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void setContentNegotationStrategy(org.springframework.web.accept.ContentNegotiationStrategy contentNegotiationStrategy){
 		super.setContentNegotationStrategy(contentNegotiationStrategy);
 	}
-	@Override
+//	@Override
 //	@Bean
-	protected UserDetailsService userDetailsService(){
-		return super.userDetailsService();
-	}
+//	protected UserDetailsService userDetailsService(){
+//		return super.userDetailsService();
+//	}
 }

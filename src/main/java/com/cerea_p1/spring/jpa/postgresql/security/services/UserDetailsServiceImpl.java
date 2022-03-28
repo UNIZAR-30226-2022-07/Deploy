@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
   UsuarioRepository userRepository;
