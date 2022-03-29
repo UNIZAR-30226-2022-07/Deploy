@@ -17,9 +17,9 @@ public class JwtUtils {
   @Value("${onep1.app.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${server.servlet.session.timeout}")
+  @Value("${sonep1.app.expirationMs}")
   private int jwtExpirationMs;
-  
+
   public String generateJwtToken(Authentication authentication) {
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
     return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
