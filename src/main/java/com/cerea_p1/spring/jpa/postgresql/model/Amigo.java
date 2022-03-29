@@ -2,6 +2,8 @@ package com.cerea_p1.spring.jpa.postgresql.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
@@ -10,7 +12,7 @@ import java.util.*;
                 @UniqueConstraint(columnNames = {"usuario1","usuario2"})
             }
 )
-public class Amigo {
+public class Amigo implements Serializable{
     @Id
     @Column(name = "usuario1", nullable = false, length = 255)
     private String usuario1;
