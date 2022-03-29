@@ -80,4 +80,9 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(email, user.email);
 	}
+
+/*	@Override
+	public int hashCode(){
+		return this.getUsername().hashCode();
+	}*/
 }
