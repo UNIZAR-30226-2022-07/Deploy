@@ -2,6 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.*;
 
 @Entity
 @Table(name = "usuario", 
@@ -23,9 +24,12 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
     
-    // @NotNull
-    // @OneToMany(mappedBy = "usuario")
-    // private List<Amigo> amigos = new ArrayList<Amigo>();
+    @NotNull
+    @ManyToMany
+    @JoinTable(name = "amigos", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
+
+    //@OneToMany(mappedBy = "usuario")
+    private List<Usuario> amigos = new ArrayList<Usuario>();
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -41,10 +45,10 @@ public class Usuario {
         this.password = password;
         this.pais = pais;
         this.puntos = 0;
+        amigos = null;
     }
 
     public Usuario(){
-
     }
 
     public String getUsername() {
@@ -85,6 +89,14 @@ public class Usuario {
         
     public void setPuntos(int puntos) {
         this.puntos = puntos;
+    }
+
+    public List<Usuario> getAmigos(){
+        return this.amigos;
+    }
+
+    public void setAmigo(Usuario amigo) {
+        this.amigos.add(amigo);
     }
     
     @Override

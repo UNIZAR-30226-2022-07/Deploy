@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.*;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
@@ -16,15 +17,17 @@ public class UserDetailsImpl implements UserDetails {
 	private String email;
     private String pais;
 	private int puntos;
+	private List<Usuario> amigos;
 	@JsonIgnore
 	private String password;
 	//private Collection<? extends GrantedAuthority> authorities;
-	public UserDetailsImpl(String username, String email, String password, String pais, int puntos) {
+	public UserDetailsImpl(String username, String email, String password, String pais, int puntos, List<Usuario> amigos) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
         this.pais = pais;
 		this.puntos = puntos;
+		this.amigos = amigos;
 
 	}
 	public static UserDetailsImpl build(Usuario user) {
@@ -32,7 +35,7 @@ public class UserDetailsImpl implements UserDetails {
 				user.getUsername(),
 				user.getEmail(),
 				user.getPassword(),
-                user.getPais(), user.getPuntos());
+                user.getPais(), user.getPuntos(),user.getAmigos());
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -54,6 +57,10 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 		return username;
+	}
+
+	public List<Usuario> getAmigos(){
+		return this.amigos;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
