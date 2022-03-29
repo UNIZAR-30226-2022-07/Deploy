@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.annotation.Resource;
 
@@ -70,6 +71,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void setContentNegotationStrategy(org.springframework.web.accept.ContentNegotiationStrategy contentNegotiationStrategy){
 		super.setContentNegotationStrategy(contentNegotiationStrategy);
+	}
+
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+		return new HttpSessionEventPublisher();
 	}
 //	@Bean
 //	@Bean
