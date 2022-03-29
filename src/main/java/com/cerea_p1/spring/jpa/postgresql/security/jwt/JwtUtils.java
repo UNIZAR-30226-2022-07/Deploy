@@ -17,7 +17,7 @@ public class JwtUtils {
   @Value("${onep1.app.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${sonep1.app.expirationMs}")
+  @Value("${onep1.app.expirationMs}")
   private int jwtExpirationMs;
 
   public String generateJwtToken(Authentication authentication) {
