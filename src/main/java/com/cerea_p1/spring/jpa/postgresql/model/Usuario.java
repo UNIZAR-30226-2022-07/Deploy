@@ -13,14 +13,14 @@ public class Usuario {
 
     @Id
     @Pattern(regexp = ".+[@].+[\\.].+")
-    @Column(name = "correo_electronico", nullable = false, length = 60)
+    @Column(name = "correo_electronico", nullable = false, length = 255)
     private String email;
 
-    @Column(name = "nombre_de_usuario", nullable = false, length = 50)
+    @Column(name = "nombre_de_usuario", nullable = false, length = 255)
     private String username;
     
     @NotNull
-    @Column(name="contrasena", nullable = false, length = 30)
+    @Column(name="contrasena", nullable = false, length = 255)
     private String password;
     
     // @NotNull
@@ -28,7 +28,7 @@ public class Usuario {
     // private List<Amigo> amigos = new ArrayList<Amigo>();
 
     @NotNull
-    @Column(name="pais", nullable = false, length = 70)
+    @Column(name="pais", nullable = false, length = 255)
     private String pais;
 
     @NotNull
@@ -44,7 +44,7 @@ public class Usuario {
     }
 
     public Usuario(){
-        
+
     }
 
     public String getUsername() {
