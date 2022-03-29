@@ -22,7 +22,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 //@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-//@RequestMapping("/api")
+@RequestMapping("/api")
 public class AuthController {
 
 	@Autowired
