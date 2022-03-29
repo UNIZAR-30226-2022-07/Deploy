@@ -43,6 +43,10 @@ public class Usuario {
         this.puntos = 0;
     }
 
+    public Usuario(){
+        
+    }
+
     public String getUsername() {
         return username;
     }
