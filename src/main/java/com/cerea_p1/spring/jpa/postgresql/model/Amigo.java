@@ -12,10 +12,10 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
             }
 )
 public class Amigo {
-
+    @Id
     @Column(name = "usuario1", nullable = false, length = 255)
     private Usuario usuario1;
-
+    @Id
     @Column(name = "usuario2", nullable = false, length = 255)
     private Usuario usuario2;
     
