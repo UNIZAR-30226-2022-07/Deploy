@@ -47,4 +47,9 @@ public class Amigo {
     public String toString(){
         return "[username= " + this.usuario1 + "friendname= " + this.usuario2 + "]";
     }
+
+    @Override
+    public int hashCode() {
+        return usuario1.hashCode() + usuario2.hashCode();
+    }
 }
