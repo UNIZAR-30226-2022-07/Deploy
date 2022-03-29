@@ -94,8 +94,8 @@ public class AuthController {
 					.badRequest()
 					.body(new MessageResponse("Error: User or friend is not registered"));
 		} else {
-			Amigo friend = friendRepository.findByUsername(addfriendRequest.getFriendname()).get();
-			friendRepository.save(friend);
+			Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
+			friendRepository.save(new Amigo(addfriendRequest.getUsername(),friend.getUsername()));
 		}
 		return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
 	}
