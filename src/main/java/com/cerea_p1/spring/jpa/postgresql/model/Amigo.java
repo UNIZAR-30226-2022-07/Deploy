@@ -12,6 +12,7 @@ import java.util.*;
                 @UniqueConstraint(columnNames = {"usuario1","usuario2"})
             }
 )
+@IdClass(Amigo.class)
 public class Amigo implements Serializable{
     @Id
     @Column(name = "usuario1", nullable = false, length = 255)
