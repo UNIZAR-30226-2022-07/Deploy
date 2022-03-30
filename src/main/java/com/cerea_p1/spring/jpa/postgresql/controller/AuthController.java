@@ -33,6 +33,8 @@ import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -44,6 +46,7 @@ public class AuthController {
 	UsuarioRepository userRepository;
 	@Autowired
 	AmigoRepository friendRepository;
+	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 	
 //	@Autowired
 //	RoleRepository roleRepository;
@@ -90,15 +93,15 @@ public class AuthController {
 
 	@GetMapping("/addfriend")
 	public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
-		if (!userRepository.existsByUsername(addfriendRequest.getUsername())||!userRepository.existsByUsername(addfriendRequest.getFriendname())) {
+		logger.debug("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
+		if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: User or friend is not registered"));
 		} else {
 			Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
 			friendRepository.save(new Amigo(addfriendRequest.getUsername(),friend.getUsername()));
+			return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
 		}
-		return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
 	}
-	
 }
