@@ -93,7 +93,7 @@ public class AuthController {
 
 	@GetMapping("/addfriend")
 	public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
-		logger.debug("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
+		logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
 		if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
 			return ResponseEntity
 					.badRequest()
