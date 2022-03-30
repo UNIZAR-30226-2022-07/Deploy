@@ -26,7 +26,7 @@ public class Usuario {
     
     @NotNull
     @ManyToMany
-    @JoinTable(name = "amigos", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
+    @JoinTable(name = "amigo", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
 
     //@OneToMany(mappedBy = "usuario")
     private List<Usuario> amigos = new ArrayList<Usuario>();
