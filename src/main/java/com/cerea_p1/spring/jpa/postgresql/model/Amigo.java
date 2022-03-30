@@ -28,6 +28,8 @@ public class Amigo implements Serializable {
     }
 
     public Amigo() {
+        usuario1 = null;
+        usuario2 = null;
     }
 
     public String getUsuario1(){

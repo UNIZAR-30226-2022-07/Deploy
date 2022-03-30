@@ -49,6 +49,12 @@ public class Usuario {
     }
 
     public Usuario(){
+        username = null;
+        email = null;
+        password = null;
+        pais = null;
+        puntos = 0;
+        amigos = null;
     }
 
     public String getUsername() {
