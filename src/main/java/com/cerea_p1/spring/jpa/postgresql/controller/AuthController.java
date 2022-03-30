@@ -51,7 +51,7 @@ public class AuthController {
 	PasswordEncoder encoder;
 	@Autowired
 	JwtUtils jwtUtils;
-	@PostMapping("/signin")
+	@GetMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -67,7 +67,7 @@ public class AuthController {
 												 userDetails.getAmigos()));
 	}
 
-	@PostMapping("/signup")
+	@GetMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
