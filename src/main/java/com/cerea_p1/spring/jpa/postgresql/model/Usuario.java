@@ -29,7 +29,7 @@ public class Usuario {
     @JoinTable(name = "amigo", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
 
     //@OneToMany(mappedBy = "usuario")
-    private List<Usuario> amigos = new ArrayList<Usuario>();
+    private List<Usuario> amigos; 
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -45,7 +45,7 @@ public class Usuario {
         this.password = password;
         this.pais = pais;
         this.puntos = 0;
-        amigos = null;
+        amigos = new ArrayList<Usuario>();;
     }
 
     public Usuario(){
