@@ -13,7 +13,7 @@ import java.util.*;
             }
 )
 @IdClass(Amigo.class)
-public class Amigo implements Serializable{
+public class Amigo implements Serializable {
     @Id
     @Column(name = "usuario1", nullable = false, length = 255)
     private String usuario1;
@@ -54,5 +54,24 @@ public class Amigo implements Serializable{
     @Override
     public int hashCode() {
         return usuario1.hashCode() + usuario2.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        // If the object is compared with itself then return true 
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Amigo or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Amigo)) {
+            return false;
+        }
+
+        // typecast o to Amigo so that we can compare data members
+        Amigo a = (Amigo) o;
+
+        return (a.getUsuario1().equals(this.usuario1) && a.getUsuario2().equals(this.usuario2)) || (a.getUsuario1().equals(this.usuario2) && a.getUsuario2().equals(this.usuario1));
     }
 }
