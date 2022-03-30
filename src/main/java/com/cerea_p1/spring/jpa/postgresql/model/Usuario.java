@@ -24,12 +24,12 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
     
-    // @NotNull
-    // @ManyToMany
-    // @JoinTable(name = "amigo", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
+    @NotNull
+    @ManyToMany
+    @JoinTable(name = "amigo", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
 
-    // //@OneToMany(mappedBy = "usuario")
-    // private List<Usuario> amigos = new ArrayList<Usuario>();
+    //@OneToMany(mappedBy = "usuario")
+    private List<Usuario> amigos = new ArrayList<Usuario>();
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -45,7 +45,7 @@ public class Usuario {
         this.password = password;
         this.pais = pais;
         this.puntos = 0;
-    //    amigos = null;
+        amigos = null;
     }
 
     public Usuario(){
@@ -54,7 +54,7 @@ public class Usuario {
         password = null;
         pais = null;
         puntos = 0;
-    //    amigos = null;
+        amigos = null;
     }
 
     public String getUsername() {
@@ -97,13 +97,13 @@ public class Usuario {
         this.puntos = puntos;
     }
 
-    /* public List<Usuario> getAmigos(){
+    public List<Usuario> getAmigos(){
         return this.amigos;
     }
 
     public void setAmigo(Usuario amigo) {
         this.amigos.add(amigo);
-    } */
+    } 
     
     @Override
     public String toString(){

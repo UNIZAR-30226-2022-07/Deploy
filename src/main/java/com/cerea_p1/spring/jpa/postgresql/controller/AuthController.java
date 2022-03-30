@@ -59,18 +59,13 @@ public class AuthController {
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-		// return ResponseEntity.ok(new JwtResponse(jwt, 
-		// 										 userDetails.getUsername(), 
-		// 										 userDetails.getEmail(), 
-		// 										 userDetails.getPais(),
-		// 										 userDetails.getPuntos(),
-		// 										 userDetails.getAmigos()));
-
-		 return ResponseEntity.ok(new JwtResponse(jwt, 
+		return ResponseEntity.ok(new JwtResponse(jwt, 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(), 
 												 userDetails.getPais(),
-												 userDetails.getPuntos()));
+												 userDetails.getPuntos(),
+												 userDetails.getAmigos()));
+
 	}
 
 	@GetMapping("/signup")
@@ -93,17 +88,17 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 
-	// @GetMapping("/addfriend")
-	// public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
-	// 	if (!userRepository.existsByUsername(addfriendRequest.getUsername())||!userRepository.existsByUsername(addfriendRequest.getFriendname())) {
-	// 		return ResponseEntity
-	// 				.badRequest()
-	// 				.body(new MessageResponse("Error: User or friend is not registered"));
-	// 	} else {
-	// 		Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
-	// 		friendRepository.save(new Amigo(addfriendRequest.getUsername(),friend.getUsername()));
-	// 	}
-	// 	return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
-	// }
+	@GetMapping("/addfriend")
+	public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
+		if (!userRepository.existsByUsername(addfriendRequest.getUsername())||!userRepository.existsByUsername(addfriendRequest.getFriendname())) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: User or friend is not registered"));
+		} else {
+			Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
+			friendRepository.save(new Amigo(addfriendRequest.getUsername(),friend.getUsername()));
+		}
+		return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
+	}
 	
 }
