@@ -24,8 +24,8 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
     
-    @OneToMany(mappedBy = "fromUser")
-    public List<Amigo> amigo;
+    /* @OneToMany(mappedBy = "fromUser")
+    public List<Amigo> amigo; */
 
     // @NotNull
     // @ManyToMany
