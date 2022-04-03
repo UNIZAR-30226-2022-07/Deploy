@@ -33,8 +33,9 @@ import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.*;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -46,7 +47,7 @@ public class AuthController {
 	UsuarioRepository userRepository;
 	@Autowired
 //	AmigoRepository friendRepository;
-	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+	private static final Logger logger = Logger.getLogger("MyLog");
 	
 //	@Autowired
 //	RoleRepository roleRepository;
@@ -78,7 +79,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		logger.info("user=" + signUpRequest.getUsername() + " email=" + signUpRequest.getEmail() + " pais=" + signUpRequest.getPais() + " pass=" + signUpRequest.getPassword() );
+		logger.info("user=" + signUpRequest.getUsername() + " email=" + signUpRequest.getEmail() + " pais=" + signUpRequest.getPais() + " pass=" + signUpRequest.getPassword());
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
