@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
-import com.cerea_p1.spring.jpa.postgresql.model.Amigo;
+//import com.cerea_p1.spring.jpa.postgresql.model.Amigo;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.LoginRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.SignupRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.AddFriendRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.JwtResponse;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
-import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
+//import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
@@ -45,7 +45,7 @@ public class AuthController {
 	@Autowired
 	UsuarioRepository userRepository;
 	@Autowired
-	AmigoRepository friendRepository;
+//	AmigoRepository friendRepository;
 	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 	
 //	@Autowired
