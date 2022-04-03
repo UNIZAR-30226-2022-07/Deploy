@@ -24,6 +24,9 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
     
+    @OneToMany(mappedBy = "fromUser")
+    public List<Amigo> amigo;
+
     @NotNull
     @ManyToMany
     @JoinTable(name = "amigo", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
