@@ -8,7 +8,7 @@ Para registrar un usuario se usa (/signup). Es necesario usar SignupRequest (en 
 
 Registro de usuario:
 
-  -Petición GET a https://onep1.herokuapp.com/api/auth/signup
+  -Petición POST a https://onep1.herokuapp.com/api/auth/signup
   
   -JSON:
   
