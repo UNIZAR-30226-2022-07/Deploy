@@ -62,12 +62,17 @@ public class AuthController {
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		// return ResponseEntity.ok(new JwtResponse(jwt, 
+		// 										 userDetails.getUsername(), 
+		// 										 userDetails.getEmail(), 
+		// 										 userDetails.getPais(),
+		// 										 userDetails.getPuntos(),
+		// 										 userDetails.getAmigos()));
 		return ResponseEntity.ok(new JwtResponse(jwt, 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(), 
 												 userDetails.getPais(),
-												 userDetails.getPuntos(),
-												 userDetails.getAmigos()));
+												 userDetails.getPuntos()));
 
 	}
 
