@@ -1,6 +1,8 @@
 package com.cerea_p1.spring.jpa.postgresql.security.jwt;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 //import java.util.HashMap;
 //import java.util.Map;
 import javax.servlet.ServletException;
@@ -20,6 +22,11 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
   @Override
   public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
       throws IOException, ServletException {
+
+     // response.addHeader("WWW-Authenticate", "Basic realm=\"" +  + "\"");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        PrintWriter writer = response.getWriter();
+        writer.println("HTTP Status 401 - " + authException.getMessage());
     logger.error("Unauthorized error: {}", authException.getMessage());
     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
   }
