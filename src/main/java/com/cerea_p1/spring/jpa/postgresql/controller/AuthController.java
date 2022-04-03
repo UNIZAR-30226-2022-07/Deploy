@@ -91,17 +91,17 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 
-	@GetMapping("/addfriend")
-	public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
-		logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
-		if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: User or friend is not registered"));
-		} else {
-		//	Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
-			friendRepository.save(new Amigo(addfriendRequest.getUsername(),addfriendRequest.getFriendname()));
-			return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
-		}
-	}
+	// @GetMapping("/addfriend")
+	// public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
+	// 	logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
+	// 	if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
+	// 		return ResponseEntity
+	// 				.badRequest()
+	// 				.body(new MessageResponse("Error: User or friend is not registered"));
+	// 	} else {
+	// 	//	Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
+	// 		friendRepository.save(new Amigo(addfriendRequest.getUsername(),addfriendRequest.getFriendname()));
+	// 		return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
+	// 	}
+	// }
 }
