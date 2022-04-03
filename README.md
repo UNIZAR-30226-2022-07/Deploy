@@ -6,16 +6,27 @@ Para acceder al login (/signin). Es necesario usar LoginRequest (en el paquete c
 
 Para registrar un usuario se usa (/signup). Es necesario usar SignupRequest (en el paquete com.cerea_p1.spring.jpa.postgresql.payload.request) y devuelve un mensaje de ok del formato que se muestra en el ficero com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse.
 
-Ejemplo de registro de usuario:
+Registro de usuario:
 
-  -Hacer petición GET a https://onep1.herokuapp.com/auth/api/signup
+  -Hacer petición GET a https://onep1.herokuapp.com/api/auth/signup
   
   -JSON:
   
       {
-        "username": "Helios",
-        "email": "marcosgarralaga@gmail.com",
-        "pais": "espagna",
-        "password": "test1234"
+        "username": <nombre_de_usuario>,
+        "email": <email>,
+        "pais": <pais>,
+        "password": <contraseña>
+      }
+
+Logear un usuario:
+
+  petición POST a https://onep1.herokuapp.com/api/auth/signin
+
+  JSON:
+      
+      {
+        "username": <nombre_de_usuario>
+        "password": <contraseña>
       }
       
