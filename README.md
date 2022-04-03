@@ -18,6 +18,12 @@ Registro de usuario:
         "pais": <pais>,
         "password": <contraseña>
       }
+      
+  -Información adicional:
+        -username de entre 3 y 255 caracteres
+        -password de entre 6 y 255 caracteres
+        -email que cumpla la siguiente ER: .+[@].+[\\.].+ (algo + @ + algo + . + algo). Máximo 255 caracteres
+        -pais de máximo 255 caracteres
 
 Logear un usuario:
 
