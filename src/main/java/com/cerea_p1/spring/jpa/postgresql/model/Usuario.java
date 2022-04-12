@@ -12,11 +12,18 @@ import java.util.*;
             })
 public class Usuario {
 
+<<<<<<< HEAD
+=======
+    @Id
+>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
     @Pattern(regexp = ".+[@].+[\\.].+")
     @Column(name = "correo_electronico", nullable = false, length = 255)
     private String email;
 
+<<<<<<< HEAD
     @Id
+=======
+>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
     @Column(name = "nombre_de_usuario", nullable = false, length = 255)
     private String username;
     
@@ -24,6 +31,7 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
     
+<<<<<<< HEAD
     /* @OneToMany(mappedBy = "fromUser")
     public List<Amigo> amigo; */
 
@@ -33,6 +41,14 @@ public class Usuario {
 
     // //@OneToMany(mappedBy = "usuario")
     // private List<Usuario> amigos; 
+=======
+    @NotNull
+    @ManyToMany
+    @JoinTable(name = "amigos", joinColumns = @JoinColumn(name = "usuario1"), inverseJoinColumns = @JoinColumn(name = "usuario2"))
+
+    //@OneToMany(mappedBy = "usuario")
+    private List<Usuario> amigos = new ArrayList<Usuario>();
+>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -48,6 +64,7 @@ public class Usuario {
         this.password = password;
         this.pais = pais;
         this.puntos = 0;
+<<<<<<< HEAD
      //   amigos = new ArrayList<Usuario>();;
     }
 
@@ -58,6 +75,12 @@ public class Usuario {
         pais = null;
         puntos = 0;
     //    amigos = null;
+=======
+        amigos = null;
+    }
+
+    public Usuario(){
+>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
     }
 
     public String getUsername() {
@@ -100,6 +123,7 @@ public class Usuario {
         this.puntos = puntos;
     }
 
+<<<<<<< HEAD
     // public List<Usuario> getAmigos(){
     //     return this.amigos;
     // }
@@ -107,6 +131,15 @@ public class Usuario {
     // public void setAmigo(Usuario amigo) {
     //     this.amigos.add(amigo);
     // } 
+=======
+    public List<Usuario> getAmigos(){
+        return this.amigos;
+    }
+
+    public void setAmigo(Usuario amigo) {
+        this.amigos.add(amigo);
+    }
+>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
     
     @Override
     public String toString(){
