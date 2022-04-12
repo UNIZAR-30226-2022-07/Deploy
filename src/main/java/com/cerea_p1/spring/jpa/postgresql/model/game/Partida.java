@@ -20,130 +20,130 @@ public class Partida {
 
     /* Costrucción de la baraja inicial */
     private List<Carta> barajaInicial() {
-        List<Carta> descartes = new ArrayList<Carta>();
+        List<Carta> baraja = new ArrayList<Carta>();
         
-        descartes.add(new Carta(Numero.CERO,Color.ROJO));
-        descartes.add(new Carta(Numero.CERO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CERO,Color.AZUL));
-        descartes.add(new Carta(Numero.CERO,Color.VERDE));
+        baraja.add(new Carta(Numero.CERO,Color.ROJO));
+        baraja.add(new Carta(Numero.CERO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CERO,Color.AZUL));
+        baraja.add(new Carta(Numero.CERO,Color.VERDE));
 
-        descartes.add(new Carta(Numero.UNO,Color.ROJO));
-        descartes.add(new Carta(Numero.UNO,Color.ROJO));
-        descartes.add(new Carta(Numero.UNO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.UNO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.UNO,Color.AZUL));
-        descartes.add(new Carta(Numero.UNO,Color.AZUL));
-        descartes.add(new Carta(Numero.UNO,Color.VERDE));
-        descartes.add(new Carta(Numero.UNO,Color.VERDE));
+        baraja.add(new Carta(Numero.UNO,Color.ROJO));
+        baraja.add(new Carta(Numero.UNO,Color.ROJO));
+        baraja.add(new Carta(Numero.UNO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.UNO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.UNO,Color.AZUL));
+        baraja.add(new Carta(Numero.UNO,Color.AZUL));
+        baraja.add(new Carta(Numero.UNO,Color.VERDE));
+        baraja.add(new Carta(Numero.UNO,Color.VERDE));
         
-        descartes.add(new Carta(Numero.DOS,Color.ROJO));
-        descartes.add(new Carta(Numero.DOS,Color.ROJO));
-        descartes.add(new Carta(Numero.DOS,Color.AMARILLO));
-        descartes.add(new Carta(Numero.DOS,Color.AMARILLO));
-        descartes.add(new Carta(Numero.DOS,Color.AZUL));
-        descartes.add(new Carta(Numero.DOS,Color.AZUL));
-        descartes.add(new Carta(Numero.DOS,Color.VERDE));
-        descartes.add(new Carta(Numero.DOS,Color.VERDE));
+        baraja.add(new Carta(Numero.DOS,Color.ROJO));
+        baraja.add(new Carta(Numero.DOS,Color.ROJO));
+        baraja.add(new Carta(Numero.DOS,Color.AMARILLO));
+        baraja.add(new Carta(Numero.DOS,Color.AMARILLO));
+        baraja.add(new Carta(Numero.DOS,Color.AZUL));
+        baraja.add(new Carta(Numero.DOS,Color.AZUL));
+        baraja.add(new Carta(Numero.DOS,Color.VERDE));
+        baraja.add(new Carta(Numero.DOS,Color.VERDE));
 
-        descartes.add(new Carta(Numero.TRES,Color.ROJO));
-        descartes.add(new Carta(Numero.TRES,Color.ROJO));
-        descartes.add(new Carta(Numero.TRES,Color.AMARILLO));
-        descartes.add(new Carta(Numero.TRES,Color.AMARILLO));
-        descartes.add(new Carta(Numero.TRES,Color.AZUL));
-        descartes.add(new Carta(Numero.TRES,Color.AZUL));
-        descartes.add(new Carta(Numero.TRES,Color.VERDE));
-        descartes.add(new Carta(Numero.TRES,Color.VERDE));
+        baraja.add(new Carta(Numero.TRES,Color.ROJO));
+        baraja.add(new Carta(Numero.TRES,Color.ROJO));
+        baraja.add(new Carta(Numero.TRES,Color.AMARILLO));
+        baraja.add(new Carta(Numero.TRES,Color.AMARILLO));
+        baraja.add(new Carta(Numero.TRES,Color.AZUL));
+        baraja.add(new Carta(Numero.TRES,Color.AZUL));
+        baraja.add(new Carta(Numero.TRES,Color.VERDE));
+        baraja.add(new Carta(Numero.TRES,Color.VERDE));
 
-        descartes.add(new Carta(Numero.CUATRO,Color.ROJO));
-        descartes.add(new Carta(Numero.CUATRO,Color.ROJO));
-        descartes.add(new Carta(Numero.CUATRO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CUATRO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CUATRO,Color.AZUL));
-        descartes.add(new Carta(Numero.CUATRO,Color.AZUL));
-        descartes.add(new Carta(Numero.CUATRO,Color.VERDE));
-        descartes.add(new Carta(Numero.CUATRO,Color.VERDE));
+        baraja.add(new Carta(Numero.CUATRO,Color.ROJO));
+        baraja.add(new Carta(Numero.CUATRO,Color.ROJO));
+        baraja.add(new Carta(Numero.CUATRO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CUATRO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CUATRO,Color.AZUL));
+        baraja.add(new Carta(Numero.CUATRO,Color.AZUL));
+        baraja.add(new Carta(Numero.CUATRO,Color.VERDE));
+        baraja.add(new Carta(Numero.CUATRO,Color.VERDE));
 
-        descartes.add(new Carta(Numero.CINCO,Color.ROJO));
-        descartes.add(new Carta(Numero.CINCO,Color.ROJO));
-        descartes.add(new Carta(Numero.CINCO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CINCO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CINCO,Color.AZUL));
-        descartes.add(new Carta(Numero.CINCO,Color.AZUL));
-        descartes.add(new Carta(Numero.CINCO,Color.VERDE));
-        descartes.add(new Carta(Numero.CINCO,Color.VERDE));
+        baraja.add(new Carta(Numero.CINCO,Color.ROJO));
+        baraja.add(new Carta(Numero.CINCO,Color.ROJO));
+        baraja.add(new Carta(Numero.CINCO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CINCO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CINCO,Color.AZUL));
+        baraja.add(new Carta(Numero.CINCO,Color.AZUL));
+        baraja.add(new Carta(Numero.CINCO,Color.VERDE));
+        baraja.add(new Carta(Numero.CINCO,Color.VERDE));
         
-        descartes.add(new Carta(Numero.SEIS,Color.ROJO));
-        descartes.add(new Carta(Numero.SEIS,Color.ROJO));
-        descartes.add(new Carta(Numero.SEIS,Color.AMARILLO));
-        descartes.add(new Carta(Numero.SEIS,Color.AMARILLO));
-        descartes.add(new Carta(Numero.SEIS,Color.AZUL));
-        descartes.add(new Carta(Numero.SEIS,Color.AZUL));
-        descartes.add(new Carta(Numero.SEIS,Color.VERDE));
-        descartes.add(new Carta(Numero.SEIS,Color.VERDE));
+        baraja.add(new Carta(Numero.SEIS,Color.ROJO));
+        baraja.add(new Carta(Numero.SEIS,Color.ROJO));
+        baraja.add(new Carta(Numero.SEIS,Color.AMARILLO));
+        baraja.add(new Carta(Numero.SEIS,Color.AMARILLO));
+        baraja.add(new Carta(Numero.SEIS,Color.AZUL));
+        baraja.add(new Carta(Numero.SEIS,Color.AZUL));
+        baraja.add(new Carta(Numero.SEIS,Color.VERDE));
+        baraja.add(new Carta(Numero.SEIS,Color.VERDE));
 
-        descartes.add(new Carta(Numero.SIETE,Color.ROJO));
-        descartes.add(new Carta(Numero.SIETE,Color.ROJO));
-        descartes.add(new Carta(Numero.SIETE,Color.AMARILLO));
-        descartes.add(new Carta(Numero.SIETE,Color.AMARILLO));
-        descartes.add(new Carta(Numero.SIETE,Color.AZUL));
-        descartes.add(new Carta(Numero.SIETE,Color.AZUL));
-        descartes.add(new Carta(Numero.SIETE,Color.VERDE));
-        descartes.add(new Carta(Numero.SIETE,Color.VERDE));
+        baraja.add(new Carta(Numero.SIETE,Color.ROJO));
+        baraja.add(new Carta(Numero.SIETE,Color.ROJO));
+        baraja.add(new Carta(Numero.SIETE,Color.AMARILLO));
+        baraja.add(new Carta(Numero.SIETE,Color.AMARILLO));
+        baraja.add(new Carta(Numero.SIETE,Color.AZUL));
+        baraja.add(new Carta(Numero.SIETE,Color.AZUL));
+        baraja.add(new Carta(Numero.SIETE,Color.VERDE));
+        baraja.add(new Carta(Numero.SIETE,Color.VERDE));
 
-        descartes.add(new Carta(Numero.OCHO,Color.ROJO));
-        descartes.add(new Carta(Numero.OCHO,Color.ROJO));
-        descartes.add(new Carta(Numero.OCHO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.OCHO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.OCHO,Color.AZUL));
-        descartes.add(new Carta(Numero.OCHO,Color.AZUL));
-        descartes.add(new Carta(Numero.OCHO,Color.VERDE));
-        descartes.add(new Carta(Numero.OCHO,Color.VERDE));
+        baraja.add(new Carta(Numero.OCHO,Color.ROJO));
+        baraja.add(new Carta(Numero.OCHO,Color.ROJO));
+        baraja.add(new Carta(Numero.OCHO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.OCHO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.OCHO,Color.AZUL));
+        baraja.add(new Carta(Numero.OCHO,Color.AZUL));
+        baraja.add(new Carta(Numero.OCHO,Color.VERDE));
+        baraja.add(new Carta(Numero.OCHO,Color.VERDE));
 
-        descartes.add(new Carta(Numero.NUEVE,Color.ROJO));
-        descartes.add(new Carta(Numero.NUEVE,Color.ROJO));
-        descartes.add(new Carta(Numero.NUEVE,Color.AMARILLO));
-        descartes.add(new Carta(Numero.NUEVE,Color.AMARILLO));
-        descartes.add(new Carta(Numero.NUEVE,Color.AZUL));
-        descartes.add(new Carta(Numero.NUEVE,Color.AZUL));
-        descartes.add(new Carta(Numero.NUEVE,Color.VERDE));
-        descartes.add(new Carta(Numero.NUEVE,Color.VERDE));
+        baraja.add(new Carta(Numero.NUEVE,Color.ROJO));
+        baraja.add(new Carta(Numero.NUEVE,Color.ROJO));
+        baraja.add(new Carta(Numero.NUEVE,Color.AMARILLO));
+        baraja.add(new Carta(Numero.NUEVE,Color.AMARILLO));
+        baraja.add(new Carta(Numero.NUEVE,Color.AZUL));
+        baraja.add(new Carta(Numero.NUEVE,Color.AZUL));
+        baraja.add(new Carta(Numero.NUEVE,Color.VERDE));
+        baraja.add(new Carta(Numero.NUEVE,Color.VERDE));
 
-        descartes.add(new Carta(Numero.MAS_DOS,Color.ROJO));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.ROJO));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.AMARILLO));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.AMARILLO));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.AZUL));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.AZUL));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.VERDE));
-        descartes.add(new Carta(Numero.MAS_DOS,Color.VERDE));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.ROJO));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.ROJO));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.AMARILLO));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.AMARILLO));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.AZUL));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.AZUL));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.VERDE));
+        baraja.add(new Carta(Numero.MAS_DOS,Color.VERDE));
 
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.ROJO));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.ROJO));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AZUL));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AZUL));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.VERDE));
-        descartes.add(new Carta(Numero.CAMBIO_SENTIDO,Color.VERDE));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.ROJO));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.ROJO));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AZUL));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.AZUL));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.VERDE));
+        baraja.add(new Carta(Numero.CAMBIO_SENTIDO,Color.VERDE));
 
-        descartes.add(new Carta(Numero.BLOQUEO,Color.ROJO));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.ROJO));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.AMARILLO));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.AZUL));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.AZUL));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.VERDE));
-        descartes.add(new Carta(Numero.BLOQUEO,Color.VERDE));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.ROJO));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.ROJO));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.AMARILLO));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.AZUL));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.AZUL));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.VERDE));
+        baraja.add(new Carta(Numero.BLOQUEO,Color.VERDE));
         
-        descartes.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
-        descartes.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
-        descartes.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
-        descartes.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
 
-        descartes.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
-        descartes.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
-        descartes.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
-        descartes.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
 
         // barajar
         Collections.shuffle(baraja);
@@ -151,16 +151,45 @@ public class Partida {
         return baraja;
     }
 
-    private void repartirManos() {
+    public void barajarDescartes() {
+        // permitir barajar aunque la baraja no esté vacía?
+        // lanzar excepción en ese caso?
+    }
+
+    public boolean barajaVacia() {
+        return baraja.isEmpty();
+    }
+
+    public void repartirManos() {
         for(int i=0; i<7; ++i) {
-            for (Jugador j : jugadores){
+            for (Jugador j : jugadores) {
                 j.addCarta(baraja.get(0));
                 baraja.remove(0);
             }
         }
     }
 
-    public void addJugador(Jugador j){
+    public void jugarCarta(Carta c, String nombreJugador) {
+        descartes.add(c);
+        for (Jugador j : jugadores) {
+            if (j.getNombre().equals(nombreJugador))
+                j.deleteCarta(c);
+        }
+    }
+
+    public List<Carta> robarCartas(String nombreJugador, int n) {
+        // Frontend espera una lista pequeña en lugar de la mano entera.
+        List<Carta> robadas = new ArrayList<Carta>();
+
+        for(int i=0; i<n; ++i) {
+            robadas.add(baraja.get(0));
+            baraja.remove(0);
+        }
+
+        return robadas;
+    }
+
+    public void addJugador(Jugador j) {
         jugadores.add(j);
     }
 
