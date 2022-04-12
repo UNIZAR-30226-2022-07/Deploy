@@ -66,7 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/api/auth/signin").and().authorizeRequests().antMatchers("/api/auth/**").permitAll().anyRequest().authenticated().and().httpBasic().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+			//.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/api/auth/signin").and()
+			.authorizeRequests().antMatchers("/api/auth/**").permitAll().anyRequest().authenticated().and().httpBasic().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
