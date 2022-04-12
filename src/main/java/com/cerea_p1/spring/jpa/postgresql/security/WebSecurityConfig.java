@@ -33,18 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
-<<<<<<< HEAD
+
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 
-=======
-<<<<<<<< HEAD:prueba_2/pruebita/src/main/java/com/cerea_p1/spring/jpa/postgresql/security/WebSecurityConfig.java
-	@Autowired
-	private AuthEntryPointJwt unauthorizedHandler;
 
-========
->>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2:Spring/onep1/src/main/java/com/cerea/spring/security/postgresql/security/WebSecurityConfig.java
->>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
+
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
 		return new AuthTokenFilter();
@@ -68,21 +62,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-<<<<<<< HEAD
 		// http.authorizeRequests().antMatchers("/api/auth/*").permitAll().anyRequest().authenticated().and().httpBasic().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
 		// http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/api/auth/signin").and().authorizeRequests().antMatchers("/api/auth/**").permitAll().antMatchers("/api/test/**").permitAll().anyRequest().authenticated().and().httpBasic();//.and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
-=======
-<<<<<<<< HEAD:prueba_2/pruebita/src/main/java/com/cerea_p1/spring/jpa/postgresql/security/WebSecurityConfig.java
-		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/api/auth/signin").and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
-			.anyRequest().authenticated().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
->>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
@@ -94,12 +78,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 		return new HttpSessionEventPublisher();
-<<<<<<< HEAD
-=======
-========
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll().anyRequest().authenticated().and().addFilter(new JWTAuthenticationFilter(authenticationManager())).headers();
->>>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2:Spring/onep1/src/main/java/com/cerea/spring/security/postgresql/security/WebSecurityConfig.java
->>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
 	}
 //	@Bean
 //	@Bean

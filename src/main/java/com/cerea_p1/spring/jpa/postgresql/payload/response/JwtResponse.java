@@ -14,18 +14,14 @@ public class JwtResponse {
     private int puntos;
 	private List<Usuario> amigos = new ArrayList<Usuario>();
 
-<<<<<<< HEAD
 	/* public JwtResponse(String accessToken, String username, String email, String pais, int puntos, List<Usuario> amigos)	{
-=======
-	public JwtResponse(String accessToken, String username, String email, String pais, int puntos, List<Usuario> amigos)	{
->>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
+
         this.token = accessToken;
 		this.username = username;
 		this.email = email;
         this.pais = pais;     
         this.puntos = puntos;
 		this.amigos = amigos;
-<<<<<<< HEAD
     }  */	
 
 	public JwtResponse(String accessToken, String username, String email, String pais, int puntos)	{
@@ -34,8 +30,7 @@ public class JwtResponse {
 		this.email = email;
         this.pais = pais;     
         this.puntos = puntos;
-=======
->>>>>>> 2d82ce93606e4d21272f91fd802041c5f9a602f2
+
     } 	
 
 
