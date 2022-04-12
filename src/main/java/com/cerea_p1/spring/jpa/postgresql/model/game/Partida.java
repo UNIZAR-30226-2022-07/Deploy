@@ -152,8 +152,11 @@ public class Partida {
     }
 
     public void barajarDescartes() {
-        // permitir barajar aunque la baraja no esté vacía?
-        // lanzar excepción en ese caso?
+        for (int i=0; i<descartes.size()-1; ++i) {
+            baraja.add(descartes.get(i));
+            descartes.remove(i);
+        }
+        Collections.shuffle(baraja);
     }
 
     public boolean barajaVacia() {
@@ -180,6 +183,9 @@ public class Partida {
     public List<Carta> robarCartas(String nombreJugador, int n) {
         // Frontend espera una lista pequeña en lugar de la mano entera.
         List<Carta> robadas = new ArrayList<Carta>();
+
+        if(n > baraja.size())
+            barajarDescartes();
 
         for(int i=0; i<n; ++i) {
             robadas.add(baraja.get(0));
