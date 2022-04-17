@@ -9,13 +9,24 @@ public class Partida {
     private List<Jugador> jugadores;
     private List<Carta> baraja;
     private List<Carta> descartes;
-    private boolean iniciada;
+    private EstadoPartidaEnum estado;
+    private String id;
+    // true indica que la partida es privada, false indica que la partida es pública
+    private boolean partidaPrivada;
 
-    public Partida() {
+    public Partida(boolean tipoPartida) {
         jugadores = new ArrayList<Jugador>();
         baraja = barajaInicial();
         descartes = new ArrayList<Carta>();
-        iniciada = false;
+        partidaPrivada = tipoPartida;
+    }
+
+    public void setTipo(boolean tipo){
+        partidaPrivada = tipo;
+    }
+
+    public boolean getTipo(){
+        return this.partidaPrivada;
     }
 
     /* Costrucción de la baraja inicial */
@@ -201,5 +212,21 @@ public class Partida {
 
     public List<Jugador> getJugadores(){
         return jugadores;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id; 
+    }
+
+    public EstadoPartidaEnum partidaIniciada() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPartidaEnum estado) {
+        this.estado = estado;
     }
 }
