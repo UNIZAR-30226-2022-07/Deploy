@@ -17,9 +17,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class GameService {
 
-    private ConcurrentHashMap<String,Partida> almacen_partidas = new ConcurrentHashMap<String,Partida>();
+    private ConcurrentHashMap<String,Partida> almacen_partidas;
 
     //private final SowService sowService;
+
+    public GameService(){
+        almacen_partidas = new ConcurrentHashMap<String,Partida>();
+    }
 
     public Partida crearPartida(Jugador jugador) {
         Partida game = new Partida(true);
