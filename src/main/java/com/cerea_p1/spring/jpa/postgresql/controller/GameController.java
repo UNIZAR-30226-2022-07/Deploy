@@ -3,6 +3,7 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 //import ex.com.challenge.dto.ConnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.exception.GameException;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
@@ -28,9 +29,9 @@ public class GameController {
     private static final Logger logger = Logger.getLogger("MyLog");
 
     @PostMapping("/create")
-    public ResponseEntity<Partida> crear(@RequestBody String nombreJugador) {
-        logger.info("create game request by " + nombreJugador);
-        return ResponseEntity.ok(gameService.crearPartida(new Jugador(nombreJugador)));
+    public ResponseEntity<Partida> crear(@RequestBody CreateGameRequest nombreJugador) {
+        logger.info("create game request by " + nombreJugador.getPlayerName());
+        return ResponseEntity.ok(gameService.crearPartida(new Jugador(nombreJugador.getPlayerName())));
     }
 
     /* @PostMapping("/connect")
