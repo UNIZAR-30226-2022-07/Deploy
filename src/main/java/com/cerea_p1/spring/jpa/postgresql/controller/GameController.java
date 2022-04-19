@@ -3,7 +3,8 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 //import ex.com.challenge.dto.ConnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.exception.GameException;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.CreateGameRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.ConnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.logging.*;
 
@@ -30,18 +30,18 @@ public class GameController {
     private static final Logger logger = Logger.getLogger("MyLog");
 
     @PostMapping("/create")
-    public ResponseEntity<Partida> crear(@RequestBody CreateGameRequest nombreJugador) {
-        logger.info("create game request by " + nombreJugador.getPlayerName());
-        return ResponseEntity.ok(gameService.crearPartida(new Jugador(nombreJugador.getPlayerName())));
+    public ResponseEntity<Partida> crear(@RequestBody CreateGameRequest request) {
+        logger.info("create game request by " + request.getPlayerName());
+        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName())));
     }
 
-    /* @PostMapping("/connect")
-    public ResponseEntity<Game> connect(@RequestBody ConnectRequest request) throws GameException {
-        log.info("connect request: {}", request);
-        return ResponseEntity.ok(gameService.connectToGame(request.getPlayer(), request.getGameId()));
+    @PostMapping("/connect")
+    public ResponseEntity<Partida> connect(@RequestBody ConnectRequest request) throws GameException {
+        logger.info("connect request by " + request.getPlayerName());
+        return ResponseEntity.ok(gameService.connectToGame(new Jugador(request.getPlayerName()), request.getGameId()));
     }
 
-    @PostMapping("/connect/random")
+    /*@PostMapping("/connect/random")
     public ResponseEntity<Game> connectRandom(@RequestBody Player player) throws GameException{
         log.info("connect random {}", player);
         return ResponseEntity.ok(gameService.connectToRandomGame(player));
