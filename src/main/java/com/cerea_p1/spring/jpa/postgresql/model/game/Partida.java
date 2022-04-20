@@ -156,7 +156,7 @@ public class Partida {
         baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
         baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
 
-        // barajar
+        //barajar
         Collections.shuffle(baraja);
 
         return baraja;
