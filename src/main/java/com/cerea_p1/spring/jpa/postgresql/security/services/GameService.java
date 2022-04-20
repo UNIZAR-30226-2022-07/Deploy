@@ -36,12 +36,16 @@ public class GameService {
 
     public Partida connectToGame(Jugador player, String gameId) {
         //if(!almacen_partidas.contains(gameId))
-        Optional<Partida> optionalGame = Optional.of(almacen_partidas.get(gameId));
+        Optional<Partida> optionalGame;
+        if(almacen_partidas.contains(gameId))
+         optionalGame = Optional.of(almacen_partidas.get(gameId));
+        else{ optionalGame = null; throw new GameException("Esa partida no existe"); 
+        }
 
         optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
         Partida game = optionalGame.get();
 
-        game.addJugador(player);
+        game.addJugador(player); 
 
         game.setEstado(EstadoPartidaEnum.IN_PROGRESS);
         almacen_partidas.put(gameId,game);
