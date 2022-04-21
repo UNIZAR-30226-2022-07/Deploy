@@ -51,9 +51,6 @@ public class AuthController {
 	AuthenticationManager authenticationManager;
 	@Autowired
 	UsuarioRepository userRepository;
-	@Autowired
-
-	AmigoRepository friendRepository;
 	private static final Logger logger = Logger.getLogger("MyLog");
 
 	@Autowired
