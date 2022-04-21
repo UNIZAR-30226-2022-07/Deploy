@@ -1,6 +1,4 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
-
-
 import java.util.Optional;
 
 /* import java.util.HashSet;
@@ -43,65 +41,32 @@ import java.util.logging.*;
 //import org.slf4j.LoggerFactory;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
-public class AuthController {
-	@Autowired
-	AuthenticationManager authenticationManager;
-	@Autowired
+@RequestMapping("/friends")
+public class FriendController {
+    @Autowired
 	UsuarioRepository userRepository;
 	@Autowired
-
 	AmigoRepository friendRepository;
 	private static final Logger logger = Logger.getLogger("MyLog");
 
 	@Autowired
-	PasswordEncoder encoder;
-	@Autowired
 	JwtUtils jwtUtils;
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
-		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
 
-		// return ResponseEntity.ok(new JwtResponse(jwt, 
-		// 										 userDetails.getUsername(), 
-		// 										 userDetails.getEmail(), 
-		// 										 userDetails.getPais(),
-		// 										 userDetails.getPuntos(),
-		// 										 userDetails.getAmigos()));
-
-		return ResponseEntity.ok(new JwtResponse(jwt, 
-												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
-												 userDetails.getPais(),
-												 userDetails.getPuntos()));
-	}
-
-	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		logger.info("user=" + signUpRequest.getUsername() + " email=" + signUpRequest.getEmail() + " pais=" + signUpRequest.getPais() + " pass=" + signUpRequest.getPassword());
-
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+    @GetMapping("/send/friend-request")
+	public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
+		logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
+		if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+					.body(new MessageResponse("Error: User or friend is not registered"));
+		} else {
+		//	Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
+			//friendRepository.save(new Amigo(addfriendRequest.getUsername(),addfriendRequest.getFriendname()));
+
+            // NO QUEREMOS AÑADIR A AMIGOS DIRECTAMENTE, QUEREMOS ENVIAR UNA PETICIÓN DE AMISTAD QUE TENDRÁ QUE SER ACEPTADA!
+
+			return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
 		}
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Email is already in use!"));
-		}
-		// Create new user's account
-		Usuario user = new Usuario(signUpRequest.getUsername(), 
-							 signUpRequest.getEmail(),
-							 encoder.encode(signUpRequest.getPassword()),signUpRequest.getPais());
-		userRepository.save(user);
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 }
