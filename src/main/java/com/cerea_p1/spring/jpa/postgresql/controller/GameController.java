@@ -53,9 +53,14 @@ public class GameController {
 
     @PostMapping("/disconnect")
     @ExceptionHandler(GameException.class)
-    public void disconnect(@RequestBody DisconnectRequest request) throws GameException {
-        logger.info("disconnect request by " + request.getPlayerName());
-        gameService.disconnectFromGame(new Jugador(request.getPlayerName()), request.getGameId());
+    public ResponseEntity<?> disconnect(@RequestBody DisconnectRequest request) throws GameException {
+        try{
+            logger.info("disconnect request by " + request.getPlayerName());
+            gameService.disconnectFromGame(new Jugador(request.getPlayerName()), request.getGameId());
+            return new ResponseEntity<String>("OK",HttpStatus.OK);
+        } catch(GameException e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     /*@PostMapping("/connect/random")
