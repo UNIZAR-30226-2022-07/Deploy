@@ -80,19 +80,19 @@ Conectarse a una partida (privada):
 
       {
         "jugadores": [
-              {
-                  "nombre": <nombre_de_usuario1>,
+          {
+            "nombre": <nombre_de_usuario1>,
                   "cartas": []
-              },
-              {
-                  "nombre": <nombre_de_usuario2>,
-                  "cartas": []
-              }
+          },
+          {
+            "nombre": <nombre_de_usuario2>,
+            "cartas": []
+          }
 
-              . . .
-          ],
-          "id": <id_partida>,
-          "tipo": true
+          . . .
+        ],
+        "id": <id_partida>,
+        "tipo": true
       }
 
     - Si va mal: codigo 4**, y por qué falla
