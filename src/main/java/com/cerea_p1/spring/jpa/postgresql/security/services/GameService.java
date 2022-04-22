@@ -9,10 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author: e.shakeri
- */
-
 @Service
 @AllArgsConstructor
 public class GameService {
@@ -78,7 +74,6 @@ public class GameService {
         } else
             throw new GameException("Jugador no valido");
     }
-
 
     /*public Game connectToRandomGame(Player player) {
         Optional<Game> optionalGame = gameRepository.findFirstByStatusAndSecondPlayerIsNull(GameStatusEnum.NEW);
