@@ -88,6 +88,10 @@ Conectarse a una partida (privada):
               "nombre": <nombre_de_usuario2>,
               "cartas": []
             }
+            {
+              "nombre": <nombre_de_usuarioN>,
+              "cartas": []
+            }
           ],
           "id": <id_partida>,
           "tipo": true
