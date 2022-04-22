@@ -65,7 +65,7 @@ public class GameService {
             Partida game = optionalGame.get();
 
         if(player != null) {
-            if(!game.playerAlreadyIn(player)) {
+            if(game.playerAlreadyIn(player)) {
                 game.removePlayer(player);
             } else {
                 throw new GameException("Jugador no pertenece a la partida");
