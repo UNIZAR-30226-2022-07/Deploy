@@ -35,10 +35,10 @@ Logear un usuario:
 
   - JSON:
       
-      {
-        "username": <nombre_de_usuario>,
-        "password": <contraseña>
-      }
+        {
+          "username": <nombre_de_usuario>,
+          "password": <contraseña>
+        }
 
 Crear una partida:
   
@@ -46,22 +46,22 @@ Crear una partida:
 
   - JSON:
 
-      {
-        "playerName": <nombre_de_usuario>
-      }
+        {
+          "playerName": <nombre_de_usuario>
+        }
 
   - Devuelve: 
 
-    {
-      "jugadores": [
-            {
-                "nombre": <nombre_de_usuario>,
-                "cartas": []
-            },
-        ],
-        "id": <id_partida>,
-        "tipo": true
-    }
+      {
+        "jugadores": [
+              {
+                  "nombre": <nombre_de_usuario>,
+                  "cartas": []
+              },
+          ],
+          "id": <id_partida>,
+          "tipo": true
+      }
 
     - Si va mal: codigo 4**, y por qué falla
 
@@ -71,29 +71,29 @@ Conectarse a una partida (privada):
 
   - JSON:
 
-      {
-        "playerName": <nombre_de_usuario>,
-        "gameId": <id_partida>
-      }
+        {
+          "playerName": <nombre_de_usuario>,
+          "gameId": <id_partida>
+        }
 
   - Devuelve: 
 
-    {
-      "jugadores": [
-            {
-                "nombre": <nombre_de_usuario1>,
-                "cartas": []
-            },
-            {
-                "nombre": <nombre_de_usuario2>,
-                "cartas": []
-            }
+      {
+        "jugadores": [
+              {
+                  "nombre": <nombre_de_usuario1>,
+                  "cartas": []
+              },
+              {
+                  "nombre": <nombre_de_usuario2>,
+                  "cartas": []
+              }
 
-            . . .
-        ],
-        "id": <id_partida>,
-        "tipo": true
-    }
+              . . .
+          ],
+          "id": <id_partida>,
+          "tipo": true
+      }
 
     - Si va mal: codigo 4**, y por qué falla
 
@@ -105,10 +105,10 @@ Desconectarse de una partida (ANTES DE QUE EMPIECE):
 
   - JSON:
 
-      {
-        "playerName": <nombre_de_usuario>,
-        "gameId": <id_partida>
-      }
+        {
+          "playerName": <nombre_de_usuario>,
+          "gameId": <id_partida>
+        }
 
   - Devuelve: 
     - Si va bien: codigo 200, OK
