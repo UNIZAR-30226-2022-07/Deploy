@@ -8,9 +8,9 @@ Para registrar un usuario se usa (/signup). Es necesario usar SignupRequest (en 
 
 Registro de usuario:
 
-  -Petición POST a https://onep1.herokuapp.com/api/auth/signup
+  - Petición POST a https://onep1.herokuapp.com/api/auth/signup
   
-  -JSON:
+  - JSON:
   
       {
         "username": <nombre_de_usuario>,
@@ -19,25 +19,98 @@ Registro de usuario:
         "password": <contraseña>
       }
       
-  -Información adicional:
+  - Información adicional:
   
-        -username de entre 3 y 255 caracteres
+        - username de entre 3 y 255 caracteres
         
-        -password de entre 6 y 255 caracteres
+        - password de entre 6 y 255 caracteres
         
-        -email que cumpla la siguiente ER: .+[@].+[\\.].+ (algo + @ + algo + . + algo). Máximo 255 caracteres
+        - email que cumpla la siguiente ER: .+[@].+[\\.].+ (algo + @ + algo + . + algo). Máximo 255 caracteres
         
-        -pais de máximo 255 caracteres
+        - pais de máximo 255 caracteres
 
 Logear un usuario:
 
-  -Petición POST a https://onep1.herokuapp.com/api/auth/signin
+  - Petición POST a https://onep1.herokuapp.com/api/auth/signin
 
-  -JSON:
+  - JSON:
       
       {
         "username": <nombre_de_usuario>,
         "password": <contraseña>
       }
-      
+
+Crear una partida:
+  
+  - Petición POST a https://onep1.herokuapp.com/game/create
+
+  - JSON:
+
+      {
+        "playerName": <nombre_de_usuario>
+      }
+
+  - Devuelve: 
+
+    {
+      "jugadores": [
+            {
+                "nombre": <nombre_de_usuario>,
+                "cartas": []
+            },
+        ],
+        "id": <id_partida>,
+        "tipo": true
+    }
+
+    - Si va mal: codigo 4**, y por qué falla
+
+Conectarse a una partida (privada):
+
+  - Petición POST a https://onep1.herokuapp.com/game/connect
+
+  - JSON:
+
+      {
+        "playerName": <nombre_de_usuario>,
+        "gameId": <id_partida>
+      }
+
+  - Devuelve: 
+
+    {
+      "jugadores": [
+            {
+                "nombre": <nombre_de_usuario1>,
+                "cartas": []
+            },
+            {
+                "nombre": <nombre_de_usuario2>,
+                "cartas": []
+            }
+
+            . . .
+        ],
+        "id": <id_partida>,
+        "tipo": true
+    }
+
+    - Si va mal: codigo 4**, y por qué falla
+
+
+
+Desconectarse de una partida (ANTES DE QUE EMPIECE):
+
+  - Petición POST a https://onep1.herokuapp.com/game/disconnect
+
+  - JSON:
+
+      {
+        "playerName": <nombre_de_usuario>,
+        "gameId": <id_partida>
+      }
+
+  - Devuelve: 
+    - Si va bien: codigo 200, OK
+    - Si va mal: codigo 4**, y por qué falla
 
