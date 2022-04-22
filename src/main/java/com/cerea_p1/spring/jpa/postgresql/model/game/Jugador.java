@@ -35,4 +35,8 @@ public class Jugador {
         }
         return false;
     }
+
+    public boolean equals(Jugador j){
+        return this.nombre.equals(j.getNombre());
+    }
 }
