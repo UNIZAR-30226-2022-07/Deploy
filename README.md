@@ -82,7 +82,7 @@ Conectarse a una partida (privada):
         "jugadores": [
           {
             "nombre": <nombre_de_usuario1>,
-                  "cartas": []
+            "cartas": []
           },
           {
             "nombre": <nombre_de_usuario2>,
