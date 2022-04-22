@@ -62,13 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// http.authorizeRequests().antMatchers("/api/auth/*").permitAll().anyRequest().authenticated().and().httpBasic().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
-		// http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
 		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-			//.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/api/auth/signin").and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll().anyRequest().authenticated().and().httpBasic().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
+			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().authorizeRequests().antMatchers("/api/auth/**").permitAll().anyRequest().authenticated().and().httpBasic().and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true).expiredUrl("/api/auth/signin?invalid-session=true");
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
@@ -81,18 +76,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 		return new HttpSessionEventPublisher();
 	}
-//	@Bean
-//	@Bean
-	// @Override
-	// @SuppressWarnings("deprecation")
-	// public UserDetailsService userDetailsService() {
-
-
-	// 	return super.userDetailsService();
-	// }
-//	@Override
-//	@Bean
-//	protected UserDetailsService userDetailsService(){
-//		return super.userDetailsService();
-//	}
 }

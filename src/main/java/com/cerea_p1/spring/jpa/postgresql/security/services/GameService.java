@@ -46,9 +46,6 @@ public class GameService {
         Partida game = optionalGame.get();
 
         game.addJugador(player); 
-
-        game.setEstado(EstadoPartidaEnum.IN_PROGRESS);
-        almacen_partidas.put(gameId,game);
         return game;
     }
 
