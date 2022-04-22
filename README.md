@@ -78,20 +78,20 @@ Conectarse a una partida (privada):
 
   - Devuelve: 
 
-      {
-        "jugadores": [
-          {
-            "nombre": <nombre_de_usuario1>,
-            "cartas": []
-          },
-          {
-            "nombre": <nombre_de_usuario2>,
-            "cartas": []
-          }
-        ],
-        "id": <id_partida>,
-        "tipo": true
-      }
+        {
+          "jugadores": [
+            {
+              "nombre": <nombre_de_usuario1>,
+              "cartas": []
+            },
+            {
+              "nombre": <nombre_de_usuario2>,
+              "cartas": []
+            }
+          ],
+          "id": <id_partida>,
+          "tipo": true
+        }
 
     - Si va mal: codigo 4**, y por qué falla
 
