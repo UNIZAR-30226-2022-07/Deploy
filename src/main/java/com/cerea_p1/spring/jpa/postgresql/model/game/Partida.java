@@ -229,7 +229,7 @@ public class Partida {
         this.id = id; 
     }
 
-    public EstadoPartidaEnum partidaIniciada() {
+    public EstadoPartidaEnum getEstado() {
         return estado;
     }
 
