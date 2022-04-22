@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import java.util.logging.*;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 @RestController
 @Slf4j
@@ -38,13 +40,14 @@ public class GameController {
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName())));
     }
 
-    @PostMapping("/connect")
+    @MessageMapping("/onep1-game/{roomId}")
+	@SendTo("/topic/connect/{roomId}")
   //  @ExceptionHandler(GameException.class)
     @ExceptionHandler(GameException.class)
-    public ResponseEntity<?> connect(@RequestBody ConnectRequest request) throws GameException {
+    public ResponseEntity<?> connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
         try{
-            logger.info("connect request by " + request.getPlayerName());
-            return ResponseEntity.ok(gameService.connectToGame(new Jugador(request.getPlayerName()), request.getGameId()));
+            logger.info("connect request by " + username);
+            return ResponseEntity.ok(gameService.connectToGame(new Jugador(username), roomId));
         } catch(GameException e){
         //     return new ResponseEntity.badRequest();
              return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
