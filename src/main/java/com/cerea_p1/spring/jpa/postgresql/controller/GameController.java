@@ -5,6 +5,7 @@ import com.cerea_p1.spring.jpa.postgresql.exception.GameException;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.ConnectRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
@@ -39,6 +40,12 @@ public class GameController {
     public ResponseEntity<Partida> connect(@RequestBody ConnectRequest request) throws GameException {
         logger.info("connect request by " + request.getPlayerName());
         return ResponseEntity.ok(gameService.connectToGame(new Jugador(request.getPlayerName()), request.getGameId()));
+    }
+
+    @PostMapping("/disconnect")
+    public void disconnect(@RequestBody DisconnectRequest request) throws GameException {
+        logger.info("disconnect request by " + request.getPlayerName());
+        gameService.disconnectFromGame(new Jugador(request.getPlayerName()), request.getGameId());
     }
 
     /*@PostMapping("/connect/random")

@@ -35,18 +35,44 @@ public class GameService {
     }
 
     public Partida connectToGame(Jugador player, String gameId) {
-        //if(!almacen_partidas.contains(gameId))
+
+        if(player != null){
+            Optional<Partida> optionalGame;
+            if(almacen_partidas.containsKey(gameId))
+                optionalGame = Optional.of(almacen_partidas.get(gameId));
+            else{ optionalGame = null; throw new GameException("Esa partida no existe"); 
+            }
+
+            optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
+            Partida game = optionalGame.get();
+
+            if(!game.playerAlreadyIn(player))
+                game.addJugador(player);
+            return game;
+        } else {
+            throw new GameException("Jugador no valido");
+        }
+    }
+
+    public void disconnectFromGame(Jugador player, String gameId){
         Optional<Partida> optionalGame;
         if(almacen_partidas.containsKey(gameId))
-         optionalGame = Optional.of(almacen_partidas.get(gameId));
-        else{ optionalGame = null; throw new GameException("Esa partida no existe"); 
+            optionalGame = Optional.of(almacen_partidas.get(gameId));
+        else { optionalGame = null; throw new GameException("Esa partida no existe");
         }
 
         optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
-        Partida game = optionalGame.get();
+            Partida game = optionalGame.get();
 
-        game.addJugador(player); 
-        return game;
+        if(player != null) {
+            if(!game.playerAlreadyIn(player)) {
+                game.removePlayer(player);
+            } else {
+                throw new GameException("Jugador no pertenece a la partida");
+            }
+        } else {
+            throw new GameException("Jugador no valido");
+        }
     }
 
 

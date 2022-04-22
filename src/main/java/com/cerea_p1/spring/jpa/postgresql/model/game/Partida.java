@@ -214,6 +214,13 @@ public class Partida {
         return jugadores;
     }
 
+    public boolean removePlayer(Jugador j){
+        if(jugadores.contains(j)){
+            jugadores.remove(j);
+            return true;
+        } else return false;
+    }
+
     public String getId() {
         return id;
     }
@@ -228,5 +235,9 @@ public class Partida {
 
     public void setEstado(EstadoPartidaEnum estado) {
         this.estado = estado;
+    }
+
+    public boolean playerAlreadyIn(Jugador p){
+        return jugadores.contains(p);
     }
 }
