@@ -9,8 +9,4 @@ public class CreateGameRequest {
 	public String getPlayerName() {
 		return playerName;
 	}
-
-	// public void setPlayerName(String p){
-	// 	playerName = p;
-	// }
 }
