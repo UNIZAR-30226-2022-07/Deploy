@@ -80,7 +80,6 @@ public class GameService {
     }
 
 
-
     /*public Game connectToRandomGame(Player player) {
         Optional<Game> optionalGame = gameRepository.findFirstByStatusAndSecondPlayerIsNull(GameStatusEnum.NEW);
         optionalGame.orElseThrow(() ->new GameException("There is no available Game!"));
