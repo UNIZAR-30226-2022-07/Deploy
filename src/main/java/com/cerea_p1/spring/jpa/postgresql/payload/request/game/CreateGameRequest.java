@@ -4,13 +4,13 @@ import javax.validation.constraints.NotBlank;
 
 public class CreateGameRequest {
 	@NotBlank
-	private String playerName;
+	private String player_name;
 
 	public String getPlayerName() {
-		return playerName;
+		return player_name;
 	}
 
 	public void setPlayerName(String p){
-		playerName = p;
+		player_name = p;
 	}
 }
