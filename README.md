@@ -52,16 +52,16 @@ Crear una partida:
 
   - Devuelve: 
 
-      {
-        "jugadores": [
-              {
-                  "nombre": <nombre_de_usuario>,
-                  "cartas": []
-              },
+        {
+          "jugadores": [
+            {
+              "nombre": <nombre_de_usuario>,
+              "cartas": []
+            },
           ],
           "id": <id_partida>,
           "tipo": true
-      }
+        }
 
     - Si va mal: codigo 4**, y por qué falla
 
