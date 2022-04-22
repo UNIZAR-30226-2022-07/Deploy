@@ -4,12 +4,12 @@ import javax.validation.constraints.NotBlank;
 
 public class ConnectRequest {
     @NotBlank
-    private String player_name;
+    private String playerName;
     @NotBlank
     private String gameId;
 
     public String getPlayerName() {
-		return player_name;
+		return playerName;
 	}
 
     public String getGameId() {
