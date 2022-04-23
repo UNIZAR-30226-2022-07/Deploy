@@ -26,7 +26,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 @RestController
 @Slf4j
-@CrossOrigin(allowCredentials = "true", origins = "*")
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/") // con asterisco no funciona
 @AllArgsConstructor
 @RequestMapping("/game")
 public class GameController {
