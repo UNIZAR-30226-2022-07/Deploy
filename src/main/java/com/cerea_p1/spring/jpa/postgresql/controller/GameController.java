@@ -26,7 +26,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 @RestController
 @Slf4j
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin
 @AllArgsConstructor
 @RequestMapping("/game")
 public class GameController {
