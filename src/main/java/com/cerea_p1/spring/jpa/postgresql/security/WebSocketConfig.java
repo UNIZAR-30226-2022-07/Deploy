@@ -24,7 +24,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      //   registry.addEndpoint("/broadcast");  // it is OK to leave it here
         // registry.addEndpoint("/broadcast").withSockJS();
         // custom heartbeat, every 60 sec
-        registry.addEndpoint("/onep1-game").withSockJS();
+        registry.addEndpoint("/onep1-game")
+                .setAllowedOrigins("*")
+                .withSockJS();
         
     }
 }
