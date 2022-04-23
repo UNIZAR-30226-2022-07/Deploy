@@ -26,6 +26,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RequestMapping("/game")
 public class GameController {
@@ -42,13 +43,12 @@ public class GameController {
 
     @MessageMapping("/onep1-game/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
-  //  @ExceptionHandler(GameException.class)
     @ExceptionHandler(GameException.class)
     public ResponseEntity<?> connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
         try{
             logger.info("connect request by " + username);
             return ResponseEntity.ok(gameService.connectToGame(new Jugador(username), roomId));
-        } catch(GameException e){
+        } catch(GameException e) {
         //     return new ResponseEntity.badRequest();
              return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
