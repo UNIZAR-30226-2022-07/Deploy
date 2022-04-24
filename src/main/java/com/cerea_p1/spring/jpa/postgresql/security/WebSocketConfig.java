@@ -23,14 +23,6 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
         messages.simpDestMatchers("/api/auth/**").authenticated().anyMessage().authenticated();
     }
-
- /*   @Override 
-    protected void configureInbound(
-    MessageSecurityMetadataSourceRegistry messages) { 
-        messages
-        .simpDestMatchers("/secured/**").authenticated()
-        .anyMessage().authenticated(); 
-    }*/
  
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
