@@ -28,14 +28,14 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 @Slf4j
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/") // con asterisco no funciona
 @AllArgsConstructor
-@RequestMapping("/game")
+//@RequestMapping("/game")
 public class GameController {
     private final GameService gameService = new GameService();
     private final SimpMessagingTemplate simpMessagingTemplate = null;
 
     private static final Logger logger = Logger.getLogger("MyLog");
 
-    @PostMapping("/create")
+    @PostMapping("/game/create")
     public ResponseEntity<Partida> crear(@RequestBody CreateGameRequest request) {
         logger.info("create game request by " + request.getPlayerName());
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName())));
