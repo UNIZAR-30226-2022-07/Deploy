@@ -43,7 +43,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
      //   registry.addEndpoint("/broadcast");  // it is OK to leave it here
         // registry.addEndpoint("/broadcast").withSockJS();
         // custom heartbeat, every 60 sec
-        registry.addEndpoint("/onep1-game").setAllowedOriginPatterns("http://localhost:4200").withSockJS();
+        registry.addEndpoint("/onep1-game").setAllowedOriginPatterns("*").withSockJS();
         //registry.addEndpoint("/onep1-game").withSockJS();
 
         
