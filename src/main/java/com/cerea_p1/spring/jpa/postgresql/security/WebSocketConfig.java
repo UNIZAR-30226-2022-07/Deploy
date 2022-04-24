@@ -21,7 +21,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
 
     @Override
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
-        messages.simpDestMatchers("/api/auth/**").authenticated().anyMessage().authenticated();
+        messages.anyMessage().authenticated();
     }
  
     @Override
@@ -37,7 +37,5 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
         // custom heartbeat, every 60 sec
         registry.addEndpoint("/onep1-game").setAllowedOriginPatterns("*").withSockJS();
         //registry.addEndpoint("/onep1-game").withSockJS();
-
-        
     }
 }
