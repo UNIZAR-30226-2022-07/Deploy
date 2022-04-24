@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.messaging.MessageSecur
 import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.messaging.simp.SimpMessageType;
 
 
 
