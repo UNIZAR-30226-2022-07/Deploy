@@ -26,12 +26,12 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 @RestController
 @Slf4j
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/") // con asterisco no funciona
+//@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/") // con asterisco no funciona
 @AllArgsConstructor
 @RequestMapping("/game")
 public class GameController {
     private final GameService gameService = new GameService();
-    private final SimpMessagingTemplate simpMessagingTemplate = null ;
+    private final SimpMessagingTemplate simpMessagingTemplate = null;
 
     private static final Logger logger = Logger.getLogger("MyLog");
 
