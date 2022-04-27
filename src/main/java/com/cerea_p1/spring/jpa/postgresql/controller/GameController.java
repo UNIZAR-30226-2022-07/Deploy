@@ -66,7 +66,7 @@ public class GameController {
             // ENVIAR MANOS INICIALES A TODOS LOS JUGADORES
             return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
         } catch(GameException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return Sender.enviar(e);
         }
     }
 
