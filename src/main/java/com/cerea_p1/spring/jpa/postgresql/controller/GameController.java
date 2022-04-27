@@ -44,7 +44,7 @@ public class GameController {
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName()), request.getNPlayers(), request.getTTurn()));
     }
 
-    @MessageMapping("/onep1-game/{roomId}")
+    @MessageMapping("/gconnect/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
     @ExceptionHandler(GameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
@@ -56,7 +56,7 @@ public class GameController {
         }
     }
 
-    @MessageMapping("/onep1-game/{roomId}")
+    @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/begin/{roomId}")
     @ExceptionHandler(GameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
