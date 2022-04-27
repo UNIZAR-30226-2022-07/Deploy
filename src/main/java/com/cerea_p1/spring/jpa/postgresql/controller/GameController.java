@@ -70,7 +70,7 @@ public class GameController {
         }
     }
 
-    @MessageMapping("/onep1-game/{roomId}")
+  /*  @MessageMapping("/onep1-game/{roomId}")
     @ExceptionHandler(GameException.class)
     public ResponseEntity<?> disconnect(@RequestBody DisconnectRequest request) throws GameException {
         try{
@@ -80,7 +80,7 @@ public class GameController {
         } catch(GameException e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-    }
+    } */
 
     /*@PostMapping("/connect/random")
     public ResponseEntity<Game> connectRandom(@RequestBody Player player) throws GameException{
