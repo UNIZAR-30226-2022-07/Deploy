@@ -44,8 +44,8 @@ public class GameController {
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName()), request.getNPlayers(), request.getTTurn()));
     }
 
-    @MessageMapping("/game/connect/{roomId}")
-	@SendTo("/topic/connect/{roomId}")
+    @MessageMapping("/game/connect")
+	@SendTo("/topic/connect")
     @ExceptionHandler(GameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
         try{
@@ -56,8 +56,8 @@ public class GameController {
         }
     }
 
-    @MessageMapping("/game/begin/{roomId}")
-	@SendTo("/topic/begin/{roomId}")
+    @MessageMapping("/game/begin")
+	@SendTo("/topic/begin")
     @ExceptionHandler(GameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
         try{
