@@ -44,7 +44,7 @@ public class GameController {
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName()), request.getNPlayers(), request.getTTurn()));
     }
 
-    @MessageMapping("/connect")
+    @MessageMapping("/game/connect")
 	@SendTo("/topic/connect")
     @ExceptionHandler(GameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
