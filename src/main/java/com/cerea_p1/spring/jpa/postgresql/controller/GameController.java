@@ -24,6 +24,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import java.util.logging.*;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
+import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 
 //@RestController
 @Slf4j
@@ -38,25 +39,38 @@ public class GameController {
     private static final Logger logger = Logger.getLogger("MyLog");
 
     @PostMapping("/game/create")
-    public ResponseEntity<Partida> crear(@RequestBody CreateGameRequest request) {
+    public ResponseEntity<Partida> create(@RequestBody CreateGameRequest request) {
         logger.info("create game request by " + request.getPlayerName());
-        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName())));
+        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName()), request.getNPlayers(), request.getTTurn()));
     }
 
     @MessageMapping("/onep1-game/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
     @ExceptionHandler(GameException.class)
-    public ResponseEntity<?> connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
+    public String connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
         try{
             logger.info("connect request by " + username);
-            return ResponseEntity.ok(gameService.connectToGame(new Jugador(username), roomId));
+            return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
         } catch(GameException e) {
-        //     return new ResponseEntity.badRequest();
-             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return Sender.enviar(e);
         }
     }
 
-    @PostMapping("/disconnect")
+    @MessageMapping("/onep1-game/{roomId}")
+	@SendTo("/topic/begin/{roomId}")
+    @ExceptionHandler(GameException.class)
+    public String begin(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
+        try{
+            logger.info("begin game request by " + username);
+            gameService.beginGame(roomId);
+            // ENVIAR MANOS INICIALES A TODOS LOS JUGADORES
+            return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
+        } catch(GameException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @MessageMapping("/onep1-game/{roomId}")
     @ExceptionHandler(GameException.class)
     public ResponseEntity<?> disconnect(@RequestBody DisconnectRequest request) throws GameException {
         try{

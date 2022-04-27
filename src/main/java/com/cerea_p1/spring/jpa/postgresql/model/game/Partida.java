@@ -6,11 +6,13 @@ import com.cerea_p1.spring.jpa.postgresql.model.game.Color;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Numero;
 
 public class Partida {
+    private int nJugadores;
     private List<Jugador> jugadores;
     private List<Carta> baraja;
     private List<Carta> descartes;
     private EstadoPartidaEnum estado;
     private String id;
+    private int tTurno;
     // true indica que la partida es privada, false indica que la partida es pública
     private boolean partidaPrivada;
 
@@ -239,5 +241,21 @@ public class Partida {
 
     public boolean playerAlreadyIn(Jugador p){
         return jugadores.contains(p);
+    }
+
+    public int getTTurno() {
+        return tTurno;
+    }
+
+    public void setTTurno(int tTurno) {
+        this.tTurno = tTurno;
+    }
+
+    public int getNJugadores() {
+        return nJugadores;
+    }
+
+    public void setNJugadores(int nJugadores) {
+        this.nJugadores = nJugadores;
     }
 }
