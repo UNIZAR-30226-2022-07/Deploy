@@ -25,6 +25,7 @@ import java.util.logging.*;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
+import org.springframework.messaging.handler.annotation.Header;
 
 //@RestController
 @Slf4j
@@ -47,7 +48,7 @@ public class GameController {
     @MessageMapping("/connect")
 	@SendTo("/topic/connect")
   //  @ExceptionHandler(GameException.class)
-    public String connect(@DestinationVariable("roomId") String roomId, @DestinationVariable("username") String username)  {
+    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username)  {
      //   try{
             logger.info("connect request by " + username);
             return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
