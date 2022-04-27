@@ -46,14 +46,14 @@ public class GameController {
 
     @MessageMapping("/connect")
 	@SendTo("/topic/connect")
-    @ExceptionHandler(GameException.class)
-    public String connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
-        try{
+  //  @ExceptionHandler(GameException.class)
+    public String connect(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username)  {
+     //   try{
             logger.info("connect request by " + username);
             return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
-        } catch(GameException e) {
-            return Sender.enviar(e);
-        }
+     //   } catch(GameException e) {
+       //     return Sender.enviar(e);
+      ///  }
     }
 
     @MessageMapping("/game/begin")
