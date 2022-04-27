@@ -24,7 +24,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
         messages
                 .simpTypeMatchers(SimpMessageType.CONNECT,
-                        SimpMessageType.DISCONNECT, SimpMessageType.OTHER, SimpMessageType.SUBSCRIBE).permitAll()
+                        SimpMessageType.DISCONNECT, SimpMessageType.OTHER, SimpMessageType.SUBSCRIBE, SimpMessageType.MESSAGE).permitAll()
                 .anyMessage().authenticated();
     }
  
