@@ -40,8 +40,8 @@ public class GameController {
 
     @PostMapping("/game/create")
     public ResponseEntity<Partida> create(@RequestBody CreateGameRequest request) {
-        logger.info("create game request by " + request.getPlayerName() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn());
-        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName()), request.getNPlayers(), request.getTTurn()));
+        logger.info("create game request by " + request.getPlayername() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn());
+        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn()));
     }
 
     @MessageMapping("/connect/{roomId}")
