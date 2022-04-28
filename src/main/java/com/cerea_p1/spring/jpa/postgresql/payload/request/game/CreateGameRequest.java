@@ -12,7 +12,7 @@ public class CreateGameRequest {
 	@NotBlank
 	private int tturn;
 
-	public String getPlayerName() {
+	public String getPlayername() {
 		return playername;
 	}
 
