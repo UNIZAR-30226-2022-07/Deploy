@@ -9,10 +9,10 @@ import java.util.*;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 @Entity
-@Table(name = "invitacion", 
-            uniqueConstraints = { 
-                @UniqueConstraint(columnNames = {"emisor","receptor"})
-            }
+@Table(name = "invitacion"//, 
+    //        uniqueConstraints = { 
+    //            @UniqueConstraint(columnNames = {"emisor","receptor"})
+    //        }
 )
 @IdClass(InvitacionAmistadId.class)
 public class InvitacionAmistad implements Serializable {
