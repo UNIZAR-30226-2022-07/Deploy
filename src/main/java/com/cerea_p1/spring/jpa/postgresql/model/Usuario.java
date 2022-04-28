@@ -28,7 +28,7 @@ public class Usuario {
     private String password;
 
     @OneToMany(mappedBy = "usuario1", cascade=CascadeType.PERSIST)
-    public List<Usuario> amigos;
+    public List<Amigo> amigos;
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -45,7 +45,7 @@ public class Usuario {
         this.pais = pais;
         this.puntos = 0;
 
-        amigos = new ArrayList<Usuario>();;
+        amigos = new ArrayList<Amigo>();;
     }
 
     public Usuario(){
@@ -97,15 +97,15 @@ public class Usuario {
         this.puntos = puntos;
     }
 
-    public List<Usuario> getAmigos(){
+    public List<Amigo> getAmigos(){
         return this.amigos;
     }
 
-    public void setAmigo(Usuario amigo) {
+    public void setAmigo(Amigo amigo) {
        this.amigos.add(amigo);
     } 
 
-    public void removeAmigo(Usuario amigo){
+    public void removeAmigo(Amigo amigo){
         this.amigos.remove(amigo);
     }
     
