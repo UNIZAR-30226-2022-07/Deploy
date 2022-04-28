@@ -19,12 +19,12 @@ public class Amigo implements Serializable {
     @Id
     @Column(name = "usuario1", nullable = false)
     @ManyToOne
-    @JoinColumn(referencedColumnName = "username")
+    @JoinColumn(referencedColumnName = "usuario1")
     private Usuario usuario1;
     @Id
     @Column(name = "usuario2", nullable = false)
     @ManyToOne
-    @JoinColumn(referencedColumnName = "username")
+    @JoinColumn(referencedColumnName = "usuario2")
     private Usuario usuario2;
 
   //  private AmigoId clave;
