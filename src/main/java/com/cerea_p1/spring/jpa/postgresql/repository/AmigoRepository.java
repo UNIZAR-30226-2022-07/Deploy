@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AmigoRepository extends JpaRepository<Amigo,Usuario> {
-   List<Amigo> findBy(Usuario u);
+   List<Amigo> findByUsuario1(Usuario u);
    Boolean existsByUsername(Usuario user);
   // Boolean existsByEmail(Usuario email);
 }
