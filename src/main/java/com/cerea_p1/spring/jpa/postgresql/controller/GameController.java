@@ -41,7 +41,7 @@ public class GameController {
 
     @PostMapping("/game/create")
     public ResponseEntity<Partida> create(@RequestBody CreateGameRequest request) {
-        logger.info("create game request by " + request.getPlayerName());
+        logger.info("create game request by " + request.getPlayerName() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn());
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayerName()), request.getNPlayers(), request.getTTurn()));
     }
 
@@ -49,28 +49,17 @@ public class GameController {
 	  @SendTo("/topic/connect/{roomId}")
     @ExceptionHandler(GameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) { 
-      try{
-			logger.info("connect request by " + username);
-			return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
-      } catch(GameException e) {
+        try{
+			      logger.info("connect request by " + username);
+			      return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
+        } catch(GameException e) {
           	return Sender.enviar(e);
-      }
+        }
     }
 
-  //   @MessageMapping("/connect")
-	// @SendTo("/topic/connect")
-  // //  @ExceptionHandler(GameException.class)
-  //   public String connect()  {
-  //    //   try{
-  //           logger.info("connect request by uwu");
-  //           return Sender.enviar("holi");
-  //    //   } catch(GameException e) {
-  //      //     return Sender.enviar(e);
-  //     ///  }
-  //   }
 
     @MessageMapping("/game/begin")
-	@SendTo("/topic/begin")
+	  @SendTo("/topic/begin")
     @ExceptionHandler(GameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
         try{
@@ -83,17 +72,17 @@ public class GameController {
         }
     }
 
-  /*  @MessageMapping("/onep1-game/{roomId}")
+    @MessageMapping("/disconnect/{roomId}")
+    @SendTo("/topic/disconnect/{roomId}")
     @ExceptionHandler(GameException.class)
-    public ResponseEntity<?> disconnect(@RequestBody DisconnectRequest request) throws GameException {
+    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
-            logger.info("disconnect request by " + request.getPlayerName());
-            gameService.disconnectFromGame(new Jugador(request.getPlayerName()), request.getGameId());
-            return new ResponseEntity<String>("OK",HttpStatus.OK);
+            logger.info("disconnect request by " + username);
+            return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
         } catch(GameException e){
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return Sender.enviar(e);
         }
-    } */
+    }
 
     /*@PostMapping("/connect/random")
     public ResponseEntity<Game> connectRandom(@RequestBody Player player) throws GameException{
