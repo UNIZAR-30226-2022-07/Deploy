@@ -4,7 +4,6 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 import com.cerea_p1.spring.jpa.postgresql.exception.GameException;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.game.ConnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
