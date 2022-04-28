@@ -32,7 +32,6 @@ public class GameService {
     }
 
     public List<Jugador> connectToGame(Jugador player, String gameId) {
-
         if(player != null){
             Optional<Partida> optionalGame;
             if(almacen_partidas.containsKey(gameId))
@@ -50,7 +49,7 @@ public class GameService {
             throw new GameException("Jugador no valido");
     }
 
-    public void disconnectFromGame(Jugador player, String gameId){
+    public String disconnectFromGame(Jugador player, String gameId){
         if(player != null) {
             Optional<Partida> optionalGame;
             if(almacen_partidas.containsKey(gameId))
@@ -66,14 +65,17 @@ public class GameService {
                 throw new GameException("No puedes salir de la partida.");
             }
 
-            if(game.playerAlreadyIn(player))
+            if(game.playerAlreadyIn(player)) {
                 game.removePlayer(player);
-            else 
-                throw new GameException("Jugador no pertenece a la partida");
 
-            if(game.getJugadores().size() == 0){
-                almacen_partidas.remove(gameId);
+                if(game.getJugadores().size() == 0)
+                    almacen_partidas.remove(gameId);
+
+                return player.getNombre()+" disconnected successfully from "+ game.getId();
             }
+            else
+                throw new GameException("Jugador no pertenece a la partida");
+                
         } else
             throw new GameException("Jugador no valido");
     }
