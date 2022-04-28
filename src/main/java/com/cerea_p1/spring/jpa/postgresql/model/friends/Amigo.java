@@ -1,4 +1,4 @@
-package com.cerea_p1.spring.jpa.postgresql.model;
+package com.cerea_p1.spring.jpa.postgresql.model.friends;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -6,23 +6,30 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.*;
 
+import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
+
 @Entity
 @Table(name = "amigo", 
             uniqueConstraints = { 
                 @UniqueConstraint(columnNames = {"usuario1","usuario2"})
             }
 )
-@IdClass(Amigo.class)
+@IdClass(AmigoId.class)
 public class Amigo implements Serializable {
     @Id
-    @Column(name = "usuario1", nullable = false, length = 255)
-    private String usuario1;
+    @Column(name = "usuario1", nullable = false)
+    @ManyToOne(optional=false)
+    @JoinColumn(name="nombre_de_usuario")
+    private Usuario usuario1;
     @Id
-    @Column(name = "usuario2", nullable = false, length = 255)
-    private String usuario2;
+    @Column(name = "usuario2", nullable = false)
+    @ManyToOne(optional=false)
+    private Usuario usuario2;
+
+  //  private AmigoId clave;
     
 
-    public Amigo(String u, String u2) {
+    public Amigo(Usuario u, Usuario u2) {
         usuario1 = u;
         usuario2 = u2;
     }
@@ -32,19 +39,19 @@ public class Amigo implements Serializable {
         usuario2 = null;
     }
 
-    public String getUsuario1(){
+    public Usuario getUsuario1(){
         return usuario1;
     }
 
-    public void setUsuario1(String u){
+    public void setUsuario1(Usuario u){
         this.usuario1 = u;
     }
 
-    public String getUsuario2(){
+    public Usuario getUsuario2(){
         return usuario2;
     }
 
-    public void setUsuario2(String u){
+    public void setUsuario2(Usuario u){
         this.usuario2 = u;
     }
 
@@ -77,4 +84,5 @@ public class Amigo implements Serializable {
         return (a.getUsuario1().equals(this.usuario1) && a.getUsuario2().equals(this.usuario2)) || (a.getUsuario1().equals(this.usuario2) && a.getUsuario2().equals(this.usuario1));
     }
 }
+
 

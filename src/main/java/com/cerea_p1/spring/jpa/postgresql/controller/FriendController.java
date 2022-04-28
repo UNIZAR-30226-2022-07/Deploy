@@ -20,25 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
-import com.cerea_p1.spring.jpa.postgresql.model.Amigo;
-
-import com.cerea_p1.spring.jpa.postgresql.payload.request.LoginRequest;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.SignupRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.AddFriendRequest;
-import com.cerea_p1.spring.jpa.postgresql.payload.response.JwtResponse;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 
 import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
-
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
+import com.cerea_p1.spring.jpa.postgresql.repository.InvitacionAmistadRepository;
+
+import com.cerea_p1.spring.jpa.postgresql.model.friends.InvitacionAmistad;
+
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
-import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.logging.*;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 
 @RestController
@@ -48,25 +41,33 @@ public class FriendController {
 	UsuarioRepository userRepository;
 	@Autowired
 	AmigoRepository friendRepository;
+	@Autowired
+	InvitacionAmistadRepository invitacionRepository;
 	private static final Logger logger = Logger.getLogger("MyLog");
 
 	@Autowired
 	JwtUtils jwtUtils;
 
-    @GetMapping("/send/friend-request")
+    @PostMapping("/send/friend-request")
 	public ResponseEntity<?> addFriend(@RequestBody AddFriendRequest addfriendRequest) {
 		logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
 		if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: User or friend is not registered"));
-		} else {
-		//	Usuario friend = userRepository.findByUsername(addfriendRequest.getFriendname()).get();
-			//friendRepository.save(new Amigo(addfriendRequest.getUsername(),addfriendRequest.getFriendname()));
-
-            // NO QUEREMOS AÑADIR A AMIGOS DIRECTAMENTE, QUEREMOS ENVIAR UNA PETICIÓN DE AMISTAD QUE TENDRÁ QUE SER ACEPTADA!
-
-			return ResponseEntity.ok(new MessageResponse("Friend added successfully!"));
+					.body(new MessageResponse("Error: Usuario o amigo no están registrados"));
+		} else if(addfriendRequest.getUsername().equals(addfriendRequest.getFriendname())){
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: No puedes ser amigo de tí mismo"));
+		}else {
+			Optional<Usuario> opUser = userRepository.findByUsername(addfriendRequest.getUsername());
+			if(opUser.isPresent()){
+				Usuario user = opUser.get();
+				opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
+				if(opUser.isPresent()){
+					Usuario user2 = opUser.get();
+					invitacionRepository.save(new InvitacionAmistad(user,user2));
+					return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
+				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
+			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
 		}
 	}
 }

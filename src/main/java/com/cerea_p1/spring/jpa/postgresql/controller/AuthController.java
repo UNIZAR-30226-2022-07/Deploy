@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
-import com.cerea_p1.spring.jpa.postgresql.model.Amigo;
+import com.cerea_p1.spring.jpa.postgresql.model.friends.Amigo;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.LoginRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.SignupRequest;
@@ -65,13 +65,6 @@ public class AuthController {
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-
-		// return ResponseEntity.ok(new JwtResponse(jwt, 
-		// 										 userDetails.getUsername(), 
-		// 										 userDetails.getEmail(), 
-		// 										 userDetails.getPais(),
-		// 										 userDetails.getPuntos(),
-		// 										 userDetails.getAmigos()));
 
 		return ResponseEntity.ok(new JwtResponse(jwt, 
 												 userDetails.getUsername(), 
