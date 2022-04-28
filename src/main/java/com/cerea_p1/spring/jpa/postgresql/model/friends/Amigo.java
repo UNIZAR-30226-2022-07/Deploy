@@ -9,22 +9,22 @@ import java.util.*;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 @Entity
-@Table(name = "amigo", 
-            uniqueConstraints = { 
-                @UniqueConstraint(columnNames = {"usuario1","usuario2"})
-            }
+@Table(name = "amigo"//, 
+         //   uniqueConstraints = { 
+       //         @UniqueConstraint(columnNames = {"usuario1","usuario2"})
+         //   }
 )
 @IdClass(AmigoId.class)
 public class Amigo implements Serializable {
     @Id
   //  @Column(name = "usuario1", nullable = false)
     @ManyToOne
-    @JoinColumn(referencedColumnName = "nombre_de_usuario")
+//    @JoinColumn(referencedColumnName = "nombre_de_usuario")
     private Usuario usuario1;
     @Id
   //  @Column(name = "usuario2", nullable = false)
     @ManyToOne
-    @JoinColumn(referencedColumnName = "nombre_de_usuario")
+ //   @JoinColumn(referencedColumnName = "nombre_de_usuario")
     private Usuario usuario2;
 
   //  private AmigoId clave;
