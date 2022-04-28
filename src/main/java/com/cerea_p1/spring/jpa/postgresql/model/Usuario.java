@@ -6,6 +6,7 @@ import java.util.*;
 import javax.persistence.CascadeType;
 
 import com.cerea_p1.spring.jpa.postgresql.model.friends.Amigo;
+import com.cerea_p1.spring.jpa.postgresql.model.friends.InvitacionAmistad;
 
 @Entity
 @Table(name = "usuario", 
@@ -29,6 +30,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario1", cascade=CascadeType.PERSIST)
     public List<Amigo> amigos;
+
+    @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
+    public List<InvitacionAmistad> invitaciones;
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
