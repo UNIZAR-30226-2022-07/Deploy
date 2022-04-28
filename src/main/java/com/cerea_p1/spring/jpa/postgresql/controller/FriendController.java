@@ -58,6 +58,7 @@ public class FriendController {
 		} else if(addfriendRequest.getUsername().equals(addfriendRequest.getFriendname())){
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: No puedes ser amigo de tí mismo"));
 		}else {
+			logger.info("Restricciones cumplidas");
 			Optional<Usuario> opUser = userRepository.findByUsername(addfriendRequest.getUsername());
 			if(opUser.isPresent()){
 				Usuario user = opUser.get();
