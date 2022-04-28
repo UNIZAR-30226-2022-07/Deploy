@@ -18,12 +18,13 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 public class Amigo implements Serializable {
     @Id
     @Column(name = "usuario1", nullable = false)
-    @ManyToOne(optional=false)
-    @JoinColumn(name="nombre_de_usuario")
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "username")
     private Usuario usuario1;
     @Id
     @Column(name = "usuario2", nullable = false)
-    @ManyToOne(optional=false)
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "username")
     private Usuario usuario2;
 
   //  private AmigoId clave;
