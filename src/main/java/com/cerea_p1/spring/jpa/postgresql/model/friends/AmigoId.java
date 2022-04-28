@@ -22,5 +22,36 @@ public class AmigoId implements Serializable{
         usuario1 = null;
         usuario2 = null;
     }
+
+    public void setUsuario1(Usuario u){
+        usuario1 = u;
+    }
+
+    public Usuario getUsuario1(){
+        return usuario1;
+    }
+
+    public void setUsuario2(Usuario u){
+        usuario2 = u;
+    }
+
+    public Usuario getUsuario2(){
+        return usuario2;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        else if(o instanceof AmigoId){
+            AmigoId a = (AmigoId)o;
+            if(this.getUsuario1().getUsername().equals(a.getUsuario1().getUsername()) && this.getUsuario2().getUsername().equals(a.getUsuario2().getUsername())) return  true;
+            else return false;
+        } else return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.getUsuario1().hashCode() + this.getUsuario2().hashCode();
+    }
     
 }
