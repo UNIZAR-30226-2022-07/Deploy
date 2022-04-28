@@ -4,23 +4,23 @@ import javax.validation.constraints.NotBlank;
 
 public class CreateGameRequest {
 	@NotBlank
-	private String playerName;
+	private String playername;
 
 	@NotBlank
-	private int nPlayers;
+	private int nplayers;
 
 	@NotBlank
-	private int tTurn;
+	private int tturn;
 
 	public String getPlayerName() {
-		return playerName;
+		return playername;
 	}
 
 	public int getNPlayers() {
-		return nPlayers;
+		return nplayers;
 	}
 
 	public int getTTurn() {
-		return tTurn;
+		return tturn;
 	}
 }
