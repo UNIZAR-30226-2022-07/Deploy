@@ -34,6 +34,9 @@ public class Usuario {
     @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
     public List<InvitacionAmistad> invitaciones;
 
+    @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
+    public List<InvitacionAmistad> invitacionesEnviadas;
+
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
     private String pais;
@@ -51,6 +54,7 @@ public class Usuario {
 
         amigos = new ArrayList<Amigo>();
         invitaciones = new ArrayList<InvitacionAmistad>();
+        invitacionesEnviadas = new ArrayList<InvitacionAmistad>();
     }
 
     public Usuario(){
@@ -125,6 +129,18 @@ public class Usuario {
 
     public void removeInvitacion(InvitacionAmistad inv){
         this.invitaciones.remove(inv);
+    }
+
+    public List<InvitacionAmistad> getInvitacionesEnviadas(){
+        return this.invitacionesEnviadas;
+    }
+
+    public void setInvitacionesEnviadas(InvitacionAmistad inv){
+        this.invitacionesEnviadas.add(inv);
+    }
+
+    public void removeInvitacionesEnviadas(InvitacionAmistad inv){
+        this.invitacionesEnviadas.remove(inv);
     }
     
     @Override

@@ -18,7 +18,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 public class InvitacionAmistad implements Serializable {
     @Id
   //  @Column(name = "emisor", nullable = false)
-    @ManyToOne(optional=false)
+   @ManyToOne(optional=false)
  //   @JoinColumn(referencedColumnName="nombre_de_usuario")
     private Usuario emisor;
     @Id
