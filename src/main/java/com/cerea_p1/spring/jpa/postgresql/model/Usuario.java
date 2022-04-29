@@ -128,7 +128,11 @@ public class Usuario {
         return this.invitaciones;
     }
 
-    public void setInvitacion(InvitacionAmistad inv){
+    public void setInvitacion(List<InvitacionAmistad> inv){
+        invitaciones = inv;
+    }
+
+    public void addInvitacion(InvitacionAmistad inv){
         this.invitaciones.add(inv);
     }
 
@@ -140,7 +144,11 @@ public class Usuario {
         return this.invitacionesEnviadas;
     }
 
-    public void setInvitacionesEnviadas(InvitacionAmistad inv){
+    public void setInvitacionesEnviadas(List<InvitacionAmistad> inv){
+        invitacionesEnviadas = inv;
+
+    }
+    public void addInvitacionesEnviadas(InvitacionAmistad inv){
         this.invitacionesEnviadas.add(inv);
     }
 
