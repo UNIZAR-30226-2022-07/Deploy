@@ -40,7 +40,7 @@ public class Usuario {
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
    // @ManyToMany(mappedBy = "invitaciones")
-    public List<Usuario> invitacionesEnviadas;
+    //public List<Usuario> invitacionesEnviadas;
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -59,7 +59,7 @@ public class Usuario {
 
         amigos = new ArrayList<Amigo>();
         invitaciones = new ArrayList<Usuario>();
-        invitacionesEnviadas = new ArrayList<Usuario>();
+    //    invitacionesEnviadas = new ArrayList<Usuario>();
     }
 
     public Usuario(){
@@ -140,21 +140,21 @@ public class Usuario {
         this.invitaciones.remove(inv);
     }
 
-    public List<Usuario> getInvitacionesEnviadas(){
-        return this.invitacionesEnviadas;
-    }
+    // public List<Usuario> getInvitacionesEnviadas(){
+    //     return this.invitacionesEnviadas;
+    // }
 
-    public void setInvitacionesEnviadas(List<Usuario> inv){
-        invitacionesEnviadas = inv;
+    // public void setInvitacionesEnviadas(List<Usuario> inv){
+    //     invitacionesEnviadas = inv;
 
-    }
-    public void addInvitacionesEnviadas(Usuario inv){
-        this.invitacionesEnviadas.add(inv);
-    }
+    // }
+    // public void addInvitacionesEnviadas(Usuario inv){
+    //     this.invitacionesEnviadas.add(inv);
+    // }
 
-    public void removeInvitacionesEnviadas(Usuario inv){
-        this.invitacionesEnviadas.remove(inv);
-    }
+    // public void removeInvitacionesEnviadas(Usuario inv){
+    //     this.invitacionesEnviadas.remove(inv);
+    // }
     
     @Override
     public String toString(){
