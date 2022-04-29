@@ -39,7 +39,7 @@ public class Usuario {
     public List<Usuario> invitaciones;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
-    @ManyToMany(mappedBy = "invitaciones")
+   // @ManyToMany(mappedBy = "invitaciones")
     public List<Usuario> invitacionesEnviadas;
 
     @NotNull
