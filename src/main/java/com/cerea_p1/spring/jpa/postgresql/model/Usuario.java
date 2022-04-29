@@ -49,7 +49,8 @@ public class Usuario {
         this.pais = pais;
         this.puntos = 0;
 
-        amigos = new ArrayList<Amigo>();;
+        amigos = new ArrayList<Amigo>();
+        invitaciones = new ArrayList<InvitacionAmistad>();
     }
 
     public Usuario(){
@@ -59,6 +60,7 @@ public class Usuario {
         pais = null;
         puntos = 0;
         amigos = null;
+        invitaciones = null;
     }
 
     public String getUsername() {
@@ -111,6 +113,18 @@ public class Usuario {
 
     public void removeAmigo(Amigo amigo){
         this.amigos.remove(amigo);
+    }
+
+    public List<InvitacionAmistad> getInvitacion(){
+        return this.invitaciones;
+    }
+
+    public void setInvitacion(InvitacionAmistad inv){
+        this.invitaciones.add(inv);
+    }
+
+    public void removeInvitacion(InvitacionAmistad inv){
+        this.invitaciones.remove(inv);
     }
     
     @Override
