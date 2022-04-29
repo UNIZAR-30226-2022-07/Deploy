@@ -31,10 +31,15 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario1", cascade=CascadeType.PERSIST)
     public List<Amigo> amigos;
 
-    @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
+   // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
+    @JoinTable(name = "invitacion", joinColumns = {
+        @JoinColumn(name = "receptor", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "emisor", referencedColumnName = "nombre_de_usuario", nullable = false)})
+        @ManyToMany
     public List<InvitacionAmistad> invitaciones;
 
-    @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
+  //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "invitaciones")
     public List<InvitacionAmistad> invitacionesEnviadas;
 
     @NotNull
