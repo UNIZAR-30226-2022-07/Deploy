@@ -65,8 +65,9 @@ public class FriendController {
 				opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					logger.info("Usuarios encontrados " + user + " " + user2);
+					logger.info("Usuarios encontrados " + user + " " + user2 );
 					InvitacionAmistad inv = new InvitacionAmistad(user,user2);
+					logger.info("Se crea el objeto" );
 					invitacionRepository.save(inv);
 					return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
 				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));

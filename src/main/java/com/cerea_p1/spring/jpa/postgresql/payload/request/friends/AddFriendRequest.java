@@ -17,8 +17,4 @@ public class AddFriendRequest {
     public String getFriendname(){
         return friendname;
     }
-
-    public void setFriendname(String friendname){
-        this.friendname = friendname;
-    }
 }
