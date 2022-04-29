@@ -32,7 +32,7 @@ public class Usuario {
     public List<Amigo> amigos;
 
    // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
-    @JoinTable(name = "invitacion", joinColumns = {
+    @JoinTable(name = "InvitacionAmistad", joinColumns = {
         @JoinColumn(name = "receptor", referencedColumnName = "username", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "username", nullable = false)})
         @ManyToMany
