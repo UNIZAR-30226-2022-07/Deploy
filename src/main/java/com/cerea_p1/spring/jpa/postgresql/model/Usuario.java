@@ -33,8 +33,8 @@ public class Usuario {
 
    // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
     @JoinTable(name = "invitacion", joinColumns = {
-        @JoinColumn(name = "receptor", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "emisor", referencedColumnName = "nombre_de_usuario", nullable = false)})
+        @JoinColumn(name = "receptor", referencedColumnName = "username", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "emisor", referencedColumnName = "username", nullable = false)})
         @ManyToMany
     public List<InvitacionAmistad> invitaciones;
 
