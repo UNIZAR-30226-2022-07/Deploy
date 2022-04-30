@@ -1,4 +1,5 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
+import java.util.List;
 import java.util.Optional;
 
 /* import java.util.HashSet;
@@ -87,7 +88,9 @@ public class FriendController {
 			Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
 			if(opUser.isPresent()){
 				Usuario user = opUser.get();
-				return ResponseEntity.ok(user.getInvitacion());
+				List<Usuario> inv = user.getInvitacion();
+				logger.info("Se obtienen los amigos" + inv);
+				return ResponseEntity.ok(inv);
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
 		}
 	}
