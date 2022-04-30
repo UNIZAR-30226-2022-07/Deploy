@@ -96,3 +96,17 @@ Enviar una petición de amistad
     - Si va bien: codigo 200, Petición de amistad enviada a " + <nombre_del_amigo>
     - Si va mal: codigo 4**, y por qué falla
 
+Ver invitaciones de amistad
+  - Petición POST a https://onep1.herokuapp.com/receive/friend-request
+
+  - JSON:
+
+        {
+          "username": <nombre_de_usuario>
+        }
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+      [
+        <nombre_del_amigo>
+      ]
+    - Si va mal: codigo 4**, y por qué falla
