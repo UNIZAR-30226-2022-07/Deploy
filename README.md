@@ -141,3 +141,34 @@ Ver lista de amigos
       ]
     - Si va mal: codigo 4**, y por qué falla
 
+Cancelar petición de amistad
+  - Petición POST a https://onep1.herokuapp.com/friends/cancel/fiend-request
+
+   - JSON:
+
+        {
+          "username": <nombre_de_usuario>,
+          "friendname": <nombre_del_amigo>
+        }
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+     {
+        "message": "Petición de amistad cancelada: <nombre_del_amigo>"
+      }
+    - Si va mal: codigo 4**, y por qué falla
+
+Eliminar amigo
+  - Petición POST a https://onep1.herokuapp.com/friends/deleteFriend
+
+   - JSON:
+
+        {
+          "username": <nombre_de_usuario>,
+          "friendname": <nombre_del_amigo>
+        }
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+     {
+        "message": "Amigo eliminado: <nombre_del_amigo>"
+      }
+    - Si va mal: codigo 4**, y por qué falla
