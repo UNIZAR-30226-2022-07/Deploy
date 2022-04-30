@@ -83,7 +83,7 @@ Desconectarse de una partida (ANTES DE QUE EMPIECE):
 
 
 Enviar una petición de amistad
-  - Petición POST a https://onep1.herokuapp.com/send/friend-request
+  - Petición POST a https://onep1.herokuapp.com/friends/send/friend-request
 
   - JSON:
 
@@ -97,7 +97,7 @@ Enviar una petición de amistad
     - Si va mal: codigo 4**, y por qué falla
 
 Ver invitaciones de amistad
-  - Petición POST a https://onep1.herokuapp.com/receive/friend-request
+  - Petición POST a https://onep1.herokuapp.com/friends/receive/friend-request
 
   - JSON:
 
@@ -112,7 +112,7 @@ Ver invitaciones de amistad
     - Si va mal: codigo 4**, y por qué falla
 
 Aceptar invitación de amistad
-  - Petición POST a https://onep1.herokuapp.com/accept/friend-request
+  - Petición POST a https://onep1.herokuapp.com/friends/accept/friend-request
 
    - JSON:
 
@@ -125,3 +125,19 @@ Aceptar invitación de amistad
       "message": "Amigo añadido: <nombre_del_amigo>"
     }
     - Si va mal: codigo 4**, y por qué falla
+
+Ver lista de amigos
+  - Petición POST a https://onep1.herokuapp.com/friends/friendsList
+
+   - JSON:
+
+        {
+          "username": <nombre_de_usuario>
+        }
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+     [
+        <nombre_del_amigo>
+      ]
+    - Si va mal: codigo 4**, y por qué falla
+
