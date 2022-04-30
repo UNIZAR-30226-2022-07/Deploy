@@ -28,6 +28,7 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
 
+
    // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
     @JoinTable(name = "invitacion", joinColumns = {
         @JoinColumn(name = "receptor", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
@@ -48,6 +49,7 @@ public class Usuario {
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
     @ManyToMany(mappedBy = "amigos")
     public List<Usuario> amigosInv;
+
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -77,6 +79,7 @@ public class Usuario {
         pais = null;
         puntos = 0;
         amigos = null;
+
         amigosInv = null;
         invitaciones = null;
         invitacionesEnviadas = null;

@@ -1,4 +1,5 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.AddFriendRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.GetFriendRequest;
+
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 
 import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
@@ -33,7 +35,9 @@ import com.cerea_p1.spring.jpa.postgresql.repository.InvitacionAmistadRepository
 import com.cerea_p1.spring.jpa.postgresql.model.friends.InvitacionAmistad;
 
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
+
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
+
 
 import java.util.logging.*;
 

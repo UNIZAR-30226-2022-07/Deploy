@@ -20,6 +20,7 @@ public class InvitacionAmistad implements Serializable {
   //  @Column(name = "emisor", nullable = false)
     @ManyToOne(optional=false)
     @JoinColumn(name="emisor", referencedColumnName="nombre_de_usuario")
+
     private Usuario emisor;
     @Id
     // @Column(name = "receptor", nullable = false)

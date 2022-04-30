@@ -20,10 +20,12 @@ public class UserDetailsImpl implements UserDetails {
 	private String email;
     private String pais;
 	private int puntos;
+
 	@JsonIgnore
 	private String password;
 	
 	public UserDetailsImpl(String username, String email, String password, String pais, int puntos) {
+
 	//public UserDetailsImpl(String username, String email, String password, String pais, int puntos) {
 		this.username = username;
 		this.email = email;
@@ -38,8 +40,6 @@ public class UserDetailsImpl implements UserDetails {
 				user.getEmail(),
 				user.getPassword(),
                 user.getPais(), user.getPuntos());//,user.getAmigos());
-
-
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
