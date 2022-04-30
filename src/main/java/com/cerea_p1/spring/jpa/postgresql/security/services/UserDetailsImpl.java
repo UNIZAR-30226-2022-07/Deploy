@@ -20,18 +20,16 @@ public class UserDetailsImpl implements UserDetails {
 	private String email;
     private String pais;
 	private int puntos;
-	private List<Amigo> amigos;
 	@JsonIgnore
 	private String password;
 	
-	public UserDetailsImpl(String username, String email, String password, String pais, int puntos, List<Amigo> amigos) {
+	public UserDetailsImpl(String username, String email, String password, String pais, int puntos) {
 	//public UserDetailsImpl(String username, String email, String password, String pais, int puntos) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
         this.pais = pais;
 		this.puntos = puntos;
-		this.amigos = amigos;
 	}
     	
 	public static UserDetailsImpl build(Usuario user) {
@@ -39,7 +37,7 @@ public class UserDetailsImpl implements UserDetails {
 				user.getUsername(),
 				user.getEmail(),
 				user.getPassword(),
-                user.getPais(), user.getPuntos(), user.getAmigos());//,user.getAmigos());
+                user.getPais(), user.getPuntos());//,user.getAmigos());
 
 
 	}
@@ -64,10 +62,6 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 		return username;
-	}
-
-	public List<Amigo> getAmigos(){
-		return this.amigos;
 	}
 
 	@Override

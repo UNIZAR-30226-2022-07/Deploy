@@ -35,8 +35,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.logging.*;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)

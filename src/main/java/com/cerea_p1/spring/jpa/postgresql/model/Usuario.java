@@ -28,9 +28,6 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
 
-    @OneToMany(mappedBy = "usuario1", cascade=CascadeType.PERSIST)
-    public List<Amigo> amigos;
-
    // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
     @JoinTable(name = "invitacion", joinColumns = {
         @JoinColumn(name = "receptor", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
@@ -41,6 +38,16 @@ public class Usuario {
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
     @ManyToMany(mappedBy = "invitaciones")
     public List<Usuario> invitacionesEnviadas;
+
+    @JoinTable(name = "amigo", joinColumns = {
+        @JoinColumn(name = "usuario2", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "usuario1", referencedColumnName = "nombre_de_usuario", nullable = false)})
+        @ManyToMany(cascade = CascadeType.PERSIST)
+    public List<Usuario> amigos;
+
+  //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "amigos")
+    public List<Usuario> amigosInv;
 
     @NotNull
     @Column(name="pais", nullable = false, length = 255)
@@ -57,7 +64,8 @@ public class Usuario {
         this.pais = pais;
         this.puntos = 0;
 
-        amigos = new ArrayList<Amigo>();
+        amigos = new ArrayList<Usuario>();
+        amigosInv = new ArrayList<Usuario>();
         invitaciones = new ArrayList<Usuario>();
         invitacionesEnviadas = new ArrayList<Usuario>();
     }
@@ -69,6 +77,7 @@ public class Usuario {
         pais = null;
         puntos = 0;
         amigos = null;
+        amigosInv = null;
         invitaciones = null;
         invitacionesEnviadas = null;
     }
@@ -113,16 +122,36 @@ public class Usuario {
         this.puntos = puntos;
     }
 
-    public List<Amigo> getAmigos(){
+    public List<Usuario> getAmigos(){
         return this.amigos;
     }
 
-    public void setAmigo(Amigo amigo) {
-       this.amigos.add(amigo);
-    } 
+    public void setAmigos(List<Usuario> amig) {
+       amigos = amig;
+    }
+    
+    public void addAmigo(Usuario amigo){
+        this.amigos.add(amigo);
+    }
 
-    public void removeAmigo(Amigo amigo){
+    public void removeAmigo(Usuario amigo){
         this.amigos.remove(amigo);
+    }
+
+    public List<Usuario> getAmigosInv(){
+        return this.amigosInv;
+    }
+
+    public void setAmigosInv(List<Usuario> amig) {
+       amigosInv = amig;
+    }
+    
+    public void addAmigoInv(Usuario amigo){
+        this.amigosInv.add(amigo);
+    }
+
+    public void removeAmigoInv(Usuario amigo){
+        this.amigosInv.remove(amigo);
     }
 
     public List<Usuario> getInvitacion(){

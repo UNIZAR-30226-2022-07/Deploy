@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.AddFriendRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.GetFriendRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 
 import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
@@ -65,16 +66,29 @@ public class FriendController {
 				opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					logger.info("Usuarios encontrados " + user + " " + user2 );
-					InvitacionAmistad inv = new InvitacionAmistad(user,user2);
-					logger.info("Se crea el objeto" );
-				//	user.addInvitacionesEnviadas(user2);
 					user2.addInvitacion(user);
-				//	userRepository.save(user);
 					userRepository.save(user2);
 					return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
 				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
+		}
+	}
+
+	@PostMapping("/receive/friend-request")
+	public ResponseEntity<?> getInvitacionesAmistad(@RequestBody GetFriendRequest getfriendRequest) {
+		logger.info("user1=" + getfriendRequest.getUsername() );
+		if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+		
+		}else {
+			logger.info("Restricciones cumplidas");
+			Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
+			if(opUser.isPresent()){
+				Usuario user = opUser.get();
+				return ResponseEntity.ok(user.getInvitacion());
+			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
 		}
 	}
 }
