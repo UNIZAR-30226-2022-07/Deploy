@@ -75,7 +75,7 @@ public class FriendController {
 				opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					if (!user.getInvitacion().contains(user2) && !user.getAmigos().contains(user2)){
+					if (!user.getInvitacion().contains(user2) && !user.getAmigos().contains(user2) && !user.getInvitacionesEnviadas().contains(user2)){
 						user2.addInvitacion(user);
 						userRepository.save(user2);
 						return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
