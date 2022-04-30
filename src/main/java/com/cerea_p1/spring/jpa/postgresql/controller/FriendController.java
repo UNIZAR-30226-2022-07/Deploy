@@ -89,8 +89,8 @@ public class FriendController {
 			if(opUser.isPresent()){
 				Usuario user = opUser.get();
 				List<Usuario> inv = user.getInvitacion();
-				logger.info("Se obtienen los amigos" + inv);
-				return ResponseEntity.ok(inv);
+				logger.info("Se obtienen las peticiones de amistad" + inv);
+				return ResponseEntity.ok(new MessageResponse("OK"));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
 		}
 	}
