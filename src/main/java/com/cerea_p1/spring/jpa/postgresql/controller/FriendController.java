@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors; */
 import javax.validation.Valid;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -98,6 +100,32 @@ public class FriendController {
 				logger.info("Se obtienen las peticiones de amistad" + inv);
 				return ResponseEntity.ok(Sender.enviar(friendsToString(inv)));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
+		}
+	}
+
+	@PostMapping("/accept/friend-request")
+	public ResponseEntity<?> acceptInvitacionesAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
+		logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
+		if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
+		} else {
+			logger.info("Restricciones cumplidas");
+			Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
+			if(opUser.isPresent()){
+				Usuario user = opUser.get();
+				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
+				if(opUser.isPresent()){
+					Usuario user2 = opUser.get();
+					if (user.getInvitacion().contains(user2)){
+						user.removeInvitacion(user2);
+						user.addAmigo(user2);
+						user2.addAmigo(user);
+						userRepository.save(user);
+						userRepository.save(user2);
+						return ResponseEntity.ok(new MessageResponse("Amigo añadido: " + user2.getUsername()));
+					} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus peticiones de amistad."));
+				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede aceptar la petición de amistad"));
+			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede aceptar la petición de amistad"));
 		}
 	}
 
