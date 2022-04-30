@@ -65,41 +65,6 @@ Crear una partida:
 
     - Si va mal: codigo 4**, y por qué falla
 
-Conectarse a una partida (privada):
-
-  - Petición POST a https://onep1.herokuapp.com/game/connect
-
-  - JSON:
-
-        {
-          "playerName": <nombre_de_usuario>,
-          "gameId": <id_partida>
-        }
-
-  - Devuelve: 
-
-        {
-          "jugadores": [
-            {
-              "nombre": <nombre_de_usuario1>,
-              "cartas": []
-            },
-            {
-              "nombre": <nombre_de_usuario2>,
-              "cartas": []
-            }
-            {
-              "nombre": <nombre_de_usuarioN>,
-              "cartas": []
-            }
-          ],
-          "id": <id_partida>,
-          "tipo": true
-        }
-
-    - Si va mal: codigo 4**, y por qué falla
-
-
 
 Desconectarse de una partida (ANTES DE QUE EMPIECE):
 
@@ -114,5 +79,20 @@ Desconectarse de una partida (ANTES DE QUE EMPIECE):
 
   - Devuelve: 
     - Si va bien: codigo 200, OK
+    - Si va mal: codigo 4**, y por qué falla
+
+
+Enviar una petición de amistad
+  - Petición POST a https://onep1.herokuapp.com/send/friend-request
+
+  - JSON:
+
+        {
+          "username": <nombre_de_usuario>,
+          "friendname": <nombre_del_amigo>
+        }
+
+  - Devuelve: 
+    - Si va bien: codigo 200, Petición de amistad enviada a " + <nombre_del_amigo>
     - Si va mal: codigo 4**, y por qué falla
 

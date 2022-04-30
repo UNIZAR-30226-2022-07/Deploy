@@ -32,7 +32,6 @@ import com.cerea_p1.spring.jpa.postgresql.repository.InvitacionAmistadRepository
 import com.cerea_p1.spring.jpa.postgresql.model.friends.InvitacionAmistad;
 
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
-import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 
 import java.util.logging.*;
 
@@ -91,7 +90,7 @@ public class FriendController {
 				Usuario user = opUser.get();
 				List<Usuario> inv = user.getInvitacion();
 				logger.info("Se obtienen las peticiones de amistad" + inv);
-				return ResponseEntity.ok(Sender.enviar(inv));
+				return ResponseEntity.ok().header("Peticiones de amistad", user.getUsername()).body(inv);
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
 		}
 	}
