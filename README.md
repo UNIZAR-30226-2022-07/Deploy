@@ -106,9 +106,9 @@ Ver invitaciones de amistad
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-          [
-            <nombre_del_amigo>
-          ]
+            [
+              <nombre_del_amigo>
+            ]
     - Si va mal: codigo 4**, y por qué falla
 
 Aceptar invitación de amistad
@@ -122,9 +122,9 @@ Aceptar invitación de amistad
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-          {
-            "message": "Amigo añadido: <nombre_del_amigo>"
-          }
+            {
+              "message": "Amigo añadido: <nombre_del_amigo>"
+            }
     - Si va mal: codigo 4**, y por qué falla
 
 Ver lista de amigos
@@ -137,9 +137,9 @@ Ver lista de amigos
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-        [
-          <nombre_del_amigo>
-        ]
+          [
+            <nombre_del_amigo>
+          ]
     - Si va mal: codigo 4**, y por qué falla
 
 Cancelar petición de amistad
@@ -153,9 +153,9 @@ Cancelar petición de amistad
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-        {
-          "message": "Petición de amistad cancelada: <nombre_del_amigo>"
-        }
+          {
+            "message": "Petición de amistad cancelada: <nombre_del_amigo>"
+          }
     - Si va mal: codigo 4**, y por qué falla
 
 Eliminar amigo
@@ -169,7 +169,7 @@ Eliminar amigo
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-        {
-          "message": "Amigo eliminado: <nombre_del_amigo>"
-        }
+          {
+            "message": "Amigo eliminado: <nombre_del_amigo>"
+          }
     - Si va mal: codigo 4**, y por qué falla
