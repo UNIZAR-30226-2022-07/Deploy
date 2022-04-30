@@ -110,3 +110,18 @@ Ver invitaciones de amistad
         <nombre_del_amigo>
       ]
     - Si va mal: codigo 4**, y por qué falla
+
+Aceptar invitación de amistad
+  - Petición POST a https://onep1.herokuapp.com/accept/friend-request
+
+   - JSON:
+
+        {
+          "username": <nombre_de_usuario>,
+          "username": <nombre_del_amigo>
+        }
+  - Devuelve: 
+    - Si va bien: codigo 200, {
+      "message": "Amigo añadido: <nombre_del_amigo>"
+    }
+    - Si va mal: codigo 4**, y por qué falla
