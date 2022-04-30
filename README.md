@@ -121,9 +121,10 @@ Aceptar invitación de amistad
             "friendname": <nombre_del_amigo>
           }
   - Devuelve: 
-    - Si va bien: codigo 200, {
-      "message": "Amigo añadido: <nombre_del_amigo>"
-    }
+    - Si va bien: codigo 200, 
+        {
+          "message": "Amigo añadido: <nombre_del_amigo>"
+        }
     - Si va mal: codigo 4**, y por qué falla
 
 Ver lista de amigos
