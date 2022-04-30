@@ -114,12 +114,12 @@ Ver invitaciones de amistad
 Aceptar invitación de amistad
   - Petición POST a https://onep1.herokuapp.com/friends/accept/friend-request
 
-   - JSON:
+  - JSON:
 
-          {
-            "username": <nombre_de_usuario>,
-            "friendname": <nombre_del_amigo>
-          }
+        {
+          "username": <nombre_de_usuario>,
+          "friendname": <nombre_del_amigo>
+        }
   - Devuelve: 
     - Si va bien: codigo 200, 
           {
@@ -130,22 +130,22 @@ Aceptar invitación de amistad
 Ver lista de amigos
   - Petición POST a https://onep1.herokuapp.com/friends/friendsList
 
-   - JSON:
+  - JSON:
 
         {
           "username": <nombre_de_usuario>
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-     [
-        <nombre_del_amigo>
-      ]
+        [
+          <nombre_del_amigo>
+        ]
     - Si va mal: codigo 4**, y por qué falla
 
 Cancelar petición de amistad
   - Petición POST a https://onep1.herokuapp.com/friends/cancel/fiend-request
 
-   - JSON:
+  - JSON:
 
         {
           "username": <nombre_de_usuario>,
@@ -153,15 +153,15 @@ Cancelar petición de amistad
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-     {
-        "message": "Petición de amistad cancelada: <nombre_del_amigo>"
-      }
+        {
+          "message": "Petición de amistad cancelada: <nombre_del_amigo>"
+        }
     - Si va mal: codigo 4**, y por qué falla
 
 Eliminar amigo
   - Petición POST a https://onep1.herokuapp.com/friends/deleteFriend
 
-   - JSON:
+  - JSON:
 
         {
           "username": <nombre_de_usuario>,
@@ -169,7 +169,7 @@ Eliminar amigo
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-     {
-        "message": "Amigo eliminado: <nombre_del_amigo>"
-      }
+        {
+          "message": "Amigo eliminado: <nombre_del_amigo>"
+        }
     - Si va mal: codigo 4**, y por qué falla
