@@ -90,8 +90,19 @@ public class FriendController {
 				Usuario user = opUser.get();
 				List<Usuario> inv = user.getInvitacion();
 				logger.info("Se obtienen las peticiones de amistad" + inv);
-				return ResponseEntity.ok().header("Peticiones de amistad", user.getUsername()).body(inv);
+				return ResponseEntity.ok(new MessageResponse(friendsToString(inv)));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
 		}
+	}
+
+	private String friendsToString(List<Usuario> l){
+		String s = "[";
+		boolean first = true;
+		for(Usuario u : l){
+			if (!first) s += ", ";
+			else first = false; 
+			s += "\"" + u.getUsername() + "\"";
+		}
+		return s + "]";
 	}
 }
