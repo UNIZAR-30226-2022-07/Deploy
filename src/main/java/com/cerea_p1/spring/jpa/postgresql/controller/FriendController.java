@@ -175,6 +175,31 @@ public class FriendController {
 		}
 	}
 
+	@PostMapping("/deleteFriend")
+	public ResponseEntity<?> deleteAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
+		logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
+		if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
+		} else {
+			logger.info("Restricciones cumplidas");
+			Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
+			if(opUser.isPresent()){
+				Usuario user = opUser.get();
+				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
+				if(opUser.isPresent()){
+					Usuario user2 = opUser.get();
+					if (user.getAmigos().contains(user2)){
+						user.removeAmigo(user2);
+						user2.removeAmigo(user);
+						userRepository.save(user);
+						userRepository.save(user2);
+						return ResponseEntity.ok(new MessageResponse("Amigo eliminado: " + user2.getUsername()));
+					} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus amigos."));
+				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede eliminar a tu amigo"));
+			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede eliminar a tu amigo"));
+		}
+	}
+
 	private List<String> friendsToString(List<Usuario> l){
 		List<String> l2 = new ArrayList<String>();
 		for(Usuario u : l){
