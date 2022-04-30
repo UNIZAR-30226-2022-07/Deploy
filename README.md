@@ -106,9 +106,9 @@ Ver invitaciones de amistad
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-      [
-        <nombre_del_amigo>
-      ]
+          [
+            <nombre_del_amigo>
+          ]
     - Si va mal: codigo 4**, y por qué falla
 
 Aceptar invitación de amistad
@@ -116,10 +116,10 @@ Aceptar invitación de amistad
 
    - JSON:
 
-        {
-          "username": <nombre_de_usuario>,
-          "username": <nombre_del_amigo>
-        }
+          {
+            "username": <nombre_de_usuario>,
+            "friendname": <nombre_del_amigo>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, {
       "message": "Amigo añadido: <nombre_del_amigo>"
