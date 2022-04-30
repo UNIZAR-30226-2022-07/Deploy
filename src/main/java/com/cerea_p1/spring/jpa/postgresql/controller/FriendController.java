@@ -75,9 +75,11 @@ public class FriendController {
 				opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					user2.addInvitacion(user);
-					userRepository.save(user2);
-					return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
+					if (!user.getInvitacion().contains(user2) && !user.getAmigos().contains(user2)){
+						user2.addInvitacion(user);
+						userRepository.save(user2);
+						return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
+					} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " ya forma parte de tus amigos o ya te envió una petición de amistad"));
 				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
 		}
