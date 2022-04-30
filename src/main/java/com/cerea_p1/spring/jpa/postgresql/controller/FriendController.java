@@ -129,6 +129,27 @@ public class FriendController {
 		}
 	}
 
+
+	@PostMapping("/friendsList")
+	public ResponseEntity<?> getAmigos(@RequestBody GetFriendRequest getfriendRequest) {
+		logger.info("user1=" + getfriendRequest.getUsername() );
+		if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+		
+		}else {
+			logger.info("Restricciones cumplidas");
+			Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
+			if(opUser.isPresent()){
+				Usuario user = opUser.get();
+				List<Usuario> inv = user.getAmigos();
+				logger.info("Se obtienen los amigos amistad" + inv);
+				return ResponseEntity.ok(Sender.enviar(friendsToString(inv)));
+			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar los amigos."));
+		}
+	}
+
 	private List<String> friendsToString(List<Usuario> l){
 		List<String> l2 = new ArrayList<String>();
 		for(Usuario u : l){
