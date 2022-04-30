@@ -4,21 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/* import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors; */
-import javax.validation.Valid;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +17,7 @@ import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.GetFriendReque
 
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 
-import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
-import com.cerea_p1.spring.jpa.postgresql.repository.InvitacionAmistadRepository;
-
-import com.cerea_p1.spring.jpa.postgresql.model.friends.InvitacionAmistad;
 
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 
@@ -49,10 +32,6 @@ import java.util.logging.*;
 public class FriendController {
     @Autowired
 	UsuarioRepository userRepository;
-	@Autowired
-	AmigoRepository friendRepository;
-	@Autowired
-	InvitacionAmistadRepository invitacionRepository;
 	private static final Logger logger = Logger.getLogger("MyLog");
 
 	@Autowired

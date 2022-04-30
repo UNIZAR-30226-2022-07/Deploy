@@ -18,21 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
-import com.cerea_p1.spring.jpa.postgresql.model.friends.Amigo;
-
 import com.cerea_p1.spring.jpa.postgresql.payload.request.LoginRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.SignupRequest;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.AddFriendRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.JwtResponse;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
-
-import com.cerea_p1.spring.jpa.postgresql.repository.AmigoRepository;
 
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.logging.*;
 @CrossOrigin(origins = "*", maxAge = 3600)

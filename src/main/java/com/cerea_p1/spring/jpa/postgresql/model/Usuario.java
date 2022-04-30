@@ -5,9 +5,6 @@ import javax.validation.constraints.*;
 import java.util.*;
 import javax.persistence.CascadeType;
 
-import com.cerea_p1.spring.jpa.postgresql.model.friends.Amigo;
-import com.cerea_p1.spring.jpa.postgresql.model.friends.InvitacionAmistad;
-
 @Entity
 @Table(name = "usuario", 
             uniqueConstraints = { 
