@@ -25,7 +25,7 @@ import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
 
 import java.util.logging.*;
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

@@ -42,6 +42,7 @@ public class GameService {
             optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
             Partida game = optionalGame.get();
 
+            if(game.getJugadores().size() >= game.getNJugadores()) throw new GameException("Partida llena.");
             if(!game.playerAlreadyIn(player))
                 game.addJugador(player);
             return game.getJugadores();
@@ -80,7 +81,7 @@ public class GameService {
             throw new GameException("Jugador no valido");
     }
 
-    public void beginGame(String gameId){
+    public Partida beginGame(String gameId){
         Optional<Partida> optionalGame;
         if(almacen_partidas.containsKey(gameId))
             optionalGame = Optional.of(almacen_partidas.get(gameId));
@@ -94,6 +95,10 @@ public class GameService {
         if(game.getEstado() == EstadoPartidaEnum.NEW){
             game.setEstado(EstadoPartidaEnum.IN_PROGRESS);
         }
+        if(game.getJugadores().size() == game.getNJugadores()){
+            game.repartirManos();
+            return game;
+        } else throw new GameException("Faltan jugadores.");
     }
 
     /*public Game connectToRandomGame(Player player) {
