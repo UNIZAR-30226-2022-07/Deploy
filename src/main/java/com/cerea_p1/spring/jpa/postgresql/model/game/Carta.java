@@ -1,8 +1,5 @@
 package com.cerea_p1.spring.jpa.postgresql.model.game;
 
-import com.cerea_p1.spring.jpa.postgresql.model.game.Numero;
-import com.cerea_p1.spring.jpa.postgresql.model.game.Color;
-
 public class Carta {
     Numero num;
     Color col;

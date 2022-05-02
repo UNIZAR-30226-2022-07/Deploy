@@ -1,10 +1,8 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
 
-//import ex.com.challenge.dto.ConnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.exception.GameException;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -26,11 +21,10 @@ import org.springframework.stereotype.Controller;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 import org.springframework.messaging.handler.annotation.Header;
 
-//@RestController
+
 @Slf4j
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/") // con asterisco no funciona
 @AllArgsConstructor
-//@RequestMapping("/game")
 @Controller
 public class GameController {
     private final GameService gameService = new GameService();

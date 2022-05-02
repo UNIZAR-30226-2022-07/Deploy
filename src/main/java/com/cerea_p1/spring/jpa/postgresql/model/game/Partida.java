@@ -1,9 +1,6 @@
 package com.cerea_p1.spring.jpa.postgresql.model.game;
 
 import java.util.*;
-import com.cerea_p1.spring.jpa.postgresql.model.game.Jugador;
-import com.cerea_p1.spring.jpa.postgresql.model.game.Color;
-import com.cerea_p1.spring.jpa.postgresql.model.game.Numero;
 
 public class Partida {
     private int nJugadores;

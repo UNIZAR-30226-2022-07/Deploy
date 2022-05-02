@@ -1,6 +1,5 @@
 package com.cerea_p1.spring.jpa.postgresql.model.game;
 
-import com.cerea_p1.spring.jpa.postgresql.model.game.Carta;
 import java.util.*;
 
 public class Jugador {
