@@ -176,10 +176,21 @@ public class Partida {
     public void repartirManos() {
         for(int i=0; i<7; ++i) {
             for (Jugador j : jugadores) {
-                j.addCarta(baraja.get(0));
-                baraja.remove(0);
+                j.addCarta(baraja.get(baraja.size()-1));
+                baraja.remove(baraja.size()-1);
             }
         }
+    }
+    
+    public Carta getCartaInicial() {
+        Carta inicial = baraja.get(baraja.size()-1);
+        descartes.add(inicial);
+        baraja.remove(baraja.size()-1);
+        return inicial;
+    }
+
+    public Carta getTopPila(){
+        return descartes.get(descartes.size()-1);
     }
 
     public void jugarCarta(Carta c, String nombreJugador) {
@@ -198,8 +209,8 @@ public class Partida {
             barajarDescartes();
 
         for(int i=0; i<n; ++i) {
-            robadas.add(baraja.get(0));
-            baraja.remove(0);
+            robadas.add(baraja.get(baraja.size()-1));
+            baraja.remove(baraja.size()-1);
         }
 
         return robadas;

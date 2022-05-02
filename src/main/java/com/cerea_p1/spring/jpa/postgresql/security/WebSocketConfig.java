@@ -30,7 +30,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
  
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
+        config.enableSimpleBroker("/topic", "/user");
         config.setApplicationDestinationPrefixes("/game");
     }
  
