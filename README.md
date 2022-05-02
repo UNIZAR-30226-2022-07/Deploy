@@ -68,7 +68,7 @@ Crear una partida:
 
 Desconectarse de una partida (ANTES DE QUE EMPIECE):
 
-  - Petición POST a https://onep1.herokuapp.com/game/disconnect
+  - Petición por websocket
 
   - JSON:
 
@@ -106,9 +106,9 @@ Ver invitaciones de amistad
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-            [
-              <nombre_del_amigo>
-            ]
+            {
+              "message": "[ <nombre_del_amigo1>, <nombre_del_amigo2>, ...]"
+            }
     - Si va mal: codigo 4**, y por qué falla
 
 Aceptar invitación de amistad
@@ -137,9 +137,10 @@ Ver lista de amigos
         }
   - Devuelve: 
     - Si va bien: codigo 200, 
-          [
-            <nombre_del_amigo>
-          ]
+          {
+              "message": "[ <nombre_del_amigo1>, <nombre_del_amigo2>, ...]"
+          }
+
     - Si va mal: codigo 4**, y por qué falla
 
 Cancelar petición de amistad
