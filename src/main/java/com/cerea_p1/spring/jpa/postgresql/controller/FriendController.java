@@ -128,6 +128,7 @@ public class FriendController {
 				Usuario user = opUser.get();
 				List<Usuario> inv = user.getAmigos();
 				logger.info("Se obtienen los amigos amistad" + inv);
+				logger.info(Sender.enviar(friendsToString(inv)));
 				return ResponseEntity.ok(new MessageResponse(Sender.enviar(friendsToString(inv))));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar los amigos."));
 		}
