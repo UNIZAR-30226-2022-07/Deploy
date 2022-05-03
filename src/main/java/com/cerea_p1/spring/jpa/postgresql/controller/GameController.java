@@ -54,7 +54,7 @@ public class GameController {
     @MessageMapping("/game/begin")
 	@SendTo("/topic/game/{roomId}")
     @ExceptionHandler(GameException.class)
-    public String begin(@DestinationVariable("roomId") String roomId, @RequestParam("username") String username) throws GameException {
+    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws GameException {
         try{
             logger.info("begin game request by " + username);
             gameService.beginGame(roomId);

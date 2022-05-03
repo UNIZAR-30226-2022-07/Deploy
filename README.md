@@ -65,23 +65,6 @@ Crear una partida:
 
     - Si va mal: codigo 4**, y por qué falla
 
-
-Desconectarse de una partida (ANTES DE QUE EMPIECE):
-
-  - Petición por websocket
-
-  - JSON:
-
-        {
-          "playerName": <nombre_de_usuario>,
-          "gameId": <id_partida>
-        }
-
-  - Devuelve: 
-    - Si va bien: codigo 200, OK
-    - Si va mal: codigo 4**, y por qué falla
-
-
 Enviar una petición de amistad
   - Petición POST a https://onep1.herokuapp.com/friends/send/friend-request
 
@@ -174,3 +157,8 @@ Eliminar amigo
             "message": "Amigo eliminado: <nombre_del_amigo>"
           }
     - Si va mal: codigo 4**, y por qué falla
+
+## Websockets
+
+Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
+
