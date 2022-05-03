@@ -162,9 +162,16 @@ Eliminar amigo
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
 
+
+
 Cada usuario debería suscribirse a /user/{username}/msg (es donde llegarán los mensajes específicos para el usuario)
+
 Suscribirse a una partida /topic/game/{roomId}
 
+
+
 Enviar un mensaje para conectarse a la partida /connect/{roomId}
+
 Enviar un mensaje para empezar una partida /begin/{roomId}
+
 Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
