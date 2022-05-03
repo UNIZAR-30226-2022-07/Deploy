@@ -53,8 +53,8 @@ public class GameController {
 
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @ExceptionHandler(GameException.class)
-    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws GameException {
+  //  @ExceptionHandler(GameException.class)
+    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws GameException {
         try{
             logger.info("begin game request by " + username);
             gameService.beginGame(roomId);
@@ -65,7 +65,7 @@ public class GameController {
             }
             return Sender.enviar(game.getCartaInicial());
         } catch(GameException e) {
-            return Sender.enviar(e);
+            return Sender.enviar(e.getMessage());
         }
     }
 
