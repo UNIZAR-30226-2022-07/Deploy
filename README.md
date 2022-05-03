@@ -47,7 +47,9 @@ Crear una partida:
   - JSON:
 
         {
-          "playerName": <nombre_de_usuario>
+            "playername": <nombre_del_usuario>,
+            "nplayers": <numero_de_jugadores>,
+            "tturn": <tiempo_de_turno>
         }
 
   - Devuelve: 
