@@ -53,7 +53,7 @@ public class GameController {
 
     @MessageMapping("/game/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @ExceptionHandler(GameException.class)
+    //@ExceptionHandler(GameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws GameException {
         try{
             logger.info("begin game request by " + username);
@@ -71,7 +71,7 @@ public class GameController {
 
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
-    @ExceptionHandler(GameException.class)
+    //@ExceptionHandler(GameException.class)
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
             logger.info("disconnect request by " + username);
