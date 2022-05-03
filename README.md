@@ -162,3 +162,5 @@ Eliminar amigo
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
 
+
+Cada usuario debería conectarse a /user/{username}/msg
