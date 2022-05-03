@@ -51,7 +51,7 @@ public class GameController {
     }
 
 
-    @MessageMapping("/game/begin")
+    @MessageMapping("/game/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
     @ExceptionHandler(GameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws GameException {
