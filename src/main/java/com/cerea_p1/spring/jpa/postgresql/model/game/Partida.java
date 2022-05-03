@@ -189,7 +189,7 @@ public class Partida {
         return inicial;
     }
 
-    public Carta getTopPila(){
+    public Carta getUltimaCarta(){
         return descartes.get(descartes.size()-1);
     }
 
