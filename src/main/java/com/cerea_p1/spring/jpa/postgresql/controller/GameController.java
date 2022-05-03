@@ -61,7 +61,7 @@ public class GameController {
             //ENVIAR MANOS INICIALES A TODOS LOS JUGADORES
             Partida game = gameService.beginGame(roomId);
             for(Jugador j : game.getJugadores()){
-                simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/game", j.getCartas());
+                simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
             }
             return Sender.enviar(game.getCartaInicial());
         } catch(GameException e) {
