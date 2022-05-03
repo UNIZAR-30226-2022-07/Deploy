@@ -173,7 +173,9 @@ Suscribirse a una partida /topic/game/{roomId}
 
 
 Enviar un mensaje para conectarse a la partida /connect/{roomId}
+  - Body : nombre de usuario
 
 Enviar un mensaje para empezar una partida /begin/{roomId}
+  - Body : nombre de usuario
 
 Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
