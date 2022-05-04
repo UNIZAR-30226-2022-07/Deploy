@@ -20,6 +20,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 
 
 @Slf4j
@@ -40,8 +41,9 @@ public class GameController {
 
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @ExceptionHandler(ConnectGameException.class)
-    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws ConnectGameException{ 
+    @MessageExceptionHandler()
+  //  @ExceptionHandler(ConnectGameException.class)
+    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws ConnectGameException{ 
         try{
 			logger.info("connect request by " + username);
 			return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
@@ -53,8 +55,9 @@ public class GameController {
 
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @ExceptionHandler(BeginGameException.class)
-    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws BeginGameException {
+    @MessageExceptionHandler()
+   // @ExceptionHandler(BeginGameException.class)
+    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws BeginGameException {
         try{
             logger.info("begin game request by " + username);
             gameService.beginGame(roomId);
@@ -71,8 +74,9 @@ public class GameController {
 
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
-    @ExceptionHandler(DisconnectGameException.class)
-    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws DisconnectGameException{
+    @MessageExceptionHandler()
+   // @ExceptionHandler(DisconnectGameException.class)
+    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
         try{
             logger.info("disconnect request by " + username);
             return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
