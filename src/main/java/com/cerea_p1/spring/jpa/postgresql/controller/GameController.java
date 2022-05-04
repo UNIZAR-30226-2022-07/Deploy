@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -41,7 +42,7 @@ public class GameController {
 
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @MessageExceptionHandler(ConnectGameException.class)
+//    @MessageExceptionHandler(ConnectGameException.class)
   //  @ExceptionHandler(ConnectGameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws ConnectGameException{ 
         try{
@@ -55,7 +56,7 @@ public class GameController {
 
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @MessageExceptionHandler(BeginGameException.class)
+//    @MessageExceptionHandler(BeginGameException.class)
    // @ExceptionHandler(BeginGameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws BeginGameException {
         try{
@@ -74,7 +75,7 @@ public class GameController {
 
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
-    @MessageExceptionHandler(DisconnectGameException.class)
+  //  @MessageExceptionHandler(DisconnectGameException.class)
    // @ExceptionHandler(DisconnectGameException.class)
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
         try{
@@ -83,6 +84,16 @@ public class GameController {
         } catch(DisconnectGameException e){
             return Sender.enviar(e);
         }
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleException(NullPointerException ex)
+    {
+        //Do something additional if required
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("error");
+        modelAndView.addObject("message", ex.getMessage());
+        return modelAndView;
     }
 
     /*@PostMapping("/connect/random")
