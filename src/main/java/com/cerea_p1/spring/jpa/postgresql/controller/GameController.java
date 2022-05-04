@@ -67,7 +67,7 @@ public class GameController {
             // for(Jugador j : game.getJugadores()){
             //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
             // }
-            return Sender.enviar(game.getCartaInicial());
+            return Sender.enviar(game.getUltimaCartaJugada());
         } catch(BeginGameException e) {
             return Sender.enviar(e.getMessage());
         }
