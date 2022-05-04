@@ -68,7 +68,7 @@ public class GameController {
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
             }
             return Sender.enviar(game.getUltimaCartaJugada());
-        } catch(BeginGameException e) {
+        } catch(Exception e) {
             return Sender.enviar(e.getMessage());
         }
     }
