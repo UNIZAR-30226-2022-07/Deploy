@@ -36,18 +36,18 @@ public class GameService {
             Optional<Partida> optionalGame;
             if(almacen_partidas.containsKey(gameId))
                 optionalGame = Optional.of(almacen_partidas.get(gameId));
-            else{ optionalGame = null; throw new GameException("Esa partida no existe"); 
+            else{ optionalGame = null; throw new ConnectGameException("Esa partida no existe"); 
             }
 
-            optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
+            optionalGame.orElseThrow(() -> new ConnectGameException("Game with provided id doesn't exist"));
             Partida game = optionalGame.get();
 
-            if(game.getJugadores().size() >= game.getNJugadores()) throw new GameException("Partida llena.");
+            if(game.getJugadores().size() >= game.getNJugadores()) throw new ConnectGameException("Partida llena.");
             if(!game.playerAlreadyIn(player))
                 game.addJugador(player);
             return game.getJugadores();
         } else
-            throw new GameException("Jugador no valido");
+            throw new ConnectGameException("Jugador no valido");
     }
 
     public String disconnectFromGame(Jugador player, String gameId){
@@ -57,13 +57,13 @@ public class GameService {
                 optionalGame = Optional.of(almacen_partidas.get(gameId));
             else {
                 optionalGame = null; 
-                throw new GameException("Esa partida no existe");
+                throw new DisconnectGameException("Esa partida no existe");
             }
 
-            optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
+            optionalGame.orElseThrow(() -> new DisconnectGameException("Game with provided id doesn't exist"));
             Partida game = optionalGame.get();
             if(game.getEstado() != EstadoPartidaEnum.NEW){
-                throw new GameException("No puedes salir de la partida.");
+                throw new DisconnectGameException("No puedes salir de la partida.");
             }
 
             if(game.playerAlreadyIn(player)) {
@@ -75,10 +75,10 @@ public class GameService {
                 return player.getNombre()+" disconnected successfully from "+ game.getId();
             }
             else
-                throw new GameException("Jugador no pertenece a la partida");
+                throw new DisconnectGameException("Jugador no pertenece a la partida");
                 
         } else
-            throw new GameException("Jugador no valido");
+            throw new DisconnectGameException("Jugador no valido");
     }
 
     public Partida beginGame(String gameId){
@@ -87,10 +87,10 @@ public class GameService {
             optionalGame = Optional.of(almacen_partidas.get(gameId));
         else { 
             optionalGame = null;
-            throw new GameException("Esa partida no existe");
+            throw new BeginGameException("Esa partida no existe");
         }
 
-        optionalGame.orElseThrow(() -> new GameException("Game with provided id doesn't exist"));
+        optionalGame.orElseThrow(() -> new BeginGameException("Game with provided id doesn't exist"));
         Partida game = optionalGame.get();
         if(game.getEstado() == EstadoPartidaEnum.NEW){
             game.setEstado(EstadoPartidaEnum.IN_PROGRESS);
@@ -98,7 +98,7 @@ public class GameService {
         if(game.getJugadores().size() == game.getNJugadores()){
             game.repartirManos();
             return game;
-        } else throw new GameException("Faltan jugadores.");
+        } else throw new BeginGameException("Faltan jugadores.");
     }
 
     /*public Game connectToRandomGame(Player player) {

@@ -1,6 +1,6 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
 
-import com.cerea_p1.spring.jpa.postgresql.exception.GameException;
+import com.cerea_p1.spring.jpa.postgresql.exception.*;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
@@ -40,12 +40,12 @@ public class GameController {
 
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    //@ExceptionHandler(GameException.class)
-    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) { 
+    @ExceptionHandler(ConnectGameException.class)
+    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws ConnectGameException{ 
         try{
 			logger.info("connect request by " + username);
 			return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
-        } catch(GameException e) {
+        } catch(ConnectGameException e) {
           	return Sender.enviar(e);
         }
     }
@@ -53,8 +53,8 @@ public class GameController {
 
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-  //@ExceptionHandler(GameException.class)
-    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws GameException {
+    @ExceptionHandler(BeginGameException.class)
+    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws BeginGameException {
         try{
             logger.info("begin game request by " + username);
             gameService.beginGame(roomId);
@@ -64,19 +64,19 @@ public class GameController {
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
             }
             return Sender.enviar(game.getCartaInicial());
-        } catch(GameException e) {
+        } catch(BeginGameException e) {
             return Sender.enviar(e.getMessage());
         }
     }
 
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
-    //@ExceptionHandler(GameException.class)
-    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
+    @ExceptionHandler(DisconnectGameException.class)
+    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) throws DisconnectGameException{
         try{
             logger.info("disconnect request by " + username);
             return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
-        } catch(GameException e){
+        } catch(DisconnectGameException e){
             return Sender.enviar(e);
         }
     }
