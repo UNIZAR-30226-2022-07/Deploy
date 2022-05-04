@@ -176,7 +176,7 @@ public class Partida {
     }
 
     public void repartirManos() {
-        for(int i=0; i<7; ++i) {
+        for(int i=0; i<7; i++) {
             for (Jugador j : jugadores) {
                 j.addCarta(baraja.get(baraja.size()-1));
                 baraja.remove(baraja.size()-1);
