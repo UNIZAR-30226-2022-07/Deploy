@@ -189,7 +189,7 @@ public class Partida {
         return inicial;
     }
 
-    public Carta getUltimaCarta(){
+    public Carta getUltimaCartaJugada(){
         return descartes.get(descartes.size()-1);
     }
 
