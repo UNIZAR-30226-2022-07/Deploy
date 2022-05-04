@@ -41,7 +41,7 @@ public class GameController {
 
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @MessageExceptionHandler()
+    @MessageExceptionHandler(ConnectGameException.class)
   //  @ExceptionHandler(ConnectGameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws ConnectGameException{ 
         try{
@@ -55,7 +55,7 @@ public class GameController {
 
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
-    @MessageExceptionHandler()
+    @MessageExceptionHandler(BeginGameException.class)
    // @ExceptionHandler(BeginGameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws BeginGameException {
         try{
@@ -74,7 +74,7 @@ public class GameController {
 
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
-    @MessageExceptionHandler()
+    @MessageExceptionHandler(DisconnectGameException.class)
    // @ExceptionHandler(DisconnectGameException.class)
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
         try{
