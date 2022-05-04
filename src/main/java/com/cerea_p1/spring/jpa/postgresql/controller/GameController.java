@@ -43,7 +43,7 @@ public class GameController {
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/game/{roomId}")
 //    @MessageExceptionHandler(ConnectGameException.class)
-  //  @ExceptionHandler(ConnectGameException.class)
+    @ExceptionHandler(ConnectGameException.class)
     public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws ConnectGameException{ 
         try{
 			logger.info("connect request by " + username);
@@ -57,7 +57,7 @@ public class GameController {
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
 //    @MessageExceptionHandler(BeginGameException.class)
-   // @ExceptionHandler(BeginGameException.class)
+    @ExceptionHandler(BeginGameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws BeginGameException {
         try{
             logger.info("begin game request by " + username);
@@ -76,7 +76,7 @@ public class GameController {
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
   //  @MessageExceptionHandler(DisconnectGameException.class)
-   // @ExceptionHandler(DisconnectGameException.class)
+    @ExceptionHandler(DisconnectGameException.class)
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
         try{
             logger.info("disconnect request by " + username);
@@ -86,15 +86,15 @@ public class GameController {
         }
     }
 
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleException(NullPointerException ex)
-    {
-        //Do something additional if required
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("error");
-        modelAndView.addObject("message", ex.getMessage());
-        return modelAndView;
-    }
+    // @ExceptionHandler(Exception.class)
+    // public ModelAndView handleException(NullPointerException ex)
+    // {
+    //     //Do something additional if required
+    //     ModelAndView modelAndView = new ModelAndView();
+    //     modelAndView.setViewName("error");
+    //     modelAndView.addObject("message", ex.getMessage());
+    //     return modelAndView;
+    // }
 
     /*@PostMapping("/connect/random")
     public ResponseEntity<Game> connectRandom(@RequestBody Player player) throws GameException{

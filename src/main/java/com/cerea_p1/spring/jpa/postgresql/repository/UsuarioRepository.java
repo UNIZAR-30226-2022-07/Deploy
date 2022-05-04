@@ -11,5 +11,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     Optional<Usuario> findByUsername(String username);
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
-    
+    // @Query("SELECT u FROM User u WHERE u.status = :status and u.name = :name")
+    // List<User> findUserByUserStatusAndUserName(@Param("status") Integer userStatus, 
+    // @Param("name") String userName);
 }
