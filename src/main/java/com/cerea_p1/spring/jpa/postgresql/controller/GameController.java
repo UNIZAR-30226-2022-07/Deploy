@@ -61,7 +61,6 @@ public class GameController {
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
     @MessageExceptionHandler()
-//    @ExceptionHandler(BeginGameException.class)
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws BeginGameException {
         try{
             logger.info("begin game request by " + username);
@@ -79,18 +78,17 @@ public class GameController {
         }
     }
 
-//     @MessageMapping("/disconnect/{roomId}")
-//     @SendTo("/topic/game/{roomId}")
-//     @MessageExceptionHandler()
-//   //  @ExceptionHandler(DisconnectGameException.class)
-//     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
-//         try{
-//             logger.info("disconnect request by " + username);
-//             return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
-//         } catch(DisconnectGameException e){
-//             return Sender.enviar(e);
-//         }
-//     }
+    @MessageMapping("/disconnect/{roomId}")
+    @SendTo("/topic/game/{roomId}")
+    @MessageExceptionHandler()
+    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
+        try{
+            logger.info("disconnect request by " + username);
+            return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
+        } catch(DisconnectGameException e){
+            return Sender.enviar(e);
+        }
+    }
 
     // @ExceptionHandler(Exception.class)
     // public ModelAndView handleException(NullPointerException ex)
