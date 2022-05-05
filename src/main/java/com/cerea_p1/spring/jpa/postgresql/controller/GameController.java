@@ -52,7 +52,8 @@ public class GameController {
         try{
 			logger.info("connect request by " + username);
 			return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
-        } catch(ConnectGameException e) {
+        } catch(Exception e) {
+            logger.warning("Exception" + e.getMessage());
           	return Sender.enviar(e);
         }
     }
@@ -85,7 +86,8 @@ public class GameController {
         try{
             logger.info("disconnect request by " + username);
             return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
-        } catch(DisconnectGameException e){
+        } catch(Exception e){
+            logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);
         }
     }
