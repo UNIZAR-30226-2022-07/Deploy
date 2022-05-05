@@ -51,16 +51,16 @@ public class RankingController {
         }
 	}
 
-    // @PostMapping("/rankingMundial")
-    // @MessageExceptionHandler()
-	// public ResponseEntity<?> rankingPorMundial() {
-    //     try{
-    //         return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingMundial())));
-    //     }catch (Exception e){
-    //         logger.warning("Exception" + e.getMessage());
-    //         return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
-    //     }
-	// }
+    @PostMapping("/rankingMundial")
+    @MessageExceptionHandler()
+	public ResponseEntity<?> rankingPorMundial() {
+        try{
+            return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingMundial())));
+        }catch (Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
+        }
+	}
 
 	// @PostMapping("/receive/friend-request")
 	// public ResponseEntity<?> getInvitacionesAmistad(@RequestBody GetFriendRequest getfriendRequest) {

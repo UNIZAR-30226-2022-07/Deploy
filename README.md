@@ -171,7 +171,7 @@ Ranking de un pais
   - Devuelve: 
     - Si va bien: codigo 200, 
           {
-            "message": "[\"3nsalada\",\"3nsalada2\",\"3nsalada3\"]"
+            "message": "[\"3nsalada2,10\",\"3nsalada,3\",\"3nsalada3,0\"]"
           }
     - Si va mal: codigo 4**, y por qué falla
 
