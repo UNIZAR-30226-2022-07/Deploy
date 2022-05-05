@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,11 +41,12 @@ public class RankingController {
 	JwtUtils jwtUtils;
 
     @PostMapping("/rankingPais")
+    @MessageExceptionHandler()
 	public ResponseEntity<?> addFriend(@RequestBody RankingPaisRequest paisRequest) {
 	//	logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
         try{
             return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingByPais(paisRequest.getPais()))));
-        catch (Exception e){
+        }catch (Exception e){
             logger.warning("Exception" + e.getMessage());
             return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
         }
