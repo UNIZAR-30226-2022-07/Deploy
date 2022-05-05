@@ -90,6 +90,19 @@ public class GameController {
         }
     }
 
+    @MessageMapping("/card/{roomId}")
+    @SendTo("/topic/game/{roomId}")
+    @MessageExceptionHandler()
+    public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody Carta c) {
+        try{
+            logger.info("disconnect request by " + username);
+            return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
+        } catch(Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return Sender.enviar(e);
+        }
+    }
+
     // @ExceptionHandler(Exception.class)
     // public ModelAndView handleException(NullPointerException ex)
     // {
