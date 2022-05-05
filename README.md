@@ -185,12 +185,16 @@ Cada usuario debería suscribirse a /user/{username}/msg (es donde llegarán los
 
 Suscribirse a una partida /topic/game/{roomId}
 
+Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre de usuario> } en el mensaje
 
 
 Enviar un mensaje para conectarse a la partida /connect/{roomId}
-  - Body : nombre de usuario
+  - Body : vacio
+  
 
 Enviar un mensaje para empezar una partida /begin/{roomId}
-  - Body : nombre de usuario
+  - Body : vacio
+  
 
 Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
+  - Body : vacio
