@@ -63,16 +63,16 @@ public class RankingController {
         }
 	}
 
-    // @PostMapping("/rankingAmigos")
-    // @MessageExceptionHandler()
-	// public ResponseEntity<?> rankingPorAmigos(@RequestBody RankingAmigosRequest amigosRequest) {
-    //     try{
-    //         return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingAmigos(amigosRequest.getUsername()))));
-    //     }catch (Exception e){
-    //         logger.warning("Exception" + e.getMessage());
-    //         return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
-    //     }
-	// }
+    @PostMapping("/rankingAmigos")
+    @MessageExceptionHandler()
+	public ResponseEntity<?> rankingPorAmigos(@RequestBody RankingAmigosRequest amigosRequest) {
+        try{
+            return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingAmigos(amigosRequest.getUsername()))));
+        }catch (Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
+        }
+	}
 
 	// @PostMapping("/receive/friend-request")
 	// public ResponseEntity<?> getInvitacionesAmistad(@RequestBody GetFriendRequest getfriendRequest) {
