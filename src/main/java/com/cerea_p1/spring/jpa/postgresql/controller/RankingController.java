@@ -42,36 +42,24 @@ public class RankingController {
 
     @PostMapping("/rankingPais")
     @MessageExceptionHandler()
-	public ResponseEntity<?> addFriend(@RequestBody RankingPaisRequest paisRequest) {
-	//	logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
+	public ResponseEntity<?> rankingPorPais(@RequestBody RankingPaisRequest paisRequest) {
         try{
             return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingByPais(paisRequest.getPais()))));
         }catch (Exception e){
             logger.warning("Exception" + e.getMessage());
             return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
         }
-		// if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
-		// 	return ResponseEntity
-		// 			.badRequest()
-		// 			.body(new MessageResponse("Error: Usuario o amigo no están registrados"));
-		// } else if(addfriendRequest.getUsername().equals(addfriendRequest.getFriendname())){
-		// 	return ResponseEntity.badRequest().body(new MessageResponse("Error: No puedes ser amigo de tí mismo"));
-		// }else {
-		// 	logger.info("Restricciones cumplidas");
-		// 	Optional<Usuario> opUser = userRepository.findByUsername(addfriendRequest.getUsername());
-		// 	if(opUser.isPresent()){
-		// 		Usuario user = opUser.get();
-		// 		opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
-		// 		if(opUser.isPresent()){
-		// 			Usuario user2 = opUser.get();
-		// 			if (!user.getInvitacion().contains(user2) && !user.getAmigos().contains(user2) && !user.getInvitacionesEnviadas().contains(user2)){
-		// 				user2.addInvitacion(user);
-		// 				userRepository.save(user2);
-		// 				return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
-		// 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " ya forma parte de tus amigos o ya te envió una petición de amistad"));
-		// 		} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
-		// 	} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
-		// }
+	}
+
+    @PostMapping("/rankingMundial")
+    @MessageExceptionHandler()
+	public ResponseEntity<?> rankingPorMundial() {
+        try{
+            return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingMundial())));
+        }catch (Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
+        }
 	}
 
 	// @PostMapping("/receive/friend-request")
