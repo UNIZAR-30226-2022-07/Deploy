@@ -83,20 +83,46 @@ public class GameController {
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
             logger.info("disconnect request by " + username);
-            return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
+            return Sender.enviar(gameService.disconnectFromGame(roomId, new Jugador(username)));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);
         }
     }
 
-    @MessageMapping("/card/{roomId}")
+    @MessageMapping("/card/play/{roomId}")
     @SendTo("/topic/game/{roomId}")
     @MessageExceptionHandler()
     public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody Carta c) {
         try{
             logger.info(c.getNumero()+" "+c.getColor()+ " played by "+ username);
-            return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
+
+            Partida game = gameService.getPartida(roomId);
+            for(Jugador j : game.getJugadores()){
+                logger.info("send to " + j.getNombre());
+                simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
+            }
+
+            return Sender.enviar(gameService.playCard(roomId, new Jugador(username), c));
+        } catch(Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return Sender.enviar(e);
+        }
+    }
+
+    @MessageMapping("/card/draw/{roomId}")
+    @SendTo("/topic/game/{roomId}")
+    @MessageExceptionHandler()
+    public String draw(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody int nCards) {
+        try{
+            logger.info(nCards+" drawn by " + username);
+
+            Partida game = gameService.getPartida(roomId);
+            for(Jugador j : game.getJugadores()){
+                logger.info("send to " + j.getNombre());
+                simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
+            }
+            return Sender.enviar(gameService.drawCards(roomId, new Jugador(username), nCards));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);

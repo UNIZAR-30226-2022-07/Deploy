@@ -20,6 +20,10 @@ public class GameService {
         almacen_partidas = new ConcurrentHashMap<String,Partida>();
     }
 
+    public Partida getPartida(String gameId) {
+        return almacen_partidas.get(gameId);
+    }
+
     public Partida crearPartida(Jugador jugador,int nJugadores, int tTurno) {
         Partida game = new Partida(true);
         game.setId(UUID.randomUUID().toString());
@@ -36,13 +40,16 @@ public class GameService {
             Optional<Partida> optionalGame;
             if(almacen_partidas.containsKey(gameId))
                 optionalGame = Optional.of(almacen_partidas.get(gameId));
-            else{ optionalGame = null; throw new ConnectGameException("Esa partida no existe"); 
+            else { 
+                optionalGame = null; 
+                throw new ConnectGameException("Esa partida no existe"); 
             }
 
             optionalGame.orElseThrow(() -> new ConnectGameException("Game with provided id doesn't exist"));
-            Partida game = optionalGame.get();
 
-            if(game.getJugadores().size() >= game.getNJugadores()) throw new ConnectGameException("Partida llena.");
+            Partida game = optionalGame.get();
+            if(game.getJugadores().size() >= game.getNJugadores()) 
+                throw new ConnectGameException("Partida llena.");
             if(!game.playerAlreadyIn(player))
                 game.addJugador(player);
             return game.getJugadores();
@@ -50,7 +57,7 @@ public class GameService {
             throw new ConnectGameException("Jugador no valido");
     }
 
-    public String disconnectFromGame(Jugador player, String gameId){
+    public String disconnectFromGame(String gameId, Jugador player){
         if(player != null) {
             Optional<Partida> optionalGame;
             if(almacen_partidas.containsKey(gameId))
@@ -61,6 +68,7 @@ public class GameService {
             }
 
             optionalGame.orElseThrow(() -> new DisconnectGameException("Game with provided id doesn't exist"));
+
             Partida game = optionalGame.get();
             if(game.getEstado() != EstadoPartidaEnum.NEW){
                 throw new DisconnectGameException("No puedes salir de la partida.");
@@ -91,6 +99,7 @@ public class GameService {
         }
 
         optionalGame.orElseThrow(() -> new BeginGameException("Game with provided id doesn't exist"));
+
         Partida game = optionalGame.get();
         if(game.getEstado() == EstadoPartidaEnum.NEW){
             game.setEstado(EstadoPartidaEnum.IN_PROGRESS);
@@ -99,6 +108,41 @@ public class GameService {
             game.repartirManos();
             return game;
         } else throw new BeginGameException("Faltan jugadores.");
+    }
+
+    public Carta playCard(String gameId, Jugador player, Carta card) {
+        Optional<Partida> optionalGame;
+        if(almacen_partidas.containsKey(gameId))
+            optionalGame = Optional.of(almacen_partidas.get(gameId));
+        else { 
+            optionalGame = null;
+            throw new BeginGameException("Esa partida no existe");
+        }
+        optionalGame.orElseThrow(() -> new BeginGameException("Game with provided id doesn't exist"));
+
+        Partida game = optionalGame.get();
+        player.deleteCarta(card);
+        game.jugarCarta(card,player.getNombre());
+        
+        return game.getUltimaCartaJugada();
+    }
+
+    public Carta drawCards(String gameId, Jugador player, int nCards) {
+        Optional<Partida> optionalGame;
+        if(almacen_partidas.containsKey(gameId))
+            optionalGame = Optional.of(almacen_partidas.get(gameId));
+        else { 
+            optionalGame = null;
+            throw new BeginGameException("Esa partida no existe");
+        }
+        optionalGame.orElseThrow(() -> new BeginGameException("Game with provided id doesn't exist"));
+
+        Partida game = optionalGame.get();
+        List<Carta> cards_drawn = game.robarCartas(player.getNombre(), nCards);
+        for(Carta c : cards_drawn)
+            player.addCarta(c);
+        
+        return game.getUltimaCartaJugada();
     }
 
     /*public Game connectToRandomGame(Player player) {
