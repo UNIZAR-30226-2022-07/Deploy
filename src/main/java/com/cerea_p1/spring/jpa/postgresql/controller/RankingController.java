@@ -16,6 +16,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.AddFriendRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.friends.GetFriendRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.rankings.RankingAmigosRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.rankings.RankingPaisRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 
@@ -56,6 +57,17 @@ public class RankingController {
 	public ResponseEntity<?> rankingPorMundial() {
         try{
             return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingMundial())));
+        }catch (Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
+        }
+	}
+
+    @PostMapping("/rankingAmigos")
+    @MessageExceptionHandler()
+	public ResponseEntity<?> rankingPorAmigos(@RequestBody RankingAmigosRequest amigosRequest) {
+        try{
+            return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingAmigos(amigosRequest.getUsername()))));
         }catch (Exception e){
             logger.warning("Exception" + e.getMessage());
             return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));

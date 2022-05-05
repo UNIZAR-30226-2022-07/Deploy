@@ -1,0 +1,12 @@
+package com.cerea_p1.spring.jpa.postgresql.payload.request.rankings;
+
+import javax.validation.constraints.NotBlank;
+
+public class RankingAmigosRequest {
+    @NotBlank
+    private String username;
+
+    public String getUsername() {
+		return username;
+	}
+}

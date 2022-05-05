@@ -175,6 +175,19 @@ Ranking de un pais
           }
     - Si va mal: codigo 4**, y por qué falla
 
+Ranking de un mundial
+  - Petición POST a https://onep1.herokuapp.com/ranking/rankingMundial
+
+  - JSON: No tiene mensaje 
+
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+              "message": "["3nsalada2,10","3nsalada,3","usuario123,0","paulapruebas,0","Helios,0","victor,0","3nsalada3,0","nere.g,0","nereapruebas,0","victorg,0"]"
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
