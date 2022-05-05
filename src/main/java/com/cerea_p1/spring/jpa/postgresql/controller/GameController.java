@@ -27,7 +27,7 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 
 
 @Slf4j
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/") // con asterisco no funciona
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/")
 @AllArgsConstructor
 @Controller
 public class GameController {
@@ -47,8 +47,7 @@ public class GameController {
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/game/{roomId}")
     @MessageExceptionHandler()
-   // @ExceptionHandler(ConnectGameException.class)
-    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws ConnectGameException{ 
+    public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
 			logger.info("connect request by " + username);
 			return Sender.enviar(gameService.connectToGame(new Jugador(username), roomId));
@@ -62,10 +61,9 @@ public class GameController {
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/game/{roomId}")
     @MessageExceptionHandler()
-    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws BeginGameException {
+    public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
             logger.info("begin game request by " + username);
-        //    gameService.beginGame(roomId);
             //ENVIAR MANOS INICIALES A TODOS LOS JUGADORES
             Partida game = gameService.beginGame(roomId);
             for(Jugador j : game.getJugadores()){
@@ -82,7 +80,7 @@ public class GameController {
     @MessageMapping("/disconnect/{roomId}")
     @SendTo("/topic/game/{roomId}")
     @MessageExceptionHandler()
-    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {//throws DisconnectGameException{
+    public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
             logger.info("disconnect request by " + username);
             return Sender.enviar(gameService.disconnectFromGame(new Jugador(username), roomId));
