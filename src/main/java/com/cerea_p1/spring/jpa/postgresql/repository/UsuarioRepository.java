@@ -18,6 +18,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     List<String> userRankingByPais(@Param("pais") String pais);
     @Query("SELECT username, puntos, pais FROM Usuario u ORDER BY puntos DESC")
     List<String> userRankingMundial();
-    @Query("SELECT u.username, u.puntos, u.pais FROM Amigo a, Usuario u WHERE :username = a.usuario1 and u.username = a.usuario2 ORDER BY puntos DESC")
-    List<String> userRankingAmigos(@Param("username") String username);
+    // @Query("SELECT u.username, u.puntos, u.pais FROM Amigo a, Usuario u WHERE :username = a.usuario1 and u.username = a.usuario2 ORDER BY puntos DESC")
+    // List<String> userRankingAmigos(@Param("username") String username);
 }
