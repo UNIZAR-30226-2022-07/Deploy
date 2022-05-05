@@ -42,7 +42,12 @@ public class RankingController {
     @PostMapping("/rankingPais")
 	public ResponseEntity<?> addFriend(@RequestBody RankingPaisRequest paisRequest) {
 	//	logger.info("user1=" + addfriendRequest.getUsername() + " user2=" + addfriendRequest.getFriendname());
-        return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingByPais(paisRequest.getPais()))));
+        try{
+            return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingByPais(paisRequest.getPais()))));
+        catch (Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return ResponseEntity.badRequest().body(Sender.enviar(e.getMessage()));
+        }
 		// if ( (!userRepository.existsByUsername(addfriendRequest.getUsername())) ||(!userRepository.existsByUsername(addfriendRequest.getFriendname())) ) {
 		// 	return ResponseEntity
 		// 			.badRequest()
@@ -67,127 +72,127 @@ public class RankingController {
 		// }
 	}
 
-	@PostMapping("/receive/friend-request")
-	public ResponseEntity<?> getInvitacionesAmistad(@RequestBody GetFriendRequest getfriendRequest) {
-		logger.info("user1=" + getfriendRequest.getUsername() );
-		if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+	// @PostMapping("/receive/friend-request")
+	// public ResponseEntity<?> getInvitacionesAmistad(@RequestBody GetFriendRequest getfriendRequest) {
+	// 	logger.info("user1=" + getfriendRequest.getUsername() );
+	// 	if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
+	// 		return ResponseEntity
+	// 				.badRequest()
+	// 				.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
 		
-		}else {
-			logger.info("Restricciones cumplidas");
-			Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
-			if(opUser.isPresent()){
-				Usuario user = opUser.get();
-				List<Usuario> inv = user.getInvitacion();
-				logger.info("Se obtienen las peticiones de amistad" + inv);
-				return ResponseEntity.ok(new MessageResponse(Sender.enviar(friendsToString(inv))));
-			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
-		}
-	}
+	// 	}else {
+	// 		logger.info("Restricciones cumplidas");
+	// 		Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
+	// 		if(opUser.isPresent()){
+	// 			Usuario user = opUser.get();
+	// 			List<Usuario> inv = user.getInvitacion();
+	// 			logger.info("Se obtienen las peticiones de amistad" + inv);
+	// 			return ResponseEntity.ok(new MessageResponse(Sender.enviar(friendsToString(inv))));
+	// 		} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
+	// 	}
+	// }
 
-	@PostMapping("/accept/friend-request")
-	public ResponseEntity<?> acceptInvitacionesAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
-		logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
-		if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
-		} else {
-			logger.info("Restricciones cumplidas");
-			Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
-			if(opUser.isPresent()){
-				Usuario user = opUser.get();
-				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
-				if(opUser.isPresent()){
-					Usuario user2 = opUser.get();
-					if (user.getInvitacion().contains(user2)){
-						user.removeInvitacion(user2);
-						user.addAmigo(user2);
-						user2.addAmigo(user);
-						userRepository.save(user);
-						userRepository.save(user2);
-						return ResponseEntity.ok(new MessageResponse("Amigo añadido: " + user2.getUsername()));
-					} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus peticiones de amistad."));
-				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede aceptar la petición de amistad"));
-			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede aceptar la petición de amistad"));
-		}
-	}
+	// @PostMapping("/accept/friend-request")
+	// public ResponseEntity<?> acceptInvitacionesAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
+	// 	logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
+	// 	if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
+	// 		return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
+	// 	} else {
+	// 		logger.info("Restricciones cumplidas");
+	// 		Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
+	// 		if(opUser.isPresent()){
+	// 			Usuario user = opUser.get();
+	// 			opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
+	// 			if(opUser.isPresent()){
+	// 				Usuario user2 = opUser.get();
+	// 				if (user.getInvitacion().contains(user2)){
+	// 					user.removeInvitacion(user2);
+	// 					user.addAmigo(user2);
+	// 					user2.addAmigo(user);
+	// 					userRepository.save(user);
+	// 					userRepository.save(user2);
+	// 					return ResponseEntity.ok(new MessageResponse("Amigo añadido: " + user2.getUsername()));
+	// 				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus peticiones de amistad."));
+	// 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede aceptar la petición de amistad"));
+	// 		} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede aceptar la petición de amistad"));
+	// 	}
+	// }
 
 
-	@PostMapping("/friendsList")
-	public ResponseEntity<?> getAmigos(@RequestBody GetFriendRequest getfriendRequest) {
-		logger.info("user1=" + getfriendRequest.getUsername() );
-		if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+	// @PostMapping("/friendsList")
+	// public ResponseEntity<?> getAmigos(@RequestBody GetFriendRequest getfriendRequest) {
+	// 	logger.info("user1=" + getfriendRequest.getUsername() );
+	// 	if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
+	// 		return ResponseEntity
+	// 				.badRequest()
+	// 				.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
 		
-		}else {
-			logger.info("Restricciones cumplidas");
-			Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
-			if(opUser.isPresent()){
-				Usuario user = opUser.get();
-				List<Usuario> inv = user.getAmigos();
-				logger.info("Se obtienen los amigos amistad" + inv);
-				logger.info(Sender.enviar(friendsToString(inv)));
-				return ResponseEntity.ok(new MessageResponse(Sender.enviar(friendsToString(inv))));
-			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar los amigos."));
-		}
-	}
+	// 	}else {
+	// 		logger.info("Restricciones cumplidas");
+	// 		Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
+	// 		if(opUser.isPresent()){
+	// 			Usuario user = opUser.get();
+	// 			List<Usuario> inv = user.getAmigos();
+	// 			logger.info("Se obtienen los amigos amistad" + inv);
+	// 			logger.info(Sender.enviar(friendsToString(inv)));
+	// 			return ResponseEntity.ok(new MessageResponse(Sender.enviar(friendsToString(inv))));
+	// 		} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar los amigos."));
+	// 	}
+	// }
 
-	@PostMapping("/cancel/friend-request")
-	public ResponseEntity<?> cancelInvitacionesAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
-		logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
-		if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
-		} else {
-			logger.info("Restricciones cumplidas");
-			Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
-			if(opUser.isPresent()){
-				Usuario user = opUser.get();
-				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
-				if(opUser.isPresent()){
-					Usuario user2 = opUser.get();
-					if (user.getInvitacion().contains(user2)){
-						user.removeInvitacion(user2);
-						userRepository.save(user);
-						return ResponseEntity.ok(new MessageResponse("Petición de amistad cancelada: " + user2.getUsername()));
-					} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus peticiones de amistad."));
-				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede cancelar la petición de amistad"));
-			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede cancelar la petición de amistad"));
-		}
-	}
+	// @PostMapping("/cancel/friend-request")
+	// public ResponseEntity<?> cancelInvitacionesAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
+	// 	logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
+	// 	if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
+	// 		return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
+	// 	} else {
+	// 		logger.info("Restricciones cumplidas");
+	// 		Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
+	// 		if(opUser.isPresent()){
+	// 			Usuario user = opUser.get();
+	// 			opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
+	// 			if(opUser.isPresent()){
+	// 				Usuario user2 = opUser.get();
+	// 				if (user.getInvitacion().contains(user2)){
+	// 					user.removeInvitacion(user2);
+	// 					userRepository.save(user);
+	// 					return ResponseEntity.ok(new MessageResponse("Petición de amistad cancelada: " + user2.getUsername()));
+	// 				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus peticiones de amistad."));
+	// 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede cancelar la petición de amistad"));
+	// 		} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede cancelar la petición de amistad"));
+	// 	}
+	// }
 
-	@PostMapping("/deleteFriend")
-	public ResponseEntity<?> deleteAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
-		logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
-		if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
-		} else {
-			logger.info("Restricciones cumplidas");
-			Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
-			if(opUser.isPresent()){
-				Usuario user = opUser.get();
-				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
-				if(opUser.isPresent()){
-					Usuario user2 = opUser.get();
-					if (user.getAmigos().contains(user2)){
-						user.removeAmigo(user2);
-						user2.removeAmigo(user);
-						userRepository.save(user);
-						userRepository.save(user2);
-						return ResponseEntity.ok(new MessageResponse("Amigo eliminado: " + user2.getUsername()));
-					} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus amigos."));
-				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede eliminar a tu amigo"));
-			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede eliminar a tu amigo"));
-		}
-	}
+	// @PostMapping("/deleteFriend")
+	// public ResponseEntity<?> deleteAmistad(@RequestBody AddFriendRequest acceptfriendRequest) {
+	// 	logger.info("user1=" + acceptfriendRequest.getUsername() + " user2=" + acceptfriendRequest.getFriendname());
+	// 	if ( (!userRepository.existsByUsername(acceptfriendRequest.getUsername())) ||(!userRepository.existsByUsername(acceptfriendRequest.getFriendname())) ) {
+	// 		return ResponseEntity.badRequest().body(new MessageResponse("Error: Usuario o amigo no están registrados"));
+	// 	} else {
+	// 		logger.info("Restricciones cumplidas");
+	// 		Optional<Usuario> opUser = userRepository.findByUsername(acceptfriendRequest.getUsername());
+	// 		if(opUser.isPresent()){
+	// 			Usuario user = opUser.get();
+	// 			opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
+	// 			if(opUser.isPresent()){
+	// 				Usuario user2 = opUser.get();
+	// 				if (user.getAmigos().contains(user2)){
+	// 					user.removeAmigo(user2);
+	// 					user2.removeAmigo(user);
+	// 					userRepository.save(user);
+	// 					userRepository.save(user2);
+	// 					return ResponseEntity.ok(new MessageResponse("Amigo eliminado: " + user2.getUsername()));
+	// 				} else return ResponseEntity.badRequest().body(new MessageResponse("Error: " + user2.getUsername() + " no se encuentra entre tus amigos."));
+	// 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede eliminar a tu amigo"));
+	// 		} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede eliminar a tu amigo"));
+	// 	}
+	// }
 
-	private List<String> friendsToString(List<Usuario> l){
-		List<String> l2 = new ArrayList<String>();
-		for(Usuario u : l){
-			l2.add(u.getUsername());
-		}
-		return l2;
-	}
+	// private List<String> friendsToString(List<Usuario> l){
+	// 	List<String> l2 = new ArrayList<String>();
+	// 	for(Usuario u : l){
+	// 		l2.add(u.getUsername());
+	// 	}
+	// 	return l2;
+	// }
 }
