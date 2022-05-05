@@ -15,5 +15,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
     @Query("SELECT username FROM Usuario u WHERE u.pais = :pais ORDER BY puntos DESC")
-    List<Usuario> userRankingByPais(@Param("pais") String pais);
+    List<String> userRankingByPais(@Param("pais") String pais);
 }
