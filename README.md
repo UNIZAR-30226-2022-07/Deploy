@@ -220,8 +220,8 @@ Borrar un usuario
           }
     - Si va mal: codigo 4**, y por qué falla
 
-Borrar un usuario
-  - Petición POST a https://onep1.herokuapp.com/user/deleteUser
+Cambiar el pais de un usuario
+  - Petición POST a https://onep1.herokuapp.com/user/changePais
 
   - JSON: 
         {
