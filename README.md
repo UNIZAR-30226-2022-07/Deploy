@@ -213,15 +213,15 @@ Enviar un mensaje para jugar una carta /card/play/{roomId}
   - Header : nombre de usuario
   - Body :
  
-      {
-        "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+        {
+          "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
         "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
-      }
+        }
       
 Enviar un mensaje para robar n cartas /card/draw/{roomId}
   - Header : nombre de usuario
   - Body :
  
-      {
-        "nCards" : <numero_cartas_a_robar>
-      }
+        {
+          "nCards" : <numero_cartas_a_robar>
+        }
