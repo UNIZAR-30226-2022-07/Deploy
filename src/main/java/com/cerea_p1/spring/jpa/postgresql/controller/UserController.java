@@ -67,6 +67,7 @@ public class UserController {
 		}
 	}
 
+    /*NO FUNCIONA*/
     @PostMapping("/changeUsername")
 	public ResponseEntity<?> cambiarUsername(@RequestBody CambiarUsernameRequest cambiarUsernameRequest) {
 		logger.info("user1=" + cambiarUsernameRequest.getUsername() );
