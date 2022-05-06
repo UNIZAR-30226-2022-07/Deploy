@@ -215,8 +215,14 @@ Enviar un mensaje para jugar una carta /card/play/{roomId}
  
         {
           "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-        "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+          "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
         }
+        
+  - Devuelve:
+    - Si va bien: 
+      - La carta jugada por /topic/game/{roomId}
+      - String "Siguiente turno" por /user/{username}/msg (provisional)
+                  
       
 Enviar un mensaje para robar n cartas /card/draw/{roomId}
   - Header : nombre de usuario
