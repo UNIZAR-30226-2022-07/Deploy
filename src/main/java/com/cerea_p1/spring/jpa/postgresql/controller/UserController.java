@@ -1,6 +1,7 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.CambiarPaisRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.DeleteUserRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
@@ -42,6 +43,25 @@ public class UserController {
 				Usuario u = opUser.get();
                 userRepository.delete(u);
                 return ResponseEntity.ok(new MessageResponse("Se ha eliminado el usuario correctamente"));
+			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede recuper el usuario."));
+		}
+	}
+
+    @PostMapping("/changePais")
+	public ResponseEntity<?> cambiarPais(@RequestBody CambiarPaisRequest cambiarPaisRequest) {
+		logger.info("user1=" + cambiarPaisRequest.getUsername() );
+		if ( (!userRepository.existsByUsername(cambiarPaisRequest.getUsername())) ) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+		
+		}else {
+			Optional<Usuario> opUser = userRepository.findByUsername(cambiarPaisRequest.getUsername());
+			if(opUser.isPresent()){
+				Usuario u = opUser.get();
+                u.setPais(cambiarPaisRequest.getPais());
+                userRepository.save(u);
+                return ResponseEntity.ok(new MessageResponse("Se ha actualizado el pais del usuario correctamente."));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede recuper el usuario."));
 		}
 	}
