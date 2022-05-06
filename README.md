@@ -220,6 +220,23 @@ Borrar un usuario
           }
     - Si va mal: codigo 4**, y por qué falla
 
+Borrar un usuario
+  - Petición POST a https://onep1.herokuapp.com/user/deleteUser
+
+  - JSON: 
+        {
+          "username": <nombre_del_usuario>,
+          "pais": <nuevo_pais>
+        } 
+    - Es vuestra responsabilidad que el país se encuentre dentro de la lista de paises que se han establecido
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+            "message": "Se ha actualizado el pais del usuario correctamente."
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
