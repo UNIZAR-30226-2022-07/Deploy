@@ -118,11 +118,14 @@ public class GameController {
             logger.info(nCards+" drawn by " + username);
 
             Partida game = gameService.getPartida(roomId);
+            //Enviar siguiente turno
             for(Jugador j : game.getJugadores()){
                 logger.info("send to " + j.getNombre());
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
             }
-            return Sender.enviar(gameService.drawCards(roomId, new Jugador(username), nCards));
+            //Enviar cartas robadas al solicitante
+            simpMessagingTemplate.convertAndSendToUser(username, "/msg", gameService.drawCards(roomId, new Jugador(username), nCards));
+            return "cartas robadas por "+ username;
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);

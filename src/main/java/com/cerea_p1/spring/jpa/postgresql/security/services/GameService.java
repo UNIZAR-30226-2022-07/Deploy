@@ -127,7 +127,7 @@ public class GameService {
         return game.getUltimaCartaJugada();
     }
 
-    public Carta drawCards(String gameId, Jugador player, int nCards) {
+    public List<Carta> drawCards(String gameId, Jugador player, int nCards) {
         Optional<Partida> optionalGame;
         if(almacen_partidas.containsKey(gameId))
             optionalGame = Optional.of(almacen_partidas.get(gameId));
@@ -142,7 +142,7 @@ public class GameService {
         for(Carta c : cards_drawn)
             player.addCarta(c);
         
-        return game.getUltimaCartaJugada();
+        return cards_drawn;
     }
 
     /*public Game connectToRandomGame(Player player) {
