@@ -2,6 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.CambiarPaisRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.CambiarUsernameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.DeleteUserRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
@@ -63,6 +64,27 @@ public class UserController {
                 userRepository.save(u);
                 return ResponseEntity.ok(new MessageResponse("Se ha actualizado el pais del usuario correctamente."));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede recuper el usuario."));
+		}
+	}
+
+    @PostMapping("/changeUsername")
+	public ResponseEntity<?> cambiarUsername(@RequestBody CambiarUsernameRequest cambiarUsernameRequest) {
+		logger.info("user1=" + cambiarUsernameRequest.getUsername() );
+		if ( (!userRepository.existsByUsername(cambiarUsernameRequest.getUsername())) ) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+		
+		}else {
+            if(!userRepository.existsByUsername(cambiarUsernameRequest.getNewUsername())){
+                Optional<Usuario> opUser = userRepository.findByUsername(cambiarUsernameRequest.getUsername());
+                if(opUser.isPresent()){
+                    Usuario u = opUser.get();
+                    u.setUsername(cambiarUsernameRequest.getNewUsername());
+                    userRepository.save(u);
+                    return ResponseEntity.ok(new MessageResponse("Se ha actualizado el nombre del usuario correctamente."));
+                } else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede recuper el usuario."));
+            } else return ResponseEntity.badRequest().body(new MessageResponse("Ya existe un usuario con ese nombre"));
 		}
 	}
 
