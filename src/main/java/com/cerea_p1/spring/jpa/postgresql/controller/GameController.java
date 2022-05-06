@@ -118,7 +118,7 @@ public class GameController {
             logger.info(nCards+" drawn by " + username);
 
             Partida game = gameService.getPartida(roomId);
-            //Enviar siguiente turno
+            //Enviar mensaje siguiente turno
             for(Jugador j : game.getJugadores()){
                 logger.info("send to " + j.getNombre());
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
