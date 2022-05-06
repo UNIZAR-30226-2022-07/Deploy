@@ -204,6 +204,22 @@ Ranking de un Amigos
           }
     - Si va mal: codigo 4**, y por qué falla
 
+Borrar un usuario
+  - Petición POST a https://onep1.herokuapp.com/user/deleteUser
+
+  - JSON: 
+        {
+          "username": <nombre_del_usuario>
+        } 
+
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+            "message": "Se ha eliminado el usuario correctamente"
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
