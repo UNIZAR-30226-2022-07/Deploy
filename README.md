@@ -86,14 +86,14 @@ Ver invitaciones de amistad
 
   - JSON:
 
-        {
-          "username": <nombre_de_usuario>
-        }
+          {
+            "username": <nombre_de_usuario>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, 
-            {
-              "message": "[ <nombre_del_amigo1>, <nombre_del_amigo2>, ...]"
-            }
+          {
+            "message": "[ <nombre_del_amigo1>, <nombre_del_amigo2>, ...]"
+          }
     - Si va mal: codigo 4**, y por qué falla
 
 Aceptar invitación de amistad
@@ -101,15 +101,15 @@ Aceptar invitación de amistad
 
   - JSON:
 
-        {
-          "username": <nombre_de_usuario>,
-          "friendname": <nombre_del_amigo>
-        }
+          {
+            "username": <nombre_de_usuario>,
+            "friendname": <nombre_del_amigo>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, 
-            {
-              "message": "Amigo añadido: <nombre_del_amigo>"
-            }
+          {
+            "message": "Amigo añadido: <nombre_del_amigo>"
+          }
     - Si va mal: codigo 4**, y por qué falla
 
 Ver lista de amigos
@@ -117,9 +117,9 @@ Ver lista de amigos
 
   - JSON:
 
-        {
-          "username": <nombre_de_usuario>
-        }
+          {
+            "username": <nombre_de_usuario>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, 
           {
@@ -133,10 +133,10 @@ Cancelar petición de amistad
 
   - JSON:
 
-        {
-          "username": <nombre_de_usuario>,
-          "friendname": <nombre_del_amigo>
-        }
+          {
+            "username": <nombre_de_usuario>,
+            "friendname": <nombre_del_amigo>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, 
           {
@@ -149,10 +149,10 @@ Eliminar amigo
 
   - JSON:
 
-        {
-          "username": <nombre_de_usuario>,
-          "friendname": <nombre_del_amigo>
-        }
+          {
+            "username": <nombre_de_usuario>,
+            "friendname": <nombre_del_amigo>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, 
           {
@@ -165,9 +165,9 @@ Ranking de un pais
 
   - JSON:
 
-        {
-          "pais": <pais_del_usuario>
-        }
+          {
+            "pais": <pais_del_usuario>
+          }
   - Devuelve: 
     - Si va bien: codigo 200, 
           {
@@ -192,9 +192,9 @@ Ranking de un Amigos
   - Petición POST a https://onep1.herokuapp.com/ranking/rankingAmigos
 
   - JSON: 
-        {
-          "username": <nombre_del_usuario>
-        } 
+          {
+            "username": <nombre_del_usuario>
+          } 
 
 
   - Devuelve: 
@@ -208,9 +208,9 @@ Borrar un usuario
   - Petición POST a https://onep1.herokuapp.com/user/deleteUser
 
   - JSON: 
-        {
-          "username": <nombre_del_usuario>
-        } 
+          {
+            "username": <nombre_del_usuario>
+          } 
 
 
   - Devuelve: 
