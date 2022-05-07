@@ -147,7 +147,7 @@ public class FriendController {
 				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					if (user.getInvitacion().contains(user2)){
+					if (user.getInvitacionesRecibidas().contains(user2)){
 						user.removeInvitacion(user2);
 						userRepository.save(user);
 						return ResponseEntity.ok(new MessageResponse("Petición de amistad cancelada: " + user2.getUsername()));
