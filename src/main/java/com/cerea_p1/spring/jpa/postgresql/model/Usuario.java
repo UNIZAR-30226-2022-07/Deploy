@@ -20,6 +20,7 @@ public class Usuario {
 
     
     @Column(name = "nombre_de_usuario", nullable = false, length = 255, unique = true)
+    @Size(min = 4)
     private String username;
     
     @NotNull
@@ -57,12 +58,16 @@ public class Usuario {
     @Column(name="puntos", nullable = false)
     private int puntos;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     public Usuario(String username, String email, String password, String pais) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.pais = pais;
         this.puntos = 0;
+        resetPasswordToken = "";
 
         amigos = new ArrayList<Usuario>();
         amigosInv = new ArrayList<Usuario>();
@@ -77,6 +82,7 @@ public class Usuario {
         pais = null;
         puntos = 0;
         amigos = null;
+        resetPasswordToken = "";
 
         amigosInv = null;
         invitacionesRecibidas = null;
@@ -185,6 +191,14 @@ public class Usuario {
 
     public void removeInvitacionesEnviadas(Usuario inv){
         this.invitacionesEnviadas.remove(inv);
+    }
+
+    public String getResetPasswordToken(){
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String token){
+        resetPasswordToken = token;
     }
     
     @Override

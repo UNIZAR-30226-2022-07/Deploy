@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     Optional<Usuario> findByUsername(String username);
+    Usuario findByEmail(String email);
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
     @Query("SELECT username, puntos FROM Usuario u WHERE u.pais = :pais ORDER BY puntos DESC")
@@ -20,4 +21,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     List<String> userRankingMundial();
     @Query("SELECT a.username, a.puntos, a.pais FROM Usuario u INNER JOIN u.amigos a  WHERE :username = u.username ORDER BY a.puntos DESC")
     List<String> userRankingAmigos(@Param("username") String username);
+    public Usuario findByResetPasswordToken(String token);
 }
