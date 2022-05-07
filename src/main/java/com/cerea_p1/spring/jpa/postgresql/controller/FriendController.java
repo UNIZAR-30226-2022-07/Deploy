@@ -56,7 +56,7 @@ public class FriendController {
 				opUser = userRepository.findByUsername(addfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					if (!user.getInvitacion().contains(user2) && !user.getAmigos().contains(user2) && !user.getInvitacionesEnviadas().contains(user2)){
+					if (!user.getInvitacionesRecibidas().contains(user2) && !user.getAmigos().contains(user2) && !user.getInvitacionesEnviadas().contains(user2)){
 						user2.addInvitacion(user);
 						userRepository.save(user2);
 						return ResponseEntity.ok(new MessageResponse("Petición de amistad enviada a " + user2.getUsername()));
@@ -79,7 +79,7 @@ public class FriendController {
 			Optional<Usuario> opUser = userRepository.findByUsername(getfriendRequest.getUsername());
 			if(opUser.isPresent()){
 				Usuario user = opUser.get();
-				List<Usuario> inv = user.getInvitacion();
+				List<Usuario> inv = user.getInvitacionesRecibidas();
 				logger.info("Se obtienen las peticiones de amistad" + inv);
 				return ResponseEntity.ok(new MessageResponse(Sender.enviar(friendsToString(inv))));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pueden recuperar las peticiones de amistad."));
@@ -99,7 +99,7 @@ public class FriendController {
 				opUser = userRepository.findByUsername(acceptfriendRequest.getFriendname());
 				if(opUser.isPresent()){
 					Usuario user2 = opUser.get();
-					if (user.getInvitacion().contains(user2)){
+					if (user.getInvitacionesRecibidas().contains(user2)){
 						user.removeInvitacion(user2);
 						user.addAmigo(user2);
 						user2.addAmigo(user);

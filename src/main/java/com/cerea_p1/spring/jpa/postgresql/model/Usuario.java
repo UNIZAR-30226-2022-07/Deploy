@@ -32,7 +32,7 @@ public class Usuario {
         @JoinColumn(name = "receptor", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "nombre_de_usuario", nullable = false)})
         @ManyToMany(cascade = CascadeType.PERSIST)
-    public List<Usuario> invitaciones;
+    public List<Usuario> invitacionesRecibidas;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
     @ManyToMany(mappedBy = "invitaciones")
@@ -66,7 +66,7 @@ public class Usuario {
 
         amigos = new ArrayList<Usuario>();
         amigosInv = new ArrayList<Usuario>();
-        invitaciones = new ArrayList<Usuario>();
+        invitacionesRecibidas = new ArrayList<Usuario>();
         invitacionesEnviadas = new ArrayList<Usuario>();
     }
 
@@ -79,7 +79,7 @@ public class Usuario {
         amigos = null;
 
         amigosInv = null;
-        invitaciones = null;
+        invitacionesRecibidas = null;
         invitacionesEnviadas = null;
     }
 
@@ -155,20 +155,20 @@ public class Usuario {
         this.amigosInv.remove(amigo);
     }
 
-    public List<Usuario> getInvitacion(){
-        return this.invitaciones;
+    public List<Usuario> getInvitacionesRecibidas(){
+        return this.invitacionesRecibidas;
     }
 
     public void setInvitacion(List<Usuario> inv){
-        invitaciones = inv;
+        invitacionesRecibidas = inv;
     }
 
     public void addInvitacion(Usuario inv){
-        this.invitaciones.add(inv);
+        this.invitacionesRecibidas.add(inv);
     }
 
     public void removeInvitacion(Usuario inv){
-        this.invitaciones.remove(inv);
+        this.invitacionesRecibidas.remove(inv);
     }
 
     public List<Usuario> getInvitacionesEnviadas(){
