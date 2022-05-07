@@ -70,6 +70,7 @@ public class GameController {
                 logger.info("send to " + j.getNombre());
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
             }
+            logger.info(Sender.enviar(game.getUltimaCartaJugada()));
             return Sender.enviar(game.getUltimaCartaJugada());
         } catch(Exception e) {
             logger.warning("Exception" + e.getMessage());
