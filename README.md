@@ -237,6 +237,22 @@ Cambiar el pais de un usuario
           }
     - Si va mal: codigo 4**, y por qué falla
 
+Cambiar el nombre de un usuario
+  - Petición POST a https://onep1.herokuapp.com/user/changeUsername
+
+  - JSON: 
+        {
+          "username": <nombre_del_usuario>,
+          "newUsername": <nuevo_nombre_de_usuario>
+        } 
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+            "message": "Se ha actualizado el nombre del usuario correctamente."
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
