@@ -276,6 +276,47 @@ Cambiar el nombre de un usuario
           
     - Si va mal: codigo 4**, y por qué falla
 
+Restablecer la contraseña
+
+  - Petición POST a https://onep1.herokuapp.com/api/auth/forgot_password
+
+  - JSON:
+
+          {
+            "email": <email_con_el_que_se_registro>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 y envía un correo al usuario con un token para recuperar la contraseña
+     
+          {
+            "message": "Se ha enviado el correo correctamente."
+          }
+          
+    - Si va mal: codigo 4**, y poca info
+
+Establecer nueva contraseña
+
+  - Petición POST a https://onep1.herokuapp.com/api/auth/reset_password
+
+  - JSON:
+
+          {
+            "email": <email_con_el_que_se_registro>
+            "token":<token_que_se_ha_enviado_al_correo>,
+            "password":<nueva_contraseña>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          {
+            "message": "La contraseña se ha restablecido correctamente"
+          }
+      - Hay que volver a iniciar sesión
+      
+    - Si va mal: codigo 4**, y poca info
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
