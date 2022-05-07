@@ -126,8 +126,11 @@ public class AuthController {
 		if (user == null) {
 			
 			return ResponseEntity.badRequest().body("Ha fallado");
-		} else {           
-			userService.updatePassword(user, password);
+		} else {
+			user.setPassword(encoder.encode(password)); 
+			user.setResetPasswordToken(null);
+			userRepository.save(user);          
+		//	userService.updatePassword(user, password);
 			
 			return ResponseEntity.ok(new MessageResponse("La contraseña se ha restablecido correctamente"));
 		}
