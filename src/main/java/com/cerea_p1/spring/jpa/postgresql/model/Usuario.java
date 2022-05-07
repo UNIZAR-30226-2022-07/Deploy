@@ -29,8 +29,8 @@ public class Usuario {
 
    // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
     @JoinTable(name = "invitacion", joinColumns = {
-        @JoinColumn(name = "receptor", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "emisor", referencedColumnName = "nombre_de_usuario", nullable = false)})
+        @JoinColumn(name = "receptor", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "emisor", referencedColumnName = "correo_electronico", nullable = false)})
         @ManyToMany(cascade = CascadeType.PERSIST)
     public List<Usuario> invitacionesRecibidas;
 
