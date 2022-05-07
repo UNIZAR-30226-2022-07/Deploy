@@ -13,12 +13,13 @@ import javax.persistence.CascadeType;
             })
 public class Usuario {
 
+    @Id
     @Pattern(regexp = ".+[@].+[\\.].+")
     @Column(name = "correo_electronico", nullable = false, length = 255)
     private String email;
 
-    @Id
-    @Column(name = "nombre_de_usuario", nullable = false, length = 255)
+    
+    @Column(name = "nombre_de_usuario", nullable = false, length = 255, unique = true)
     private String username;
     
     @NotNull
