@@ -2,10 +2,8 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.messaging.MessagingException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,8 +22,8 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.LoginRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.SignupRequest;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.OlvidoContraseña;
-import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.ReestablecerContraseña;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.OlvidoContrasena;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.ReestablecerContrasena;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.JwtResponse;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 
@@ -33,12 +31,9 @@ import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceImpl;
-import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Properties;
 import java.util.logging.*;
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/")
 @RestController
@@ -56,8 +51,7 @@ public class AuthController {
 	PasswordEncoder encoder;
 	@Autowired
 	JwtUtils jwtUtils;
-//	@Autowired
-  //  private JavaMailSender mailSender;
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 	@PostMapping("/signin")
@@ -101,12 +95,11 @@ public class AuthController {
 
 
 	@PostMapping("/forgot_password")
-	public ResponseEntity<?> processForgotPassword(@Valid @RequestBody OlvidoContraseña olv) throws MessagingException, UnsupportedEncodingException {
+	public ResponseEntity<?> processForgotPassword(@Valid @RequestBody OlvidoContrasena olv) throws MessagingException, UnsupportedEncodingException {
 		String email = olv.getEmail();
 		String token = RandomString.make(30);
 		if(userRepository.existsByEmail(olv.getEmail())){
 			userService.updateResetPasswordToken(token, email);
-			// String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
 			sendEmail(email, token);
 
 			return ResponseEntity.ok(new MessageResponse("Se ha enviado el correo correctamente."));
@@ -116,12 +109,11 @@ public class AuthController {
 	}
 
 	@PostMapping("/reset_password")
-	public ResponseEntity<?> processResetPassword(@Valid @RequestBody ReestablecerContraseña olv) {
+	public ResponseEntity<?> processResetPassword(@Valid @RequestBody ReestablecerContrasena olv) {
 		String token = olv.getToken();//.getParameter("token");
 		String password = olv.getPassword();//request.getParameter("password");
 		
 		Usuario user = userService.getByResetPasswordToken(token);
-	//	model.addAttribute("title", "Reset your password");
 		
 		if (user == null) {
 			
@@ -130,7 +122,6 @@ public class AuthController {
 			user.setPassword(encoder.encode(password)); 
 			user.setResetPasswordToken(null);
 			userRepository.save(user);          
-		//	userService.updatePassword(user, password);
 			
 			return ResponseEntity.ok(new MessageResponse("La contraseña se ha restablecido correctamente"));
 		}
@@ -148,35 +139,4 @@ public class AuthController {
 
     }
 
-
-	// private void sendEmail(String recipientEmail, String token)
-    //     throws MessagingException, UnsupportedEncodingException {
-		
-	// 	SimpleMailMessage message = new SimpleMailMessage(); 
-	// 	message.setFrom("noreply@baeldung.com");
-	// 	message.setTo(recipientEmail); 
-	// 	message.setSubject("Olvidó su contraseña"); 
-	// 	message.setText("Para restablecer su contraseña, indique el siguiente token: " + token);
-	// 	((org.springframework.mail.javamail.JavaMailSender) mailSender).send(message);
-			
-		
-	// }
-
-	// @Bean
-	// public JavaMailSenderImpl getJavaMailSender() {
-	// 	JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	// 	mailSender.setHost("smtp.gmail.com");
-	// 	mailSender.setPort(587);
-		
-	// 	mailSender.setUsername("onep1game@gmail.com");
-	// 	mailSender.setPassword("*onep1-Game");
-		
-	// 	Properties props = mailSender.getJavaMailProperties();
-	// 	props.put("mail.transport.protocol", "smtp");
-	// 	props.put("mail.smtp.auth", "true");
-	// 	props.put("mail.smtp.starttls.enable", "true");
-	// 	props.put("mail.debug", "true");
-		
-	// 	return mailSender;
-	// }
 }

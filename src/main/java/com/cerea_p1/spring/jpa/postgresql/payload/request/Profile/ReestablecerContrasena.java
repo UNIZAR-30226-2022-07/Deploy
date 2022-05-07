@@ -2,7 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.payload.request.Profile;
 
 import javax.validation.constraints.NotBlank;
 
-public class ReestablecerContraseña {
+public class ReestablecerContrasena {
     @NotBlank
     private String email;
 
