@@ -106,10 +106,12 @@ Aceptar invitación de amistad
             "friendname": <nombre_del_amigo>
           }
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "Amigo añadido: <nombre_del_amigo>"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Ver lista de amigos
@@ -121,7 +123,8 @@ Ver lista de amigos
             "username": <nombre_de_usuario>
           }
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+    
           {
               "message": "[ <nombre_del_amigo1>, <nombre_del_amigo2>, ...]"
           }
@@ -138,10 +141,12 @@ Cancelar petición de amistad
             "friendname": <nombre_del_amigo>
           }
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "Petición de amistad cancelada: <nombre_del_amigo>"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Eliminar amigo
@@ -154,10 +159,12 @@ Eliminar amigo
             "friendname": <nombre_del_amigo>
           }
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "Amigo eliminado: <nombre_del_amigo>"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Ranking de un pais
@@ -169,10 +176,12 @@ Ranking de un pais
             "pais": <pais_del_usuario>
           }
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "[\"3nsalada2,10\",\"3nsalada,3\",\"3nsalada3,0\"]"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Ranking de un mundial
@@ -182,10 +191,12 @@ Ranking de un mundial
 
 
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
               "message": "["3nsalada2,10","3nsalada,3","usuario123,0","paulapruebas,0","Helios,0","victor,0","3nsalada3,0","nere.g,0","nereapruebas,0","victorg,0"]"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Ranking de un Amigos
@@ -198,59 +209,71 @@ Ranking de un Amigos
 
 
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "[\"3nsalada3,0,espagna\",\"nereapruebas,0,España\"]"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Borrar un usuario
   - Petición POST a https://onep1.herokuapp.com/user/deleteUser
 
   - JSON: 
+  
           {
             "username": <nombre_del_usuario>
           } 
 
 
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+    
           {
             "message": "Se ha eliminado el usuario correctamente"
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Cambiar el pais de un usuario
   - Petición POST a https://onep1.herokuapp.com/user/changePais
 
   - JSON: 
+  
           {
             "username": <nombre_del_usuario>,
             "pais": <nuevo_pais>
           } 
+          
     - Es vuestra responsabilidad que el país se encuentre dentro de la lista de paises que se han establecido
 
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "Se ha actualizado el pais del usuario correctamente."
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 Cambiar el nombre de un usuario
   - Petición POST a https://onep1.herokuapp.com/user/changeUsername
 
   - JSON: 
+  
           {
             "username": <nombre_del_usuario>,
             "newUsername": <nuevo_nombre_de_usuario>
           } 
 
   - Devuelve: 
-    - Si va bien: codigo 200, 
+    - Si va bien: codigo 200
+     
           {
             "message": "Se ha actualizado el nombre del usuario correctamente."
           }
+          
     - Si va mal: codigo 4**, y por qué falla
 
 ## Websockets
