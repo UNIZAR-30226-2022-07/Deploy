@@ -224,10 +224,10 @@ Cambiar el pais de un usuario
   - Petición POST a https://onep1.herokuapp.com/user/changePais
 
   - JSON: 
-        {
-          "username": <nombre_del_usuario>,
-          "pais": <nuevo_pais>
-        } 
+          {
+            "username": <nombre_del_usuario>,
+            "pais": <nuevo_pais>
+          } 
     - Es vuestra responsabilidad que el país se encuentre dentro de la lista de paises que se han establecido
 
   - Devuelve: 
@@ -241,10 +241,10 @@ Cambiar el nombre de un usuario
   - Petición POST a https://onep1.herokuapp.com/user/changeUsername
 
   - JSON: 
-        {
-          "username": <nombre_del_usuario>,
-          "newUsername": <nuevo_nombre_de_usuario>
-        } 
+          {
+            "username": <nombre_del_usuario>,
+            "newUsername": <nuevo_nombre_de_usuario>
+          } 
 
   - Devuelve: 
     - Si va bien: codigo 200, 
