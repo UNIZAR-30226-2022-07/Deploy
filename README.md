@@ -175,6 +175,68 @@ Ranking de un pais
           }
     - Si va mal: codigo 4**, y por qué falla
 
+Ranking de un mundial
+  - Petición POST a https://onep1.herokuapp.com/ranking/rankingMundial
+
+  - JSON: No tiene mensaje 
+
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+              "message": "["3nsalada2,10","3nsalada,3","usuario123,0","paulapruebas,0","Helios,0","victor,0","3nsalada3,0","nere.g,0","nereapruebas,0","victorg,0"]"
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
+Ranking de un Amigos
+  - Petición POST a https://onep1.herokuapp.com/ranking/rankingAmigos
+
+  - JSON: 
+        {
+          "username": <nombre_del_usuario>
+        } 
+
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+            "message": "[\"3nsalada3,0,espagna\",\"nereapruebas,0,España\"]"
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
+Borrar un usuario
+  - Petición POST a https://onep1.herokuapp.com/user/deleteUser
+
+  - JSON: 
+        {
+          "username": <nombre_del_usuario>
+        } 
+
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+            "message": "Se ha eliminado el usuario correctamente"
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
+Cambiar el pais de un usuario
+  - Petición POST a https://onep1.herokuapp.com/user/changePais
+
+  - JSON: 
+        {
+          "username": <nombre_del_usuario>,
+          "pais": <nuevo_pais>
+        } 
+    - Es vuestra responsabilidad que el país se encuentre dentro de la lista de paises que se han establecido
+
+  - Devuelve: 
+    - Si va bien: codigo 200, 
+          {
+            "message": "Se ha actualizado el pais del usuario correctamente."
+          }
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
@@ -189,12 +251,36 @@ Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre de 
 
 
 Enviar un mensaje para conectarse a la partida /connect/{roomId}
+  - Header : nombre de usuario
   - Body : vacio
-  
 
 Enviar un mensaje para empezar una partida /begin/{roomId}
+  - Header : nombre de usuario
   - Body : vacio
-  
 
 Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
+  - Header : nombre de usuario
   - Body : vacio
+
+Enviar un mensaje para jugar una carta /card/play/{roomId}
+  - Header : nombre de usuario
+  - Body :
+ 
+        {
+          "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+          "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+        }
+        
+  - Devuelve:
+    - Si va bien: 
+      - La carta jugada por /topic/game/{roomId}
+      - String "Siguiente turno" por /user/{username}/msg (provisional)
+                  
+      
+Enviar un mensaje para robar n cartas /card/draw/{roomId}
+  - Header : nombre de usuario
+  - Body :
+ 
+        {
+          "nCards" : <numero_cartas_a_robar>
+        }
