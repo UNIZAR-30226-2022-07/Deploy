@@ -39,8 +39,8 @@ public class Usuario {
     public List<Usuario> invitacionesEnviadas;
 
     @JoinTable(name = "amigo", joinColumns = {
-        @JoinColumn(name = "usuario2", referencedColumnName = "nombre_de_usuario", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "usuario1", referencedColumnName = "nombre_de_usuario", nullable = false)})
+        @JoinColumn(name = "usuario2", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "usuario1", referencedColumnName = "correo_electronico", nullable = false)})
         @ManyToMany(cascade = CascadeType.PERSIST)
     public List<Usuario> amigos;
 
