@@ -34,6 +34,8 @@ import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsImpl;
 import com.cerea_p1.spring.jpa.postgresql.security.services.UserDetailsServiceImpl;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -54,8 +56,10 @@ public class AuthController {
 	PasswordEncoder encoder;
 	@Autowired
 	JwtUtils jwtUtils;
+//	@Autowired
+  //  private JavaMailSender mailSender;
 	@Autowired
-    private JavaMailSender mailSender;
+	private JavaMailSender javaMailSender;
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate( 
@@ -129,35 +133,47 @@ public class AuthController {
 		}
 	}
 
+	void sendEmail(String to, String token) {
 
-	private void sendEmail(String recipientEmail, String token)
-        throws MessagingException, UnsupportedEncodingException {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(to);
+
+        msg.setSubject("Testing from Spring Boot");
+        msg.setText("Para restablecer su contraseña, indique el siguiente token: " + token);
+
+        javaMailSender.send(msg);
+
+    }
+
+
+	// private void sendEmail(String recipientEmail, String token)
+    //     throws MessagingException, UnsupportedEncodingException {
 		
-		SimpleMailMessage message = new SimpleMailMessage(); 
-		message.setFrom("noreply@baeldung.com");
-		message.setTo(recipientEmail); 
-		message.setSubject("Olvidó su contraseña"); 
-		message.setText("Para restablecer su contraseña, indique el siguiente token: " + token);
-		((org.springframework.mail.javamail.JavaMailSender) mailSender).send(message);
+	// 	SimpleMailMessage message = new SimpleMailMessage(); 
+	// 	message.setFrom("noreply@baeldung.com");
+	// 	message.setTo(recipientEmail); 
+	// 	message.setSubject("Olvidó su contraseña"); 
+	// 	message.setText("Para restablecer su contraseña, indique el siguiente token: " + token);
+	// 	((org.springframework.mail.javamail.JavaMailSender) mailSender).send(message);
 			
 		
-	}
+	// }
 
-	@Bean
-	public JavaMailSenderImpl getJavaMailSender() {
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.gmail.com");
-		mailSender.setPort(587);
+	// @Bean
+	// public JavaMailSenderImpl getJavaMailSender() {
+	// 	JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	// 	mailSender.setHost("smtp.gmail.com");
+	// 	mailSender.setPort(587);
 		
-		mailSender.setUsername("onep1game@gmail.com");
-		mailSender.setPassword("*onep1-Game");
+	// 	mailSender.setUsername("onep1game@gmail.com");
+	// 	mailSender.setPassword("*onep1-Game");
 		
-		Properties props = mailSender.getJavaMailProperties();
-		props.put("mail.transport.protocol", "smtp");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.debug", "true");
+	// 	Properties props = mailSender.getJavaMailProperties();
+	// 	props.put("mail.transport.protocol", "smtp");
+	// 	props.put("mail.smtp.auth", "true");
+	// 	props.put("mail.smtp.starttls.enable", "true");
+	// 	props.put("mail.debug", "true");
 		
-		return mailSender;
-	}
+	// 	return mailSender;
+	// }
 }
