@@ -111,7 +111,7 @@ public class AuthController {
 
 			return ResponseEntity.ok(new MessageResponse("Se ha enviado el correo correctamente."));
 		} else {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar la petición de amistad"));
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede enviar el correo de recuperacion"));
 		}		
 	}
 
