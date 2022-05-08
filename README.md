@@ -364,3 +364,23 @@ Enviar un mensaje para robar n cartas /card/draw/{roomId}
         {
           "nCards" : <numero_cartas_a_robar>
         }
+  
+Enviar un mensaje al chat de la partida /message/{roomId}
+  -NUEVO ENDPOINT: Suscribirse a /topic/game/chat/{roomId}
+  -Header : nombre de usuario
+  - Body :
+  
+        {
+          "message" : "<mensaje>"
+        }
+  
+  - Devuelve :
+  
+        {
+          "username" : "<nombre_emisor>",
+          "message" : "<mensaje>"
+        }
+  
+  -El mensaje que se envíe se recibirá por el endpoint. 2 opciones para Frontend:
+      - Mostrar nuevo mensaje, enviar mensaje a Backend, ignorar respuesta si lo he enviado yo.
+      - Enviar mensaje a Backend, mostrar respuesta de Backend.
