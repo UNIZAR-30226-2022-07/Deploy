@@ -381,6 +381,6 @@ Enviar un mensaje al chat de la partida /message/{roomId}
           "message" : "<mensaje>"
         }
   
-  -El mensaje que se envíe se recibirá por el endpoint. 2 opciones para Frontend:
+  - El mensaje que se envíe se recibirá por el endpoint. 2 opciones para Frontend:
       - Mostrar nuevo mensaje, enviar mensaje a Backend, ignorar respuesta si lo he enviado yo.
       - Enviar mensaje a Backend, mostrar respuesta de Backend.
