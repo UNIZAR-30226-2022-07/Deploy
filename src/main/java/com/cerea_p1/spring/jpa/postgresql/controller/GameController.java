@@ -130,6 +130,19 @@ public class GameController {
         }
     }
 
+    @MessageMapping("/message/{roomId}")
+    @SendTo("/topic/game/chat/{roomId}")
+    @MessageExceptionHandler()
+    public String sendMessage(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody String message) {
+        try{
+            logger.info(message + " sent to chat by " + username);
+            return Sender.enviar(new EmisorChat(username, message));
+        } catch(Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return Sender.enviar(e);
+        }
+    }
+
     // @ExceptionHandler(Exception.class)
     // public ModelAndView handleException(NullPointerException ex)
     // {
