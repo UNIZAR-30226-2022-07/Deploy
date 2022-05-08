@@ -133,7 +133,7 @@ public class AuthController {
         msg.setTo(to);
 
         msg.setSubject("Recuperar contraseña");
-        msg.setText("Para restablecer su contraseña, indique el siguiente token: " + token);
+        msg.setText("Para restablecer su contraseña, introduzca el siguiente token: " + token);
 
         javaMailSender.send(msg);
 
