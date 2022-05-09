@@ -2,6 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +43,7 @@ public class GameController {
     }
 
     @MessageMapping("/connect/{roomId}")
-	@SendTo("/topic/game/{roomId}")
+	@SendTo("/topic/connect/{roomId}")
     @MessageExceptionHandler()
     public String connect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
@@ -56,7 +57,7 @@ public class GameController {
 
 
     @MessageMapping("/begin/{roomId}")
-	@SendTo("/topic/game/{roomId}")
+	@SendTo("/topic/begin/{roomId}")
     @MessageExceptionHandler()
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
@@ -76,7 +77,7 @@ public class GameController {
     }
 
     @MessageMapping("/disconnect/{roomId}")
-    @SendTo("/topic/game/{roomId}")
+    @SendTo("/topic/diconnect/{roomId}")
     @MessageExceptionHandler()
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
@@ -89,17 +90,17 @@ public class GameController {
     }
 
     @MessageMapping("/card/play/{roomId}")
-    @SendTo("/topic/game/{roomId}")
+    @SendTo("/topic/jugada/{roomId}")
     @MessageExceptionHandler()
     public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody Carta c) {
         try{
             logger.info(c.getNumero()+" "+c.getColor()+ " played by "+ username);
 
             Partida game = gameService.getPartida(roomId);
-            for(Jugador j : game.getJugadores()){
-                logger.info("send to " + j.getNombre());
-                simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
-            }
+            // for(Jugador j : game.getJugadores()){
+            //     logger.info("send to " + j.getNombre());
+            //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
+            // }
 
             return Sender.enviar(gameService.playCard(roomId, new Jugador(username), c));
         } catch(Exception e){
@@ -109,21 +110,21 @@ public class GameController {
     }
 
     @MessageMapping("/card/draw/{roomId}")
-    @SendTo("/topic/game/{roomId}")
+    @SendTo("/topic/jugada/{roomId}")
     @MessageExceptionHandler()
     public String draw(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody int nCards) {
         try{
             logger.info(nCards+" drawn by " + username);
 
             Partida game = gameService.getPartida(roomId);
-            //Enviar mensaje siguiente turno
-            for(Jugador j : game.getJugadores()){
-                logger.info("send to " + j.getNombre());
-                simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
-            }
             //Enviar cartas robadas al solicitante
             simpMessagingTemplate.convertAndSendToUser(username, "/msg", gameService.drawCards(roomId, new Jugador(username), nCards));
-            return "cartas robadas por "+ username;
+            // //Enviar mensaje siguiente turno
+            // for(Jugador j : game.getJugadores()){
+            //     logger.info("send to " + j.getNombre());
+            //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
+            // }
+            return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores()));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);
@@ -131,7 +132,7 @@ public class GameController {
     }
 
     @MessageMapping("/message/{roomId}")
-    @SendTo("/topic/game/chat/{roomId}")
+    @SendTo("/topic/chat/{roomId}")
     @MessageExceptionHandler()
     public String sendMessage(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody String message) {
         try{

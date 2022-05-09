@@ -1,6 +1,7 @@
 package com.cerea_p1.spring.jpa.postgresql.security.services;
 
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.exception.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -110,7 +111,7 @@ public class GameService {
         } else throw new BeginGameException("Faltan jugadores.");
     }
 
-    public Carta playCard(String gameId, Jugador player, Carta card) {
+    public Jugada playCard(String gameId, Jugador player, Carta card) {
         Optional<Partida> optionalGame;
         if(almacen_partidas.containsKey(gameId))
             optionalGame = Optional.of(almacen_partidas.get(gameId));
@@ -123,8 +124,10 @@ public class GameService {
         Partida game = optionalGame.get();
         player.deleteCarta(card);
         game.jugarCarta(card,player.getNombre());
+
+        Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
         
-        return game.getUltimaCartaJugada();
+        return play;
     }
 
     public List<Carta> drawCards(String gameId, Jugador player, int nCards) {
