@@ -325,26 +325,28 @@ Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1
 
 Cada usuario debería suscribirse a /user/{username}/msg (es donde llegarán los mensajes específicos para el usuario)
 
-Suscribirse a una partida /topic/game/{roomId}
 
-Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre de usuario> } en el mensaje
-
+Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre_de_usuario> } en el mensaje
 
 Enviar un mensaje para conectarse a la partida /connect/{roomId}
-  - Header : nombre de usuario
-  - Body : vacio
+  - Suscribirse a /topic/connect/{roomId}
+    - Header : nombre de usuario
+    - Body : vacio
 
 Enviar un mensaje para empezar una partida /begin/{roomId}
-  - Header : nombre de usuario
-  - Body : vacio
+  - Suscribirse a /topic/begin/{roomId}
+    - Header : nombre de usuario
+    - Body : vacio
 
 Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
-  - Header : nombre de usuario
-  - Body : vacio
+  - Suscribirse a /topic/disconnect/{roomId}
+    - Header : nombre de usuario
+    - Body : vacio
 
 Enviar un mensaje para jugar una carta /card/play/{roomId}
-  - Header : nombre de usuario
-  - Body :
+  - Suscribirse a /topic/jugada/{roomId}
+    - Header : nombre de usuario
+    - Body :
  
         {
           "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
@@ -353,17 +355,73 @@ Enviar un mensaje para jugar una carta /card/play/{roomId}
         
   - Devuelve:
     - Si va bien: 
-      - La carta jugada por /topic/game/{roomId}
-      - String "Siguiente turno" por /user/{username}/msg (provisional)
+      - Devuelve por /topic/jugada/{roomId} un JSON con formato:
+
+        {
+          "carta": {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+          },
+          "jugadores": [
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            }, 
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            },
+            ...
+          ]
+        }
+      
                   
       
 Enviar un mensaje para robar n cartas /card/draw/{roomId}
-  - Header : nombre de usuario
-  - Body :
+  - Suscribirse a /topic/jugada/{roomId}
+    - Header : nombre de usuario
+    - Body :
  
         {
           "nCards" : <numero_cartas_a_robar>
         }
+
+  - Devuelve:
+    - Si va bien: 
+      - Devuelve por /topic/jugada/{roomId} un JSON con formato:
+
+        {
+          "carta": {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+          },
+          "jugadores": [
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            }, 
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            },
+            ...
+          ]
+        }
+
+      - Devuelve por /user/{username}/msg una lista de cartas:
+
+        [
+          {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+          },
+          {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+          },
+          ...
+        ]
+        
   
 Enviar un mensaje al chat de la partida /message/{roomId}
   -NUEVO ENDPOINT: Suscribirse a /topic/game/chat/{roomId}
