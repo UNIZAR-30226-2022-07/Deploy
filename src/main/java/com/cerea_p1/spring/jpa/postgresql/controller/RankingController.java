@@ -59,6 +59,7 @@ public class RankingController {
     @PostMapping("/rankingAmigos")
     @MessageExceptionHandler()
 	public ResponseEntity<?> rankingPorAmigos(@RequestBody RankingAmigosRequest amigosRequest) {
+        logger.info("user = " + amigosRequest.getUsername());
         try{
             return ResponseEntity.ok(new MessageResponse(Sender.enviar(userRepository.userRankingAmigos(amigosRequest.getUsername()))));
         }catch (Exception e){
