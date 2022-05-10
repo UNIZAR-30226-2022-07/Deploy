@@ -22,8 +22,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario,String> {
     @Query("SELECT a.username, a.puntos, a.pais FROM Usuario u INNER JOIN u.amigos a  WHERE :username = u.username ORDER BY a.puntos DESC")
     List<String> userRankingAmigos(@Param("username") String username);
     public Usuario findByResetPasswordToken(String token);
-    @Query("delete from Amigo a where a.usuario1 = :email or a.usuario2 = :email" )    
-    public void deleteUser(@Param("email") String email);
-    @Query("delete from Usuario u where u.email = :email" ) 
-    public void deleteUser2(@Param("email") String email);
+    // @Query("delete from Amigo a where a.usuario1 = :email or a.usuario2 = :email" )    
+    // public void deleteUser(@Param("email") String email);
+    // @Query("delete from Usuario u where u.email = :email" ) 
+    // public void deleteUser2(@Param("email") String email);
 }
