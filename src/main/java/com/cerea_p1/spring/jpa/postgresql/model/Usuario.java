@@ -47,7 +47,6 @@ public class Usuario {
         @JoinColumn(name = "usuario2", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "usuario1", referencedColumnName = "correo_electronico", nullable = false)})
         @ManyToMany(cascade = {CascadeType.PERSIST})
-        @OnDelete(action = OnDeleteAction.CASCADE)
     public List<Usuario> amigos;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
