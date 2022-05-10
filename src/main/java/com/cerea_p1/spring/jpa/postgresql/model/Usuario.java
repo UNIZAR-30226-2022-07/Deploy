@@ -46,7 +46,7 @@ public class Usuario {
     @JoinTable(name = "amigo", joinColumns = {
         @JoinColumn(name = "usuario2", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "usuario1", referencedColumnName = "correo_electronico", nullable = false)})
-        @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+        @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     public List<Usuario> amigos;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
