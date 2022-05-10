@@ -31,15 +31,12 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 255)
     private String password;
 
-
-   // @OneToMany(mappedBy = "receptor", cascade=CascadeType.PERSIST)
     @JoinTable(name = "invitacion", joinColumns = {
         @JoinColumn(name = "receptor", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "correo_electronico", nullable = false)})
         @ManyToMany(cascade = {CascadeType.PERSIST})
     public List<Usuario> invitacionesRecibidas;
 
-  //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
     @ManyToMany(mappedBy = "invitacionesRecibidas")
     public List<Usuario> invitacionesEnviadas;
 
@@ -49,7 +46,6 @@ public class Usuario {
         @ManyToMany(cascade = {CascadeType.PERSIST})
     public List<Usuario> amigos;
 
-  //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
     @ManyToMany(mappedBy = "amigos")
     public List<Usuario> amigosInv;
 
