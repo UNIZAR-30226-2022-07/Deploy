@@ -42,7 +42,9 @@ public class UserController {
 			Optional<Usuario> opUser = userRepository.findByUsername(deleteUserRequest.getUsername());
 			if(opUser.isPresent()){
 				Usuario u = opUser.get();
-                userRepository.delete(u);
+				userRepository.deleteUser(u.getEmail());
+				userRepository.deleteUser2(u.getEmail());
+            //    userRepository.delete(u);
                 return ResponseEntity.ok(new MessageResponse("Se ha eliminado el usuario correctamente"));
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede recuper el usuario."));
 		}

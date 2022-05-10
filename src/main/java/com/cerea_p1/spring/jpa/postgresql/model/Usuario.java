@@ -46,11 +46,11 @@ public class Usuario {
     @JoinTable(name = "amigo", joinColumns = {
         @JoinColumn(name = "usuario2", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "usuario1", referencedColumnName = "correo_electronico", nullable = false)})
-        @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+        @ManyToMany(cascade = {CascadeType.PERSIST})
     public List<Usuario> amigos;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
-    @ManyToMany(mappedBy = "amigos", cascade = {CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "amigos")
     public List<Usuario> amigosInv;
 
 
