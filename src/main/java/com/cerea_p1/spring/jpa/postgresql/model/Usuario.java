@@ -2,6 +2,10 @@ package com.cerea_p1.spring.jpa.postgresql.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.*;
 import javax.persistence.CascadeType;
 
@@ -32,7 +36,7 @@ public class Usuario {
     @JoinTable(name = "invitacion", joinColumns = {
         @JoinColumn(name = "receptor", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "correo_electronico", nullable = false)})
-        @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+        @ManyToMany(cascade = {CascadeType.PERSIST})
     public List<Usuario> invitacionesRecibidas;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
@@ -42,7 +46,8 @@ public class Usuario {
     @JoinTable(name = "amigo", joinColumns = {
         @JoinColumn(name = "usuario2", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "usuario1", referencedColumnName = "correo_electronico", nullable = false)})
-        @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+        @ManyToMany(cascade = {CascadeType.PERSIST})
+        @OnDelete(action = OnDeleteAction.CASCADE)
     public List<Usuario> amigos;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
