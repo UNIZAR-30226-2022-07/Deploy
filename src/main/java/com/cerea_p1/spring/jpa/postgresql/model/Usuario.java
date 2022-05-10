@@ -32,7 +32,7 @@ public class Usuario {
     @JoinTable(name = "invitacion", joinColumns = {
         @JoinColumn(name = "receptor", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "correo_electronico", nullable = false)})
-        @ManyToMany(cascade = CascadeType.PERSIST)
+        @ManyToMany(cascade = CascadeType.ALL)
     public List<Usuario> invitacionesRecibidas;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
@@ -42,7 +42,7 @@ public class Usuario {
     @JoinTable(name = "amigo", joinColumns = {
         @JoinColumn(name = "usuario2", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "usuario1", referencedColumnName = "correo_electronico", nullable = false)})
-        @ManyToMany(cascade = CascadeType.PERSIST)
+        @ManyToMany(cascade = CascadeType.ALL)
     public List<Usuario> amigos;
 
   //  @OneToMany(mappedBy = "emisor", cascade=CascadeType.PERSIST)
