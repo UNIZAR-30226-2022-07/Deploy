@@ -382,6 +382,15 @@ Partidas de un usuario
               <nombre_jugador1>,
               <nombre_jugador2>,
               ...
+            ],
+            "reglas": [
+              {
+                [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
+              },
+              {
+                [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
+              }
+              ...
             ]
           }
       
