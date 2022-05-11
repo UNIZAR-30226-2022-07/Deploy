@@ -35,6 +35,7 @@ public class Usuario {
         @JoinColumn(name = "receptor", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "correo_electronico", nullable = false)})
         @ManyToMany(cascade = {CascadeType.PERSIST})
+    // @PreRemove
     public List<Usuario> invitacionesRecibidas;
 
     @ManyToMany(mappedBy = "invitacionesRecibidas")
@@ -199,6 +200,13 @@ public class Usuario {
 
     public void setResetPasswordToken(String token){
         resetPasswordToken = token;
+    }
+
+    @PreRemove
+    public void removeAmigos(){
+        for(Usuario u : amigos){
+            u.removeAmigo(this);
+        }
     }
     
     @Override
