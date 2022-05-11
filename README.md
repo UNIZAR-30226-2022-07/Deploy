@@ -360,6 +360,33 @@ Partidas de un usuario
       
     - Si va mal: codigo 4**, y por qué falla
 
+Información de la partida
+
+Partidas de un usuario
+
+  - Peticion POST a : https://onep1.herokuapp.com/game/getInfoPartida
+
+  - JSON:
+
+          {
+            "idPartida": <id_de_la_partida>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          {
+            "numeroJugadores": <numero_de_jugadores_dentro_de_la_sala>,
+            "tiempoTurno": <tiempo_de_turno>,
+            "jugadores": [
+              <nombre_jugador1>,
+              <nombre_jugador2>,
+              ...
+            ]
+          }
+      
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
