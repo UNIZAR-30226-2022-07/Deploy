@@ -5,6 +5,7 @@ import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.InfoGame;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.JugarCarta;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
@@ -92,7 +93,7 @@ public class GameController {
             for(Jugador g : p.getJugadores()){
                 j.add(g.getNombre());
             }
-            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getJugadores().size(), p.getTTurno(), j, p.getReglas())));
+            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getNJugadores(), p.getTTurno(), j, p.getReglas())));
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
 
@@ -146,9 +147,9 @@ public class GameController {
     @MessageMapping("/card/play/{roomId}")
     @SendTo("/topic/jugada/{roomId}")
     @MessageExceptionHandler()
-    public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
+    public String card(@DestinationVariable("roomId") String roomId, @Header("username") JugarCarta jugada) {
         try{
-        //    logger.info(c.getNumero()+" "+c.getColor()+ " played by "+ username);
+           logger.info(jugada.getCarta().getNumero()+" "+jugada.getCarta().getColor()+ " played by "+ jugada.getUsername());
             logger.info("prueba");
 
             Partida game = gameService.getPartida(roomId);
