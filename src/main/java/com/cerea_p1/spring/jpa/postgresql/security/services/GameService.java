@@ -4,11 +4,14 @@ import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.exception.*;
 import lombok.AllArgsConstructor;
+
+import org.hibernate.mapping.Set;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.security.KeyStore.Entry;
 import java.util.List;
 
 @Service
@@ -146,6 +149,16 @@ public class GameService {
             player.addCarta(c);
         
         return cards_drawn;
+    }
+
+
+    public String getPartidasUser(String user){
+        for(int i=almacen_partidas.size()-1; i>=0; i--){
+            if(almacen_partidas.get(i).playerAlreadyIn(new Jugador(user))){
+                return almacen_partidas.get(i).getId();
+            }
+        }
+        return "";
     }
 
     /*public Game connectToRandomGame(Player player) {

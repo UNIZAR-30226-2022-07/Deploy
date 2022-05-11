@@ -219,6 +219,13 @@ public class Partida {
         return jugadores;
     }
 
+    public Jugador getJugador(Jugador j){
+        for(Jugador k : jugadores){
+            if(k.equals(j)) return k;
+        }
+        return null;
+    }
+
     public boolean removePlayer(Jugador j){
         if(jugadores.contains(j)){
             jugadores.remove(j);

@@ -2,12 +2,16 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -42,6 +46,27 @@ public class GameController {
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn()));
     }
 
+    @PostMapping("/game/getCartas")
+    public ResponseEntity<?> getCartas(@RequestBody DisconnectRequest getCartas){
+        Partida p = gameService.getPartida(getCartas.getGameId());
+        if ( p == null){
+            return ResponseEntity.badRequest().body(new MessageResponse("La partida no existe"));
+        } else {
+            if(p.playerAlreadyIn(new Jugador(getCartas.getPlayerName())))
+                return ResponseEntity.ok(Sender.enviar(p.getJugador(new Jugador(getCartas.getPlayerName())).getCartas()));
+            else 
+                return ResponseEntity.badRequest().body(new MessageResponse("El jugador no está en la partida"));
+        }
+    }
+
+    @PostMapping("/game/getPartidasActivas")
+    public ResponseEntity<?> getPartidas(@RequestBody GetPartidas getPartidas){
+        String s = gameService.getPartidasUser(getPartidas.getUsername());
+        if(s == ""){
+            return ResponseEntity.badRequest().body(new MessageResponse("No hay partidas para el usuario"));
+        } else return ResponseEntity.ok(s);
+    }
+
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
     @MessageExceptionHandler()
@@ -54,7 +79,6 @@ public class GameController {
           	return Sender.enviar(e);
         }
     }
-
 
     @MessageMapping("/begin/{roomId}")
 	@SendTo("/topic/begin/{roomId}")

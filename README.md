@@ -317,6 +317,49 @@ Establecer nueva contraseña
       
     - Si va mal: codigo 4**, y poca info
 
+Devolver las cartas de un usuario en una partida
+
+  - Peticion POST a : https://onep1.herokuapp.com/game/getCartas
+
+  - JSON:
+
+          {
+            "playerName": <nombre_del_usuario>,
+            "gameId":<id_de_la_partida>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          {
+            [ "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR], 
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR],
+            ... ]
+          }
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+Partidas de un usuario
+
+  - Peticion POST a : https://onep1.herokuapp.com/game/getPartidasActivas
+
+  - JSON:
+
+          {
+            "playerName": <nombre_del_usuario>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          {
+            codigo de partida
+          }
+      
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
