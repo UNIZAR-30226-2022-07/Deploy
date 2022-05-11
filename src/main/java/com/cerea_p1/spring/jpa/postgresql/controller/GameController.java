@@ -30,6 +30,8 @@ import java.util.logging.*;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
+import com.google.gson.Gson;
+
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 
@@ -122,7 +124,7 @@ public class GameController {
                 logger.info("send to " + j.getNombre());
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
             }
-            logger.info(Sender.enviar(game.getUltimaCartaJugada()));
+
             return Sender.enviar(game.getUltimaCartaJugada());
         } catch(Exception e) {
             logger.warning("Exception" + e.getMessage());
@@ -146,9 +148,10 @@ public class GameController {
     @MessageMapping("/card/play/{roomId}")
     @SendTo("/topic/jugada/{roomId}")
     @MessageExceptionHandler()
-    public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username, Carta c) {
+    public String card(@DestinationVariable("roomId") String roomId,@Payload String c, @Header("username") String username) {
         try{
-            logger.info(c.getNumero()+" "+c.getColor()+ " played by "+ username);
+            Carta carta = new Gson().fromJson(c, Carta.class);
+            logger.info(carta.getNumero()+" "+carta.getColor()+ " played by "+ username);
 
             Partida game = gameService.getPartida(roomId);
             // for(Jugador j : game.getJugadores()){
@@ -156,7 +159,7 @@ public class GameController {
             //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
             // }
 
-            return Sender.enviar(gameService.playCard(roomId, new Jugador(username), c));
+            return Sender.enviar(gameService.playCard(roomId, new Jugador(username), carta));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);
