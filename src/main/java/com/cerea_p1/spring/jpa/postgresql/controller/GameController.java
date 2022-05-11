@@ -156,8 +156,8 @@ public class GameController {
             //     logger.info("send to " + j.getNombre());
             //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
             // }
-
-            return Sender.enviar(gameService.playCard(roomId, new Jugador(username), c));
+            return "OK";
+        //    return Sender.enviar(gameService.playCard(roomId, new Jugador(username), c));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);
