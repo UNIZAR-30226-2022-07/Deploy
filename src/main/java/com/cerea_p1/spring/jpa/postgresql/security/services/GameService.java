@@ -121,21 +121,24 @@ public class GameService {
 
     public Jugada playCard(String gameId, Jugador player, Carta card) {
         Optional<Partida> optionalGame;
-        if(almacen_partidas.containsKey(gameId))
+        if(almacen_partidas.containsKey(gameId)){
             optionalGame = Optional.of(almacen_partidas.get(gameId));
-        else { 
+
+            Partida game = optionalGame.get();
+            if(! player.deleteCarta(card))
+            throw new GameException("El jugador " + player.getNombre() + " no contiene la carta " + card);
+            game.jugarCarta(card,player.getNombre());
+
+            Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
+            return play;
+        } else { 
             optionalGame = null;
             throw new BeginGameException("Esa partida no existe");
         }
-        optionalGame.orElseThrow(() -> new BeginGameException("Game with provided id doesn't exist"));
 
-        Partida game = optionalGame.get();
-        player.deleteCarta(card);
-        game.jugarCarta(card,player.getNombre());
 
-        Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
         
-        return play;
+        
     }
 
     public List<Carta> drawCards(String gameId, Jugador player, int nCards) {
