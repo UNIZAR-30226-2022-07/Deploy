@@ -9,6 +9,11 @@ public class Carta {
         this.color = color;
     }
 
+    public Carta(String numero, String color){
+        this.numero = Numero.valueOf(numero);
+        this.color = Color.valueOf(color);
+    }
+
     public void setNumero(Numero numero){
         this.numero = numero;
     }
