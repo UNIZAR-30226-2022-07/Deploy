@@ -47,7 +47,7 @@ public class GameController {
 
     @PostMapping("/game/create")
     public ResponseEntity<Partida> create(@RequestBody CreateGameRequest request) {
-        logger.info("create game request by " + request.getPlayername() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn());
+        logger.info("create game request by " + request.getPlayername() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn() + " reglas = " + request.getRules());
         return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn(), request.getRules()));
     }
 

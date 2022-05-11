@@ -49,7 +49,16 @@ Crear una partida:
         {
             "playername": <nombre_del_usuario>,
             "nplayers": <numero_de_jugadores>,
-            "tturn": <tiempo_de_turno>
+            "tturn": <tiempo_de_turno>,
+            "reglas": [
+              {
+                [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
+              },
+              {
+                [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
+              }
+              ...
+            ]
         }
 
   - Devuelve: 
