@@ -1,28 +1,28 @@
 package com.cerea_p1.spring.jpa.postgresql.model.game;
 
 public class Carta {
-    Numero num;
-    Color col;
+    Numero numero;
+    Color color;
 
     public Carta(Numero numero, Color color){
-        num = numero;
-        col = color;
+        this.numero = numero;
+        this.color = color;
     }
 
     public void setNumero(Numero numero){
-        num = numero;
+        this.numero = numero;
     }
 
     public Numero getNumero(){
-        return num;
+        return numero;
     }
 
     public void setColor(Color color){
-        col = color;
+        this.color = color;
     }
 
     public Color getColor(){
-        return col;
+        return color;
     }
     
 }
