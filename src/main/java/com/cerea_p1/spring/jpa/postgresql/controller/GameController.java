@@ -34,7 +34,7 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 
 
 @Slf4j
-@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200/", "http://one-fweb.herokuapp.com"})
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200/", "https://one-fweb.herokuapp.com"})
 @AllArgsConstructor
 @Controller
 public class GameController {
