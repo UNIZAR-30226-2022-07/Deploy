@@ -4,6 +4,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
@@ -29,7 +30,7 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 
 
 @Slf4j
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/")
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200/", "one-fweb.herokuapp.com"})
 @AllArgsConstructor
 @Controller
 public class GameController {
@@ -65,6 +66,14 @@ public class GameController {
         if(s == ""){
             return ResponseEntity.badRequest().body(new MessageResponse("No hay partidas para el usuario"));
         } else return ResponseEntity.ok(s);
+    }
+
+    @PostMapping("/game/getInfoPartida")
+    public ResponseEntity<?> getInfoPartida(@RequestBody String idPartida){
+        if(gameService.existPartida(idPartida)){
+            Partida p = gameService.getPartida(idPartida);
+            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getJugadores().size(), p.getTTurno())));
+        } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
 
     @MessageMapping("/connect/{roomId}")

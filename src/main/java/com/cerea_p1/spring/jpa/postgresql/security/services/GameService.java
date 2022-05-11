@@ -28,6 +28,10 @@ public class GameService {
         return almacen_partidas.get(gameId);
     }
 
+    public boolean existPartida(String gameId){
+        return almacen_partidas.containsKey(gameId);
+    }
+
     public Partida crearPartida(Jugador jugador,int nJugadores, int tTurno) {
         Partida game = new Partida(true);
         game.setId(UUID.randomUUID().toString());
