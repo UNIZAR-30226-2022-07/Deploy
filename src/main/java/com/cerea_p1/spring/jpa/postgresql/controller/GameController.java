@@ -85,6 +85,7 @@ public class GameController {
     @MessageExceptionHandler()
     public String begin(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
+            System.out.println(Numero.CERO);
             logger.info("begin game request by " + username);
             //ENVIAR MANOS INICIALES A TODOS LOS JUGADORES
             Partida game = gameService.beginGame(roomId);
