@@ -206,6 +206,8 @@ public class Usuario {
     public void removeAmigos(){
         for(Usuario u : amigos){
             u.removeAmigo(this);
+        }
+        for(Usuario u : invitacionesEnviadas){
             u.removeInvitacion(this);
         }
     }
