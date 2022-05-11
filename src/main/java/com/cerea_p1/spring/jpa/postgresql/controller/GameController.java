@@ -51,7 +51,7 @@ public class GameController {
         List<Regla> l = new ArrayList<Regla>();
         boolean f = false;
         for(Regla r : request.getRules()){
-            if(l.contains(l)) f = true;
+            if(l.contains(r)) f = true;
             else l.add(r);
         }
         if(f){
