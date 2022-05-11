@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.*;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
@@ -72,7 +75,11 @@ public class GameController {
     public ResponseEntity<?> getInfoPartida(@RequestBody String idPartida){
         if(gameService.existPartida(idPartida)){
             Partida p = gameService.getPartida(idPartida);
-            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getJugadores().size(), p.getTTurno())));
+            List<String> j = new ArrayList<String>();
+            for(Jugador g : p.getJugadores()){
+                j.add(g.getNombre());
+            }
+            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getJugadores().size(), p.getTTurno(), j)));
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
 
