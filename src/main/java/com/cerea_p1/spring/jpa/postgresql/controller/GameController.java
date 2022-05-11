@@ -46,9 +46,18 @@ public class GameController {
     private static final Logger logger = Logger.getLogger("MyLog");
 
     @PostMapping("/game/create")
-    public ResponseEntity<Partida> create(@RequestBody CreateGameRequest request) {
+    public ResponseEntity<?> create(@RequestBody CreateGameRequest request) {
         logger.info("create game request by " + request.getPlayername() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn() + " reglas = " + request.getRules());
-        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn(), request.getRules()));
+        List<Regla> l = new ArrayList<Regla>();
+        boolean f = false;
+        for(Regla r : request.getRules()){
+            if(l.contains(l)) f = true;
+            else l.add(r);
+        }
+        if(f){
+            return ResponseEntity.badRequest().body(new MessageResponse("No puede haber reglas repetidas"));
+        } else
+            return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn(), request.getRules()));
     }
 
     @PostMapping("/game/getCartas")
