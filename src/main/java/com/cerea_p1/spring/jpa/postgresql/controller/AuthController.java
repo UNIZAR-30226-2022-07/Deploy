@@ -35,7 +35,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import java.io.UnsupportedEncodingException;
 import java.util.logging.*;
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/")
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200/", "https://one-fweb.herokuapp.com"})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

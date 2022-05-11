@@ -29,7 +29,7 @@ import java.util.logging.*;
 
 
 @RestController
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200/")
+@CrossOrigin(allowCredentials = "true", origins = {"http://localhost:4200/","https://one-fweb.herokuapp.com"})
 @RequestMapping("/friends")
 public class FriendController {
     @Autowired
