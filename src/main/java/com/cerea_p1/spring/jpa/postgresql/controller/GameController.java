@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class GameController {
     @MessageMapping("/card/play/{roomId}")
     @SendTo("/topic/jugada/{roomId}")
     @MessageExceptionHandler()
-    public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username, @RequestBody Carta c) {
+    public String card(@DestinationVariable("roomId") String roomId, @Header("username") String username, @Payload Carta c) {
         try{
             logger.info(c.getNumero()+" "+c.getColor()+ " played by "+ username);
 
