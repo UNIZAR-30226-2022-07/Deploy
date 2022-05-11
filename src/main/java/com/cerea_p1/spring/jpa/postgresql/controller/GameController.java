@@ -73,7 +73,9 @@ public class GameController {
 
     @PostMapping("/game/getInfoPartida")
     public ResponseEntity<?> getInfoPartida(@RequestBody String idPartida){
+        logger.info(idPartida);
         if(gameService.existPartida(idPartida)){
+            
             Partida p = gameService.getPartida(idPartida);
             List<String> j = new ArrayList<String>();
             for(Jugador g : p.getJugadores()){
