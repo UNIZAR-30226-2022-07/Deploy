@@ -4,6 +4,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.InfoGame;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
@@ -47,7 +48,7 @@ public class GameController {
     @PostMapping("/game/create")
     public ResponseEntity<Partida> create(@RequestBody CreateGameRequest request) {
         logger.info("create game request by " + request.getPlayername() + ". NJugadores = "+request.getNPlayers()+". tTurn = "+request.getTTurn());
-        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn()));
+        return ResponseEntity.ok(gameService.crearPartida(new Jugador(request.getPlayername()), request.getNPlayers(), request.getTTurn(), request.getRules()));
     }
 
     @PostMapping("/game/getCartas")
@@ -72,11 +73,11 @@ public class GameController {
     }
 
     @PostMapping("/game/getInfoPartida")
-    public ResponseEntity<?> getInfoPartida(@RequestBody String idPartida){
-        logger.info(idPartida);
-        if(gameService.existPartida(idPartida)){
+    public ResponseEntity<?> getInfoPartida(@RequestBody InfoGame idPartida){
+        logger.info(idPartida.getIdPartida());
+        if(gameService.existPartida(idPartida.getIdPartida())){
             
-            Partida p = gameService.getPartida(idPartida);
+            Partida p = gameService.getPartida(idPartida.getIdPartida());
             List<String> j = new ArrayList<String>();
             for(Jugador g : p.getJugadores()){
                 j.add(g.getNombre());

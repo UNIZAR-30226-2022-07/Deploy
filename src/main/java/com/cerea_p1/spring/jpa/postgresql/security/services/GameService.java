@@ -32,13 +32,14 @@ public class GameService {
         return almacen_partidas.containsKey(gameId);
     }
 
-    public Partida crearPartida(Jugador jugador,int nJugadores, int tTurno) {
+    public Partida crearPartida(Jugador jugador,int nJugadores, int tTurno, List<Regla> reglas) {
         Partida game = new Partida(true);
         game.setId(UUID.randomUUID().toString());
         game.addJugador(jugador);
         game.setEstado(EstadoPartidaEnum.NEW);
         game.setNJugadores(nJugadores);
         game.setTTurno(tTurno);
+        game.setReglas(reglas);
         almacen_partidas.put(game.getId(),game);
         return game;
     }

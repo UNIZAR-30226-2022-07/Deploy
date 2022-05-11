@@ -7,6 +7,7 @@ public class Partida {
     private List<Jugador> jugadores;
     private List<Carta> baraja;
     private List<Carta> descartes;
+    private List<Regla> reglas;
     private EstadoPartidaEnum estado;
     private String id;
     private int tTurno;
@@ -17,6 +18,7 @@ public class Partida {
         jugadores = new ArrayList<Jugador>();
         baraja = barajaInicial();
         descartes = new ArrayList<Carta>();
+        reglas = new ArrayList<Regla>();
         partidaPrivada = tipoPartida;
         descartes.add(baraja.get(baraja.size()-1));
         baraja.remove(baraja.size()-1);
@@ -267,5 +269,13 @@ public class Partida {
 
     public void setNJugadores(int nJugadores) {
         this.nJugadores = nJugadores;
+    }
+
+    public List<Regla> getReglas() {
+        return reglas;
+    }
+
+    public void setReglas(List<Regla> reglas) {
+        this.reglas = reglas;
     }
 }
