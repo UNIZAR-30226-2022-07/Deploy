@@ -42,12 +42,12 @@ public class UserController {
 			Optional<Usuario> opUser = userRepository.findByUsername(deleteUserRequest.getUsername());
 			if(opUser.isPresent()){
 				Usuario u = opUser.get();
-				for(Usuario u2 : u.getAmigos()){
-					u.removeAmigo(u2);
-					u2.removeAmigo(u);
-					userRepository.save(u2);
-					userRepository.save(u);
-				}
+				// for(Usuario u2 : u.getAmigos()){
+				// 	u.removeAmigo(u2);
+				// 	u2.removeAmigo(u);
+				// 	userRepository.save(u2);
+				// 	userRepository.save(u);
+				// }
 				// userRepository.deleteUser(u.getEmail());
 				// userRepository.deleteUser2(u.getEmail());
                 userRepository.delete(u);
