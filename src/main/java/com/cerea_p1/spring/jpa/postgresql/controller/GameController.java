@@ -123,7 +123,7 @@ public class GameController {
             for(Jugador j : game.getJugadores()){
                 logger.info("send to " + j.getNombre());
                 simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", j.getCartas());
-                System.out.println(j.getCartas());
+                System.out.println(j.getNombre() + " " + j.getCartas());
             }
 
             return Sender.enviar(game.getUltimaCartaJugada());
