@@ -98,11 +98,14 @@ Ver invitaciones de amistad
           {
             "username": <nombre_de_usuario>
           }
+
   - Devuelve: 
     - Si va bien: codigo 200, 
+
           {
             "message": "[ <nombre_del_amigo1>, <nombre_del_amigo2>, ...]"
           }
+
     - Si va mal: codigo 4**, y por qué falla
 
 Aceptar invitación de amistad
@@ -114,6 +117,7 @@ Aceptar invitación de amistad
             "username": <nombre_de_usuario>,
             "friendname": <nombre_del_amigo>
           }
+          
   - Devuelve: 
     - Si va bien: codigo 200
      
@@ -131,6 +135,7 @@ Ver lista de amigos
           {
             "username": <nombre_de_usuario>
           }
+          
   - Devuelve: 
     - Si va bien: codigo 200
     
@@ -149,6 +154,7 @@ Cancelar petición de amistad
             "username": <nombre_de_usuario>,
             "friendname": <nombre_del_amigo>
           }
+          
   - Devuelve: 
     - Si va bien: codigo 200
      
@@ -167,6 +173,7 @@ Eliminar amigo
             "username": <nombre_de_usuario>,
             "friendname": <nombre_del_amigo>
           }
+          
   - Devuelve: 
     - Si va bien: codigo 200
      
@@ -184,6 +191,7 @@ Ranking de un pais
           {
             "pais": <pais_del_usuario>
           }
+          
   - Devuelve: 
     - Si va bien: codigo 200
      
@@ -322,6 +330,7 @@ Establecer nueva contraseña
           {
             "message": "La contraseña se ha restablecido correctamente"
           }
+          
       - Hay que volver a iniciar sesión
       
     - Si va mal: codigo 4**, y poca info
@@ -420,11 +429,14 @@ Enviar un mensaje para conectarse a la partida /connect/{roomId}
   - Suscribirse a /topic/connect/{roomId}
     - Header : nombre de usuario
     - Body : vacio
+  - Devuelve la lista de jugadores
 
 Enviar un mensaje para empezar una partida /begin/{roomId}
   - Suscribirse a /topic/begin/{roomId}
     - Header : nombre de usuario
     - Body : vacio
+  - Devuelve por este canal la carta del medio
+  - Devuelve por /user/{username}/msg el array de cartas de cada jugador
 
 Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
   - Suscribirse a /topic/disconnect/{roomId}
