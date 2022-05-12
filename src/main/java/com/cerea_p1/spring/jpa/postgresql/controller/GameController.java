@@ -159,8 +159,14 @@ public class GameController {
             //     logger.info("send to " + j.getNombre());
             //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
             // }
+            Jugada j = gameService.playCard(roomId, new Jugador(username), carta);
+            Partida p = gameService.getPartida(roomId);
+            Jugador jugador = p.getJugador(new Jugador(username));
+            if(jugador.getCartas().size() == 0){
+                return Sender.enviar(new String("HA GANADO " + jugador.getNombre()));
+            }
 
-            return Sender.enviar(gameService.playCard(roomId, new Jugador(username), carta));
+            return Sender.enviar(j);
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);

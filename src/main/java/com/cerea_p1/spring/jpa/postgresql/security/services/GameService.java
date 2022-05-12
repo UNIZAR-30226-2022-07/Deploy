@@ -122,7 +122,6 @@ public class GameService {
     public Jugada playCard(String gameId, Jugador player, Carta card) {
         Optional<Partida> optionalGame;
         if(almacen_partidas.containsKey(gameId)){
-            System.out.println("La partida está");
             optionalGame = Optional.of(almacen_partidas.get(gameId));
 
             Partida game = optionalGame.get();
@@ -131,13 +130,7 @@ public class GameService {
             if(! p.deleteCarta(card))
             throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
             game.jugarCarta(card,p.getNombre());
-            System.out.println("Revienta aqui");
-            Carta  cartita = game.getUltimaCartaJugada();
-            System.out.println("Recupero la carta");
-            List<Jugador> jugadores = game.getJugadores();
-            System.out.println("Recupero los jugadores");
-            Jugada play = new Jugada(cartita,jugadores);
-            System.out.println("Se recupera la jugada");
+            Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
             return play;
         } else { 
             optionalGame = null;
