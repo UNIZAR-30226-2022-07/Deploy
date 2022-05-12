@@ -126,6 +126,7 @@ public class GameService {
 
             Partida game = optionalGame.get();
             Jugador p = game.getJugador(player);
+            if(p == null) throw new GameException("El juagdor no está en la partida");
             if(! p.deleteCarta(card))
             throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
             game.jugarCarta(card,p.getNombre());

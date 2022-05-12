@@ -134,7 +134,7 @@ public class GameController {
     }
 
     @MessageMapping("/disconnect/{roomId}")
-    @SendTo("/topic/diconnect/{roomId}")
+    @SendTo("/topic/disconnect/{roomId}")
     @MessageExceptionHandler()
     public String disconnect(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
@@ -154,7 +154,7 @@ public class GameController {
             Carta carta = new Gson().fromJson(c, Carta.class);
             logger.info(carta.getNumero()+" "+carta.getColor()+ " played by "+ username);
 
-            Partida game = gameService.getPartida(roomId);
+         //   Partida game = gameService.getPartida(roomId);
             // for(Jugador j : game.getJugadores()){
             //     logger.info("send to " + j.getNombre());
             //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
