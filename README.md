@@ -524,7 +524,7 @@ Enviar un mensaje para robar n cartas /card/draw/{roomId}
         
   
 Enviar un mensaje al chat de la partida /message/{roomId}
-  -NUEVO ENDPOINT: Suscribirse a /topic/game/chat/{roomId}
+  -NUEVO ENDPOINT: Suscribirse a /topic/chat/{roomId}
   -Header : nombre de usuario
   - Body :
   

@@ -125,9 +125,10 @@ public class GameService {
             optionalGame = Optional.of(almacen_partidas.get(gameId));
 
             Partida game = optionalGame.get();
-            if(! player.deleteCarta(card))
-            throw new GameException("El jugador " + player.getNombre() + " no contiene la carta " + card);
-            game.jugarCarta(card,player.getNombre());
+            Jugador p = game.getJugador(player);
+            if(! p.deleteCarta(card))
+            throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
+            game.jugarCarta(card,p.getNombre());
 
             Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
             return play;
