@@ -13,15 +13,18 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.security.KeyStore.Entry;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
 public class GameService {
 
     private ConcurrentHashMap<String,Partida> almacen_partidas;
+    private ConcurrentHashMap<String,List<Invitacion_almacen>> almacen_invitaciones;
 
     public GameService(){
         almacen_partidas = new ConcurrentHashMap<String,Partida>();
+        almacen_invitaciones = new ConcurrentHashMap<String,List<Invitacion_almacen>>();
     }
 
     public Partida getPartida(String gameId) {
@@ -163,34 +166,19 @@ public class GameService {
                 return p.getId();
             }
         }
-        // for(int i=almacen_partidas.size()-1; i>=0; i--){
-           
-        //     if(almacen_partidas.get(i).playerAlreadyIn(new Jugador(user))){
-        //         return almacen_partidas.get(i).getId();
-        //     }
-        // }
         return "";
     }
 
-    /*public Game connectToRandomGame(Player player) {
-        Optional<Game> optionalGame = gameRepository.findFirstByStatusAndSecondPlayerIsNull(GameStatusEnum.NEW);
-        optionalGame.orElseThrow(() ->new GameException("There is no available Game!"));
-        Game game = optionalGame.get();
-        game.setSecondPlayer(player);
-        game.setStatus(GameStatusEnum.IN_PROGRESS);
-        gameRepository.save(game);
-        return game;
+    public void invitarAmigo(String username, String friendname, String gameId){
+        List<Invitacion_almacen> lista;
+        if(almacen_invitaciones.containsKey(friendname)){
+            lista = almacen_invitaciones.get(friendname);
+        } else {
+            lista = new ArrayList<Invitacion_almacen>();
+        }
+        lista.add(new Invitacion_almacen(username, gameId));
+        almacen_invitaciones.put(friendname, lista);
     }
 
-    public Game sow(Sow sow) {
-        Optional<Game> optionalGame=gameRepository.findById(sow.getGameId());
-
-        optionalGame.orElseThrow(() ->new GameException("Game with provided id doesn't exist"));
-        Game game = optionalGame.get();
-
-        Game gameAfterSow=sowService.sow(game,sow.getPitIndex());
-        gameRepository.save(gameAfterSow);
-
-        return gameAfterSow;
-    } */
+    
 }

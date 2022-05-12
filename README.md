@@ -414,6 +414,29 @@ Partidas de un usuario
       
     - Si va mal: codigo 4**, y por qué falla
 
+Enviar una invitación de partidas a un usuario
+
+  - Peticion POST a : https://onep1.herokuapp.com/game/getPartidasActivas
+
+  - JSON:
+
+          {
+            "username": <nombre_del_usuario>,
+            "friendname": <nombre_del_amigo_al_que_se_invita>,
+            "gameId": <gameId>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          {
+            "message": "Amigo <nombre_del_amigo_al_que_se_invita> invitado"
+          }
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
@@ -472,7 +495,8 @@ Enviar un mensaje para jugar una carta /game/card/play/{roomId}
               "numeroCartas": <numero_cartas>
             },
             ...
-          ]
+          ],
+          "turno":<username>
         }
       
                   
@@ -505,7 +529,51 @@ Enviar un mensaje para robar n cartas game/card/draw/{roomId}
               "numeroCartas": <numero_cartas>
             },
             ...
-          ]
+          ],
+          "turno":<nombre_usuario>
+        }
+
+      - Devuelve por /user/{username}/msg una lista de cartas:
+
+        [
+          {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+          },
+          {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+          },
+          ...
+        ]
+
+Enviar un mensaje para pasar de turno (se usa en caso de robar cartas o que te hayan bloqueado etc, no al jugar una carta) game/pasarTurno/{roomId}
+  - AL JUGAR UNA CARTA SE PASA EL TURNO SOLO
+  - Suscribirse a /topic/jugada/{roomId}
+    - Header : nombre de usuario
+    - Body : vacio
+
+  - Devuelve:
+    - Si va bien: 
+      - Devuelve por /topic/jugada/{roomId} un JSON con formato:
+
+        {
+          "carta": {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+          },
+          "jugadores": [
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            }, 
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            },
+            ...
+          ],
+          "turno":<nombre_usuario>
         }
 
       - Devuelve por /user/{username}/msg una lista de cartas:

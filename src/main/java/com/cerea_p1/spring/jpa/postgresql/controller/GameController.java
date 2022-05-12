@@ -1,5 +1,6 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
 
+import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
@@ -8,6 +9,7 @@ import com.cerea_p1.spring.jpa.postgresql.payload.request.game.InfoGame;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
+import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +28,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.*;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
@@ -42,6 +45,9 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 @Controller
 public class GameController {
     private final GameService gameService = new GameService();
+
+    @Autowired
+	UsuarioRepository userRepository;
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -97,6 +103,29 @@ public class GameController {
             }
             return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getNJugadores(), p.getTTurno(), j, p.getReglas())));
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
+    }
+
+    @PostMapping("/game/invite")
+    public ResponseEntity<?> inviteFriend(@RequestBody Invitacion invitacion){
+        Optional<Usuario> opU = userRepository.findByUsername(invitacion.getUsername());
+        if(opU.isPresent()){
+            Usuario u = opU.get();
+            Optional<Usuario> opF = userRepository.findByUsername(invitacion.getFriendname());
+            if(opF.isPresent()){
+                Usuario f = opF.get();
+                if(u.getAmigos().contains(f)){
+                    gameService.invitarAmigo(invitacion.getUsername(), invitacion.getFriendname(), invitacion.getGameId());
+                    return ResponseEntity.ok(new MessageResponse("Amigo " + invitacion.getFriendname() + " invitado"));
+                } else {
+                    return ResponseEntity.badRequest().body(invitacion.getFriendname() + " no está entre tus amigos");
+                }
+            } else {
+                return ResponseEntity.badRequest().body("No existe el usuario " + invitacion.getFriendname());
+            }
+            
+        } else {
+            return ResponseEntity.badRequest().body("No existe el usuario " + invitacion.getUsername());
+        }
     }
 
     @MessageMapping("/connect/{roomId}")
