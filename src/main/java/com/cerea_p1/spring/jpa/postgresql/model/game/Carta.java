@@ -29,5 +29,16 @@ public class Carta {
     public Color getColor(){
         return color;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Carta){
+            Carta c = (Carta)o;
+            if(c.getColor() == this.color && c.getNumero() == this.numero) return true;
+            else return false;
+        } else {
+            return false;
+        }
+    }
     
 }
