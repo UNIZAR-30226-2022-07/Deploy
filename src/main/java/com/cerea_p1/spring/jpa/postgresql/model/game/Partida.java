@@ -20,6 +20,11 @@ public class Partida {
         descartes = new ArrayList<Carta>();
         reglas = new ArrayList<Regla>();
         partidaPrivada = tipoPartida;
+        Carta carta = baraja.get(baraja.size()-1);
+        while(carta.getColor() == Color.UNDEFINED){
+            Collections.shuffle(baraja);
+            carta = baraja.get(baraja.size()-1);
+        }
         descartes.add(baraja.get(baraja.size()-1));
         baraja.remove(baraja.size()-1);
     }
@@ -149,15 +154,15 @@ public class Partida {
         baraja.add(new Carta(Numero.BLOQUEO,Color.VERDE));
         baraja.add(new Carta(Numero.BLOQUEO,Color.VERDE));
         
-        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
-        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
-        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
-        baraja.add(new Carta(Numero.UNDEFINED,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.CAMBIO_COLOR,Color.UNDEFINED));
+        baraja.add(new Carta(Numero.CAMBIO_COLOR,Color.UNDEFINED));
+        baraja.add(new Carta(Numero.CAMBIO_COLOR,Color.UNDEFINED));
+        baraja.add(new Carta(Numero.CAMBIO_COLOR,Color.UNDEFINED));
 
-        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
-        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
-        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
-        baraja.add(new Carta(Numero.MAS_CUATRO,Color.CAMBIO_COLOR));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.UNDEFINED));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.UNDEFINED));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.UNDEFINED));
+        baraja.add(new Carta(Numero.MAS_CUATRO,Color.UNDEFINED));
 
         //barajar
         Collections.shuffle(baraja);
