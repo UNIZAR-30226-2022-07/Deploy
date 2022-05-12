@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Jugada {
     private Carta carta;
-    private ArrayList<InfoJugador> jugadores;    
+    private List<InfoJugador> jugadores;    
     
     public Jugada(Carta c, List<Jugador> j){
         carta = c;
@@ -21,7 +21,7 @@ public class Jugada {
         return carta;
     }
 
-    public ArrayList<InfoJugador> getJugadores(){
+    public List<InfoJugador> getJugadores(){
         return jugadores;
     }
 }
