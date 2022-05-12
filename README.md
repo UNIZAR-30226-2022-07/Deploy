@@ -423,7 +423,7 @@ Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1
 Cada usuario debería suscribirse a /user/{username}/msg (es donde llegarán los mensajes específicos para el usuario)
 
 
-Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre_de_usuario> } en el mensaje
+Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre_de_usuario> (y authorization)} en el mensaje
 
 Enviar un mensaje para conectarse a la partida /connect/{roomId}
   - Suscribirse a /topic/connect/{roomId}
@@ -438,7 +438,7 @@ Enviar un mensaje para empezar una partida /begin/{roomId}
   - Devuelve por este canal la carta del medio
   - Devuelve por /user/{username}/msg el array de cartas de cada jugador
 
-Enviar un mensaje para desconectarse de una partida /diconnect/{roomId}
+Enviar un mensaje para desconectarse de una partida /disconnect/{roomId}
   - Suscribirse a /topic/disconnect/{roomId}
     - Header : nombre de usuario
     - Body : vacio
