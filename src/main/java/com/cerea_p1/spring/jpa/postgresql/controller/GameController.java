@@ -172,6 +172,30 @@ public class GameController {
         }
     }
 
+    @MessageMapping("/pasarTurno/{roomId}")
+    @SendTo("/topic/jugada/{roomId}")
+    @MessageExceptionHandler()
+    public String pasarTurno(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
+        try{
+           
+            Partida p = gameService.getPartida(roomId);
+            if(p.getTurno().getNombre() != username){
+                simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
+                return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
+            }
+            p.siguienteTurno();
+            Jugador jugador = p.getJugador(new Jugador(username));
+            if(jugador.getCartas().size() == 0){
+                return Sender.enviar(new String("HA GANADO " + jugador.getNombre()));
+            }
+
+            return Sender.enviar(new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
+        } catch(Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return Sender.enviar(e);
+        }
+    }
+
     @MessageMapping("/card/draw/{roomId}")
     @SendTo("/topic/jugada/{roomId}")
     @MessageExceptionHandler()
@@ -180,13 +204,13 @@ public class GameController {
             logger.info(nCards+" drawn by " + username);
 
             Partida game = gameService.getPartida(roomId);
+            if(game.getTurno().getNombre() != username){
+                simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
+                return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
+            }
             //Enviar cartas robadas al solicitante
             simpMessagingTemplate.convertAndSendToUser(username, "/msg", gameService.drawCards(roomId, new Jugador(username), nCards));
-            // //Enviar mensaje siguiente turno
-            // for(Jugador j : game.getJugadores()){
-            //     logger.info("send to " + j.getNombre());
-            //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
-            // }
+            
             return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores(), game.getTurno().getNombre()));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());

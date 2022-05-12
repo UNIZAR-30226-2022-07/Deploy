@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Jugada {
     private Carta carta;
     private List<InfoJugador> jugadores = new ArrayList<InfoJugador>();
-    private String turno;    
+    private String turno;
     
     public Jugada(Carta c, List<Jugador> j, String u){
         carta = c;
