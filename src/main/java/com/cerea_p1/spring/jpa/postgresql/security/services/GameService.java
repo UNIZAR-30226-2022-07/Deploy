@@ -162,11 +162,17 @@ public class GameService {
 
 
     public String getPartidasUser(String user){
-        for(int i=almacen_partidas.size()-1; i>=0; i--){
-            if(almacen_partidas.get(i).playerAlreadyIn(new Jugador(user))){
-                return almacen_partidas.get(i).getId();
+        for(Partida p : almacen_partidas.values()){
+            if(p.playerAlreadyIn(new Jugador(user))){
+                return p.getId();
             }
         }
+        // for(int i=almacen_partidas.size()-1; i>=0; i--){
+           
+        //     if(almacen_partidas.get(i).playerAlreadyIn(new Jugador(user))){
+        //         return almacen_partidas.get(i).getId();
+        //     }
+        // }
         return "";
     }
 
