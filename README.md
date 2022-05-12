@@ -350,10 +350,10 @@ Devolver las cartas de un usuario en una partida
     - Si va bien: codigo 200 
      
           {
-            [ "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR], 
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR],
+            [ "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED], 
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED],
             ... ]
           }
       
@@ -425,32 +425,32 @@ Cada usuario debería suscribirse a /user/{username}/msg (es donde llegarán los
 
 Para enviar un mensaje SIEMPRE tiene que tener el header { username: <nombre_de_usuario> (y authorization)} en el mensaje
 
-Enviar un mensaje para conectarse a la partida /connect/{roomId}
+Enviar un mensaje para conectarse a la partida /game/connect/{roomId}
   - Suscribirse a /topic/connect/{roomId}
     - Header : nombre de usuario
     - Body : vacio
   - Devuelve la lista de jugadores
 
-Enviar un mensaje para empezar una partida /begin/{roomId}
+Enviar un mensaje para empezar una partida /game/begin/{roomId}
   - Suscribirse a /topic/begin/{roomId}
     - Header : nombre de usuario
     - Body : vacio
   - Devuelve por este canal la carta del medio
   - Devuelve por /user/{username}/msg el array de cartas de cada jugador
 
-Enviar un mensaje para desconectarse de una partida /disconnect/{roomId}
+Enviar un mensaje para desconectarse de una partida /game/disconnect/{roomId}
   - Suscribirse a /topic/disconnect/{roomId}
     - Header : nombre de usuario
     - Body : vacio
 
-Enviar un mensaje para jugar una carta /card/play/{roomId}
+Enviar un mensaje para jugar una carta /game/card/play/{roomId}
   - Suscribirse a /topic/jugada/{roomId}
     - Header : nombre de usuario
     - Body :
  
         {
-          "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-          "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+          "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+          "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
         }
         
   - Devuelve:
@@ -459,8 +459,8 @@ Enviar un mensaje para jugar una carta /card/play/{roomId}
 
         {
           "carta": {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
           },
           "jugadores": [
             {
@@ -477,7 +477,7 @@ Enviar un mensaje para jugar una carta /card/play/{roomId}
       
                   
       
-Enviar un mensaje para robar n cartas /card/draw/{roomId}
+Enviar un mensaje para robar n cartas game/card/draw/{roomId}
   - Suscribirse a /topic/jugada/{roomId}
     - Header : nombre de usuario
     - Body :
@@ -492,8 +492,8 @@ Enviar un mensaje para robar n cartas /card/draw/{roomId}
 
         {
           "carta": {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
           },
           "jugadores": [
             {
@@ -512,18 +512,18 @@ Enviar un mensaje para robar n cartas /card/draw/{roomId}
 
         [
           {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
           },
           {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, UNDEFINED, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, CAMBIO_COLOR]
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
           },
           ...
         ]
         
   
-Enviar un mensaje al chat de la partida /message/{roomId}
+Enviar un mensaje al chat de la partida /game/message/{roomId}
   -NUEVO ENDPOINT: Suscribirse a /topic/chat/{roomId}
   -Header : nombre de usuario
   - Body :
