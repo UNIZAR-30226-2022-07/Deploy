@@ -372,9 +372,9 @@ Partidas de un usuario
   - Devuelve: 
     - Si va bien: codigo 200 
      
-          {
-            codigo de partida
-          }
+          
+            <codigo de partida>
+          
       
     - Si va mal: codigo 4**, y por qué falla
 

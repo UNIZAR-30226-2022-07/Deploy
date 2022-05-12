@@ -27,6 +27,10 @@ public class Jugador {
         return this.mano;
     }
 
+    public boolean tieneCarta(Carta c) {
+        return mano.contains(c);
+    }
+
     public boolean deleteCarta(Carta c){
         if (mano.contains(c)){
             mano.remove(c);
