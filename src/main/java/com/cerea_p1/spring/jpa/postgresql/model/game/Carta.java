@@ -31,6 +31,11 @@ public class Carta {
     }
 
     @Override
+    public String toString(){
+        return numero + " " + color;
+    }
+
+    @Override
     public boolean equals(Object o){
         if(o instanceof Carta){
             Carta c = (Carta)o;
