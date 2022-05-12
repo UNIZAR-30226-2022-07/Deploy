@@ -81,7 +81,7 @@ public class GameController {
         System.out.println(getPartidas.getUsername());
         String s = gameService.getPartidasUser(getPartidas.getUsername());
         if(s == ""){
-            return ResponseEntity.badRequest().body(new MessageResponse("No hay partidas para el usuario"));
+            return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));
         } else return ResponseEntity.ok(s);
     }
 
