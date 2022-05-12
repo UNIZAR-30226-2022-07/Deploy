@@ -132,7 +132,11 @@ public class GameService {
             throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
             game.jugarCarta(card,p.getNombre());
             System.out.println("Revienta aqui");
-            Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
+            Carta  cartita = game.getUltimaCartaJugada();
+            System.out.println("Recupero la carta");
+            List<Jugador> jugadores = game.getJugadores();
+            System.out.println("Recupero los jugadores");
+            Jugada play = new Jugada(cartita,jugadores);
             System.out.println("Se recupera la jugada");
             return play;
         } else { 
