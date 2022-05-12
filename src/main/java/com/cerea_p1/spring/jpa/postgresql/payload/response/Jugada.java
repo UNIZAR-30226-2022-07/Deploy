@@ -8,13 +8,15 @@ import java.util.ArrayList;
 
 public class Jugada {
     private Carta carta;
-    private List<InfoJugador> jugadores = new ArrayList<InfoJugador>();    
+    private List<InfoJugador> jugadores = new ArrayList<InfoJugador>();
+    private String turno;    
     
-    public Jugada(Carta c, List<Jugador> j){
+    public Jugada(Carta c, List<Jugador> j, String u){
         carta = c;
         for(Jugador h : j){
             jugadores.add(new InfoJugador(h.getNombre(), h.getCartas().size()));
         }
+        turno = u;
     }
 
     public Carta getCarta(){
@@ -23,5 +25,9 @@ public class Jugada {
 
     public List<InfoJugador> getJugadores(){
         return jugadores;
+    }
+
+    public String getTurno(){
+        return turno;
     }
 }

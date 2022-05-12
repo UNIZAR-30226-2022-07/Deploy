@@ -154,14 +154,12 @@ public class GameController {
         try{
             Carta carta = new Gson().fromJson(c, Carta.class);
             logger.info(carta.getNumero()+" "+carta.getColor()+ " played by "+ username);
-
-         //   Partida game = gameService.getPartida(roomId);
-            // for(Jugador j : game.getJugadores()){
-            //     logger.info("send to " + j.getNombre());
-            //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
-            // }
-            Jugada j = gameService.playCard(roomId, new Jugador(username), carta);
             Partida p = gameService.getPartida(roomId);
+            if(p.getTurno().getNombre() != username){
+                simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
+                return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
+            }
+            Jugada j = gameService.playCard(roomId, new Jugador(username), carta);
             Jugador jugador = p.getJugador(new Jugador(username));
             if(jugador.getCartas().size() == 0){
                 return Sender.enviar(new String("HA GANADO " + jugador.getNombre()));
@@ -189,7 +187,7 @@ public class GameController {
             //     logger.info("send to " + j.getNombre());
             //     simpMessagingTemplate.convertAndSendToUser(j.getNombre(), "/msg", "Siguiente turno");
             // }
-            return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores()));
+            return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores(), game.getTurno().getNombre()));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
             return Sender.enviar(e);

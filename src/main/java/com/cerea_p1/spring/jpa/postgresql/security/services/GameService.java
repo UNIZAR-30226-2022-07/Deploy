@@ -129,16 +129,13 @@ public class GameService {
             if(p == null) throw new GameException("El juagdor no está en la partida");
             if(!p.tieneCarta(card)) throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
             game.jugarCarta(card,p.getNombre());
-            Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores());
+            game.siguienteTurno();
+            Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores(), game.getTurno().getNombre());
             return play;
         } else { 
             optionalGame = null;
             throw new BeginGameException("Esa partida no existe");
-        }
-
-
-        
-        
+        }   
     }
 
     public List<Carta> drawCards(String gameId, Jugador player, int nCards) {
