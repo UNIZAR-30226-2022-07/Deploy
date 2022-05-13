@@ -102,7 +102,7 @@ public class AuthController {
 	public ResponseEntity<?> activarCuenta(@Valid @RequestBody ActivarCuenta activarCuenta){
 		try{
 			userService.activarCuenta(activarCuenta.getUsername(), activarCuenta.getToken());
-			return ResponseEntity.ok("Cuenta activa");
+			return ResponseEntity.ok(new MessageResponse("Cuenta activa"));
 		} catch(Exception e){
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
