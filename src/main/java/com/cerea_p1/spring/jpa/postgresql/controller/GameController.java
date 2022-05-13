@@ -185,7 +185,7 @@ public class GameController {
             logger.info(carta.getNumero()+" "+carta.getColor()+ " played by "+ username);
             Partida p = gameService.getPartida(roomId);
             logger.info("Es el turno de" + p.getTurno().getNombre());
-            if(p.getTurno().getNombre() != username){
+            if(!p.getTurno().getNombre().equals(username)){
                 simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
                 return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
             }
