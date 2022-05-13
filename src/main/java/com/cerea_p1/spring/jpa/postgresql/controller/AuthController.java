@@ -22,6 +22,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.LoginRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.SignupRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.ActivarCuenta;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.OlvidoContrasena;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.Profile.ReestablecerContrasena;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.JwtResponse;
@@ -95,6 +96,16 @@ public class AuthController {
 		userRepository.save(user);
 		sendEmailRegistro(user.getEmail(), token);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+
+	@PostMapping("/activarCuenta")
+	public ResponseEntity<?> activarCuenta(@Valid @RequestBody ActivarCuenta activarCuenta){
+		try{
+			userService.activarCuenta(activarCuenta.getUsername(), activarCuenta.getToken());
+			return ResponseEntity.ok("Cuenta activa");
+		} catch(Exception e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 
