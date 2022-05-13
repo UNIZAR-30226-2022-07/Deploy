@@ -21,13 +21,15 @@ Registro de usuario:
       
   - Información adicional:
   
-      - username de entre 3 y 255 caracteres
+      - username de entre 4 y 255 caracteres
         
       - password de entre 6 y 255 caracteres
         
       - email que cumpla la siguiente ER: .+[@].+[\\.].+ (algo + @ + algo + . + algo). Máximo 255 caracteres
         
       - pais de máximo 255 caracteres
+
+  - Al registrar un usuario, le manda un correo con un toke, que debe introducir para activar su cuenta
 
 Logear un usuario:
 
@@ -431,6 +433,27 @@ Enviar una invitación de partidas a un usuario
      
           {
             "message": "Amigo <nombre_del_amigo_al_que_se_invita> invitado"
+          }
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+Activar cuenta de usuario
+
+  - Peticion POST a : https://onep1.herokuapp.com/api/auth/activarCuenta
+
+  - JSON:
+
+          {
+            "username": <nombre_de_usuario>,
+            "token": <token_enviado>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          {
+            "message": "Cuenta activa"
           }
           
       
