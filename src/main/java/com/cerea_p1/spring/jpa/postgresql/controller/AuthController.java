@@ -56,6 +56,7 @@ public class AuthController {
 	private JavaMailSender javaMailSender;
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		
 		Authentication authentication = authenticationManager.authenticate( 
 			
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -89,7 +90,10 @@ public class AuthController {
 		Usuario user = new Usuario(signUpRequest.getUsername(), 
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()),signUpRequest.getPais());
+		String token = RandomString.make(30);
+		user.setRegistroToken(token);
 		userRepository.save(user);
+		sendEmailRegistro(user.getEmail(), token);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 
@@ -134,6 +138,18 @@ public class AuthController {
 
         msg.setSubject("Recuperar contraseña");
         msg.setText("Para restablecer su contraseña, introduzca el siguiente token: " + token);
+
+        javaMailSender.send(msg);
+
+    }
+
+	void sendEmailRegistro(String to, String token) {
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(to);
+
+        msg.setSubject("Active su cuenta");
+        msg.setText("Para activar su cuenta introduzca el siguiente token: " + token);
 
         javaMailSender.send(msg);
 

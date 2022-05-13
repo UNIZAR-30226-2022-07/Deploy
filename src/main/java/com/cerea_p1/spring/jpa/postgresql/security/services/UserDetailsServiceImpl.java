@@ -20,9 +20,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	//  @Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 		Usuario user = userRepository.findByUsername(username)
 			.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+			if (!user.getActiva()) throw new UsernameNotFoundException("La cuenta del usuario no está activa.");
 		return UserDetailsImpl.build(user);
 	}
 

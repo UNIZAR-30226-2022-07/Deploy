@@ -62,13 +62,20 @@ public class Usuario {
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
+    @Column(name = "registro_token")
+    private String registroToken;
+
+    @Column(name = "activa")
+    private boolean activa;
+
     public Usuario(String username, String email, String password, String pais) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.pais = pais;
         this.puntos = 0;
-        resetPasswordToken = "";
+        resetPasswordToken = null;
+        registroToken = null;
 
         amigos = new ArrayList<Usuario>();
         amigosInv = new ArrayList<Usuario>();
@@ -83,7 +90,8 @@ public class Usuario {
         pais = null;
         puntos = 0;
         amigos = null;
-        resetPasswordToken = "";
+        resetPasswordToken = null;
+        registroToken = null;
 
         amigosInv = null;
         invitacionesRecibidas = null;
@@ -200,6 +208,22 @@ public class Usuario {
 
     public void setResetPasswordToken(String token){
         resetPasswordToken = token;
+    }
+
+    public String getRegistroToken(){
+        return registroToken;
+    }
+
+    public void setRegistroToken(String token){
+        registroToken = token;
+    }
+
+    public boolean getActiva(){
+        return activa;
+    }
+
+    public void setActiva(){
+        activa = true;
     }
 
     @PreRemove

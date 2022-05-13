@@ -66,8 +66,7 @@ public class UserController {
 			} else return ResponseEntity.badRequest().body(new MessageResponse("Error: No se puede recuper el usuario."));
 		}
 	}
-
-    /*NO FUNCIONA*/
+	
     @PostMapping("/changeUsername")
 	public ResponseEntity<?> cambiarUsername(@RequestBody CambiarUsernameRequest cambiarUsernameRequest) {
 		logger.info("user1=" + cambiarUsernameRequest.getUsername() );
