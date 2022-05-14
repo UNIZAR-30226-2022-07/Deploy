@@ -128,6 +128,11 @@ public class GameController {
         }
     }
 
+    @PostMapping("/game/getInvitations")
+    public ResponseEntity<?> get(@RequestBody Invitacion invitacion){
+        
+    }
+
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
     @MessageExceptionHandler()

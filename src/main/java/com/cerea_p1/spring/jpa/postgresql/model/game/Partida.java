@@ -216,7 +216,6 @@ public class Partida {
     }
 
     public List<Carta> robarCartas(String nombreJugador, int n) {
-        // Frontend espera una lista pequeña en lugar de la mano entera.
         List<Carta> robadas = new ArrayList<Carta>();
 
         if(n > baraja.size())
