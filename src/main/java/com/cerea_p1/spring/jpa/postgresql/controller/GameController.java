@@ -209,7 +209,7 @@ public class GameController {
         try{
            
             Partida p = gameService.getPartida(roomId);
-            if(p.getTurno().getNombre() != username){
+            if(!p.getTurno().getNombre().equals(username)){
                 simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
                 return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
             }
@@ -234,7 +234,7 @@ public class GameController {
             logger.info(nCards+" drawn by " + username);
 
             Partida game = gameService.getPartida(roomId);
-            if(game.getTurno().getNombre() != username){
+            if(!game.getTurno().getNombre().equals(username)){
                 simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
                 return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
             }
