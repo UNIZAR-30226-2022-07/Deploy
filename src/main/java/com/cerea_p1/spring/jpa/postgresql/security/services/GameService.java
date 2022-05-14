@@ -180,5 +180,4 @@ public class GameService {
         almacen_invitaciones.put(friendname, lista);
     }
 
-    
 }

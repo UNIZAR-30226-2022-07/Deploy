@@ -212,7 +212,7 @@ public class Partida {
     }
 
     public Jugador getTurno(){
-        return jugadores.get(index);
+        return jugadores.get(index-1);
     }
 
     public List<Carta> robarCartas(String nombreJugador, int n) {
