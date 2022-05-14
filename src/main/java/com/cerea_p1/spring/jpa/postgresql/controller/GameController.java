@@ -239,10 +239,8 @@ public class GameController {
                 return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
             }
             //Enviar cartas robadas al solicitante
-            List<Carta> robadas = new ArrayList<Carta>();
-            robadas = gameService.drawCards(roomId, new Jugador(username), nCards);
-            logger.info("robadas: " + robadas);
-            simpMessagingTemplate.convertAndSendToUser(username, "/msg", robadas);
+            Jugador jugador = game.getJugador(new Jugador(username));
+            simpMessagingTemplate.convertAndSendToUser(username, "/msg", gameService.drawCards(roomId, jugador, nCards));
             
             return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores(), game.getTurno().getNombre()));
         } catch(Exception e){
