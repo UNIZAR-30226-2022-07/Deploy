@@ -212,8 +212,14 @@ public class GameService {
                 System.out.println("Contiene esa partida");
                 almacen_invitaciones.get(username).remove(new Invitacion_almacen("", gameId));
                 return true;
-            } else return false;
-        } else return false;
+            } else{ 
+                System.out.println("No contiene esa partida");
+                return false;
+            }
+        } else {
+            System.out.println("No aparece el usuario");
+            return false;
+        }
     }
 
 }
