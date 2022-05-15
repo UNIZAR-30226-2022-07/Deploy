@@ -130,6 +130,7 @@ public class GameController {
 
     @PostMapping("/game/getInvitacionesPartida")
     public ResponseEntity<?> getInvitacionesPartida(@RequestBody GetPartidas request){
+        logger.info("obtener las invitaciones a partida de " + request.getUsername());
         Optional<Usuario> opU = userRepository.findByUsername(request.getUsername());
         if(opU.isPresent()){
             Usuario u = opU.get();

@@ -176,14 +176,17 @@ public class GameService {
     public void invitarAmigo(String username, String friendname, String gameId){
         List<Invitacion_almacen> lista;
         if(almacen_invitaciones.containsKey(friendname)){
-            System.out.println(friendname + "no tiene invitaciones");
+            
             lista = almacen_invitaciones.get(friendname);
         } else {
+            System.out.println(friendname + "no tiene invitaciones");
             lista = new ArrayList<Invitacion_almacen>();
         }
         lista.add(new Invitacion_almacen(username, gameId));
+        System.out.println(almacen_invitaciones.size());
         almacen_invitaciones.put(friendname, lista);
         System.out.println(lista);
+        System.out.println(almacen_invitaciones.size());
     }
 
     public void finJuego(String idPartida){
