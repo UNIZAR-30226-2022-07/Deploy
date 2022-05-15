@@ -526,6 +526,23 @@ Eliminar una invitación a partida
 
   - Para aceptar la invitación a la partida hay que eliminar la invitación para el usuario y conctarse a la partida
 
+Buscar una partida pública
+  
+  - Peticion POST a : https://onep1.herokuapp.com/game/getPartidaPublica
+
+  - JSON: vacio
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+       "f214755c-217b-4803-ab6e-d08ad7ff6696" 
+       <codigo_de_la_patida>
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+  - Para acceder a una partida pública hay que buscar un id de partida pública mediante este método y conectarse a él mediante connect
+  - Es necesario suscribirse a todos los canales asociados a la partida
+  - Cualquier jugador debería poder comenzar la partida cuando se haya llenado (haya 4 jugadores)
 
 ## Websockets
 
