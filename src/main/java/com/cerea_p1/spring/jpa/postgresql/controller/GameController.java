@@ -135,7 +135,7 @@ public class GameController {
         if(opU.isPresent()){
             Usuario u = opU.get();
             logger.info("Busco las invitaciones a partida de " + request.getUsername());
-            return ResponseEntity.ok(Sender.enviar(gameService.getInvitacionesPartida(u.getUsername())));
+            return ResponseEntity.ok(Sender.enviar(gameService.getInvitacionesPartida(request.getUsername())));
         } else {
             return ResponseEntity.badRequest().body("No existe el usuario " + request.getUsername());
         }
