@@ -25,7 +25,7 @@ public class Invitacion_almacen {
     public boolean equals(Object o){
         if(o instanceof Invitacion_almacen){
             Invitacion_almacen i = (Invitacion_almacen)o;
-            return game.equals(i.getFriendname());
+            return game.equals(i.getGame());
         } else {
             return false;
         }
