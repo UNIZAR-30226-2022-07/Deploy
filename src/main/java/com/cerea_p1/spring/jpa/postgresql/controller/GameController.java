@@ -154,6 +154,12 @@ public class GameController {
         }
     }
 
+    @PostMapping("/game/getPartidaPublica")
+    public ResponseEntity<?> getPartidaPublica(){
+        logger.info("buscando partida publica");
+        return ResponseEntity.ok(Sender.enviar(gameService.getPartidaPublica().getId()));
+    }
+
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
     @MessageExceptionHandler()

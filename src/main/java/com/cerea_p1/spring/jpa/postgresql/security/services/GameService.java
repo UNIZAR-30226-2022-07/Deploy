@@ -21,10 +21,12 @@ public class GameService {
 
     private ConcurrentHashMap<String,Partida> almacen_partidas;
     private ConcurrentHashMap<String,List<Invitacion_almacen>> almacen_invitaciones;
+  //  private ConcurrentHashMap<String, Partida> partidas_publicas;
 
     public GameService(){
         almacen_partidas = new ConcurrentHashMap<String,Partida>();
         almacen_invitaciones = new ConcurrentHashMap<String,List<Invitacion_almacen>>();
+    //    partidas_publicas = new ConcurrentHashMap<String,Partida>();
     }
 
     public Partida getPartida(String gameId) {
@@ -45,6 +47,26 @@ public class GameService {
         game.setReglas(reglas);
         almacen_partidas.put(game.getId(),game);
         return game;
+    }
+
+    public Partida crearPartidaPublica() {
+        Partida game = new Partida(false);
+        game.setId(UUID.randomUUID().toString());
+    //    game.addJugador(jugador);
+        game.setEstado(EstadoPartidaEnum.NEW);
+        game.setNJugadores(4);
+        game.setTTurno(20);
+        almacen_partidas.put(game.getId(),game);
+        return game;
+    }
+
+    public Partida getPartidaPublica(){
+        for(Partida p : almacen_partidas.values()){
+            if(!p.getTipo() && p.getEstado() == EstadoPartidaEnum.NEW && p.getJugadores().size() < p.getNJugadores()){
+                return p;
+            }
+        }
+        return crearPartidaPublica();
     }
 
     public List<Jugador> connectToGame(Jugador player, String gameId) {
@@ -204,6 +226,7 @@ public class GameService {
                 almacen_invitaciones.get(s).remove(new Invitacion_almacen("", idPartida));
             }
         }
+        if(almacen_partidas.containsKey(idPartida))
         almacen_partidas.remove(idPartida);
     }
 
