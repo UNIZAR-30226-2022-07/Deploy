@@ -116,10 +116,19 @@ public class GameService {
         if(game.getEstado() == EstadoPartidaEnum.NEW){
             game.setEstado(EstadoPartidaEnum.IN_PROGRESS);
         }
+        // se eliminan las invitaciones a esa partida
+        for(String s : almacen_invitaciones.keySet()){
+            if(almacen_invitaciones.get(s).contains(new Invitacion_almacen("", gameId))){
+                almacen_invitaciones.get(s).remove(new Invitacion_almacen("", gameId));
+            }
+        }
         if(game.getJugadores().size() == game.getNJugadores()){
             game.repartirManos();
             return game;
         } else throw new BeginGameException("Faltan jugadores.");
+
+        
+        
     }
 
     public Jugada playCard(String gameId, Jugador player, Carta card) {

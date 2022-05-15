@@ -496,6 +496,33 @@ Obtener las invitaciones de partida de un usuario
       
     - Si va mal: codigo 4**, y por qué falla
 
+Eliminar una invitación a partida
+
+  - Peticion POST a : https://onep1.herokuapp.com/game/cancelarInvitacionPartida
+
+  - JSON:
+
+          {
+            "username": <nombre_de_usuario>,
+	          "gameId": <id_partida>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+      - Si está disponible la partida
+          {
+            "message": "Se ha eliminado la invitación a partida"
+          }
+      
+      o
+
+      - Si no está diponible esa partida
+          {
+            "message": "No se ha podido eliminar la invitación a partida"
+          }
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
 
 ## Websockets
 
