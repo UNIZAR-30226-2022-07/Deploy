@@ -128,6 +128,18 @@ public class GameController {
         }
     }
 
+    @PostMapping("/game/getInvitacionesPartida")
+    public ResponseEntity<?> getInvitacionesPartida(@RequestBody GetPartidas request){
+        Optional<Usuario> opU = userRepository.findByUsername(request.getUsername());
+        if(opU.isPresent()){
+            Usuario u = opU.get();
+            return ResponseEntity.ok(Sender.enviar(gameService.getInvitacionesPartida(u.getUsername())));
+        } else {
+            return ResponseEntity.badRequest().body("No existe el usuario " + request.getUsername());
+        }
+
+    }
+
     @MessageMapping("/connect/{roomId}")
 	@SendTo("/topic/connect/{roomId}")
     @MessageExceptionHandler()

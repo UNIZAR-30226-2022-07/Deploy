@@ -193,4 +193,10 @@ public class GameService {
         almacen_partidas.remove(idPartida);
     }
 
+    public List<Invitacion_almacen> getInvitacionesPartida(String username){
+        if(almacen_invitaciones.contains(username))
+        return almacen_invitaciones.get(username);
+        else return new ArrayList<Invitacion_almacen>();
+    }
+
 }
