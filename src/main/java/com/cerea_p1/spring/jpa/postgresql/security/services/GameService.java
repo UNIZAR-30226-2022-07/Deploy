@@ -129,8 +129,12 @@ public class GameService {
 
             Partida game = optionalGame.get();
             Jugador p = game.getJugador(player);
-            if(p == null) throw new GameException("El juagdor no está en la partida");
-            if(!p.tieneCarta(card)) throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
+            if(p == null) {
+                throw new GameException("El juagdor no está en la partida");
+            }
+            if(!p.tieneCarta(card)) {
+                throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
+            }
             game.jugarCarta(card,p.getNombre());
             game.siguienteTurno();
             Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores(), game.getTurno().getNombre());
@@ -180,5 +184,4 @@ public class GameService {
         almacen_invitaciones.put(friendname, lista);
     }
 
-    
 }
