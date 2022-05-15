@@ -199,7 +199,7 @@ public class GameService {
     }
 
     public List<Invitacion_almacen> getInvitacionesPartida(String username){
-        if(almacen_invitaciones.contains(username)){
+        if(almacen_invitaciones.containsKey(username)){
             System.out.println("Hay partidas de  " + username);
             return almacen_invitaciones.get(username);
         }
