@@ -182,6 +182,7 @@ public class GameService {
         }
         lista.add(new Invitacion_almacen(username, gameId));
         almacen_invitaciones.put(friendname, lista);
+        System.out.println(lista);
     }
 
     public void finJuego(String idPartida){

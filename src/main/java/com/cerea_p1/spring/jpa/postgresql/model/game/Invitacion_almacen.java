@@ -30,4 +30,9 @@ public class Invitacion_almacen {
             return false;
         }
     }
+
+    @Override
+    public String toString(){
+        return invitador + " : " + game;
+    }
 }
