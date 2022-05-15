@@ -393,8 +393,6 @@ Partidas de un usuario
 
 Información de la partida
 
-Partidas de un usuario
-
   - Peticion POST a : https://onep1.herokuapp.com/game/getInfoPartida
 
   - JSON:
@@ -429,7 +427,7 @@ Partidas de un usuario
 
 Enviar una invitación de partidas a un usuario
 
-  - Peticion POST a : https://onep1.herokuapp.com/game/getPartidasActivas
+  - Peticion POST a : https://onep1.herokuapp.com/game/invite
 
   - JSON:
 
@@ -466,6 +464,34 @@ Activar cuenta de usuario
           {
             "message": "Cuenta activa"
           }
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+Obtener las invitaciones de partida de un usuario
+
+  - Peticion POST a : https://onep1.herokuapp.com/game/getInvitacionesPartida
+
+  - JSON:
+
+          {
+            "username": <nombre_de_usuario>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          [
+            {
+              "invitador": <nombre_del_amigo>,
+              "game": <gameId>
+            },
+            {
+              "invitador": <nombre_del_amigo>,
+              "game": <gameId>
+            },
+            ...
+          ]
           
       
     - Si va mal: codigo 4**, y por qué falla

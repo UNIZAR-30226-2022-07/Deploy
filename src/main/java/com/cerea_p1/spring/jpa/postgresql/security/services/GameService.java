@@ -206,4 +206,14 @@ public class GameService {
         else return new ArrayList<Invitacion_almacen>();
     }
 
+    public boolean deleteGameInvitation(String username, String gameId){
+        if(almacen_invitaciones.containsKey(username)){
+            if(almacen_invitaciones.get(username).contains(new Invitacion_almacen("", gameId))){
+                System.out.println("Contiene esa partida");
+                almacen_invitaciones.get(username).remove(new Invitacion_almacen("", gameId));
+                return true;
+            } else return false;
+        } else return false;
+    }
+
 }
