@@ -11,18 +11,7 @@ public class JwtResponse {
 	private String username;
 	private String email;
     private String pais;
-    private int puntos;
-	private List<Usuario> amigos = new ArrayList<Usuario>();
-
-	/* public JwtResponse(String accessToken, String username, String email, String pais, int puntos, List<Usuario> amigos)	{
-
-        this.token = accessToken;
-		this.username = username;
-		this.email = email;
-        this.pais = pais;     
-        this.puntos = puntos;
-		this.amigos = amigos;
-    }  */	
+    private int puntos;	
 
 	public JwtResponse(String accessToken, String username, String email, String pais, int puntos)	{
         this.token = accessToken;
@@ -56,10 +45,6 @@ public class JwtResponse {
 
     public String getPais(){
         return this.pais;
-    }
-
-	public List<Usuario> getAmigos(){
-        return this.amigos;
     }
 
 }

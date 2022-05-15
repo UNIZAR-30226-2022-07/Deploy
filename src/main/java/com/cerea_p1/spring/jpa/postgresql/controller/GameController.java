@@ -192,6 +192,21 @@ public class GameController {
             Jugada j = gameService.playCard(roomId, new Jugador(username), carta);
             Jugador jugador = p.getJugador(new Jugador(username));
             if(jugador.getCartas().size() == 0){
+                Optional<Usuario> opU = userRepository.findByUsername(jugador.getNombre());
+                Usuario u = opU.get();
+                u.setPuntos(u.getPuntos()+20);
+                userRepository.save(u);
+                for(Jugador jj : p.getJugadores()){
+                    if(!jj.getNombre().equals(jugador.getNombre())){
+                        opU = userRepository.findByUsername(jj.getNombre());
+                        u = opU.get();
+                        if(u.getPuntos()-5>0)
+                        u.setPuntos(u.getPuntos()-5);
+                        else u.setPuntos(0);
+                        userRepository.save(u);
+                    }
+                }
+                gameService.finJuego(roomId);
                 return Sender.enviar(new String("HA GANADO " + jugador.getNombre()));
             }
 
@@ -216,6 +231,21 @@ public class GameController {
             p.siguienteTurno();
             Jugador jugador = p.getJugador(new Jugador(username));
             if(jugador.getCartas().size() == 0){
+                Optional<Usuario> opU = userRepository.findByUsername(jugador.getNombre());
+                Usuario u = opU.get();
+                u.setPuntos(u.getPuntos()+20);
+                userRepository.save(u);
+                for(Jugador jj : p.getJugadores()){
+                    if(!jj.getNombre().equals(jugador.getNombre())){
+                        opU = userRepository.findByUsername(jj.getNombre());
+                        u = opU.get();
+                        if(u.getPuntos()-5>0)
+                        u.setPuntos(u.getPuntos()-5);
+                        else u.setPuntos(0);
+                        userRepository.save(u);
+                    }
+                }
+                gameService.finJuego(roomId);
                 return Sender.enviar(new String("HA GANADO " + jugador.getNombre()));
             }
 

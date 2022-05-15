@@ -184,4 +184,13 @@ public class GameService {
         almacen_invitaciones.put(friendname, lista);
     }
 
+    public void finJuego(String idPartida){
+        for(String s : almacen_invitaciones.keySet()){
+            if(almacen_invitaciones.get(s).contains(new Invitacion_almacen("", idPartida))){
+                almacen_invitaciones.get(s).remove(new Invitacion_almacen("", idPartida));
+            }
+        }
+        almacen_partidas.remove(idPartida);
+    }
+
 }
