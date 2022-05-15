@@ -41,6 +41,17 @@ Logear un usuario:
           "username": <nombre_de_usuario>,
           "password": <contraseña>
         }
+    
+  - Devuelve
+
+        {
+          "username": <nombre_de_usuario>,
+          "email": <correo>,
+          "pais": <pais>,
+          "puntos": <puntos>,
+          "accessToken": <token_de_acceso>,
+          "tokenType": "Bearer"
+        }
 
 Crear una partida:
   
