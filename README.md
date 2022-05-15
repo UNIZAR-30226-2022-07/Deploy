@@ -524,6 +524,9 @@ Eliminar una invitación a partida
       
     - Si va mal: codigo 4**, y por qué falla
 
+  - Para aceptar la invitación a la partida hay que eliminar la invitación para el usuario y conctarse a la partida
+
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
