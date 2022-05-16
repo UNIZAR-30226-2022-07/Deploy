@@ -6,6 +6,7 @@ import com.cerea_p1.spring.jpa.postgresql.exception.*;
 import lombok.AllArgsConstructor;
 
 import org.hibernate.mapping.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class TorneoService {
 
     private ConcurrentHashMap<String,Torneo> almacen_torneos;
 
+    @Autowired
+    private GameService gameService;
+
     public TorneoService(){
         almacen_torneos = new ConcurrentHashMap<String,Torneo>();
     }
@@ -34,7 +38,9 @@ public class TorneoService {
         lista_partidas.add(new Partida(nJugadores,tTurn, reglas));
         lista_partidas.add(new Partida(nJugadores,tTurn, reglas));
         lista_partidas.add(new Partida(nJugadores,tTurn, reglas));
-        
+        for(Partida p : lista_partidas){
+            gameService.addPartida(p);
+        }
         Torneo tor = new Torneo(lista_partidas);
         tor.addJugador(jugador);
         almacen_torneos.put(tor.getIdTorneo(),tor);

@@ -49,6 +49,10 @@ public class GameService {
         return game;
     }
 
+    public void addPartida(Partida p){
+        almacen_partidas.put(p.getId(),p);
+    }
+
     public Partida crearPartidaPublica() {
         Partida game = new Partida(false);
         game.setId(UUID.randomUUID().toString());
