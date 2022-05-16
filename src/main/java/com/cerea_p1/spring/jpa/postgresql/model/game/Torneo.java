@@ -10,6 +10,7 @@ public class Torneo{
     private List<Jugador> jugadores = new ArrayList<Jugador>();
     private String idTorneo;
     private EstadoPartidaEnum estado;
+    private final static int nJugadores = 9;
 
     public Torneo (List<Partida> torneo){
         this.lista_partidas = torneo;
@@ -38,6 +39,10 @@ public class Torneo{
 
     public List<Jugador> getJugadores() {
         return jugadores;
+    }
+
+    public int getNJugadores() {
+        return nJugadores;
     }
 
     public boolean playerAlreadyIn(Jugador p){

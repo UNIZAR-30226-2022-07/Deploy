@@ -148,9 +148,6 @@ public class GameService {
             game.repartirManos();
             return game;
         } else throw new BeginGameException("Faltan jugadores.");
-
-        
-        
     }
 
     public Jugada playCard(String gameId, Jugador player, Carta card) {

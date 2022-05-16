@@ -41,27 +41,45 @@ public class TorneoService {
         return tor;
     }
 
-    // public List<Jugador> connectToTorneo(Jugador player, String torneoId) {
-    //     if(player != null){
-    //         Optional<Torneo> optionalTorneo;
-    //         if(almacen_torneos.containsKey(torneoId))
-    //             optionalTorneo = Optional.of(almacen_torneos.get(torneoId));
-    //         else { 
-    //             optionalTorneo = null; 
-    //             throw new ConnectGameException("Ese torneo no existe"); 
-    //         }
+    public List<Jugador> connectToTorneo(Jugador player, String torneoId) {
+        if(player != null){
+            Optional<Torneo> optionalTorneo;
+            if(almacen_torneos.containsKey(torneoId))
+                optionalTorneo = Optional.of(almacen_torneos.get(torneoId));
+            else { 
+                optionalTorneo = null; 
+                throw new ConnectGameException("Ese torneo no existe"); 
+            }
 
-    //         optionalTorneo.orElseThrow(() -> new ConnectGameException("Tournament with provided id doesn't exist"));
+            optionalTorneo.orElseThrow(() -> new ConnectGameException("Tournament with provided id doesn't exist"));
 
-    //         Torneo torneo = optionalTorneo.get();
-    //         if(torneo.getJugadores().size() >= torneo.getNJugadores()) 
-    //             throw new ConnectGameException("Torneo lleno.");
-    //         if(!torneo.playerAlreadyIn(player))
-    //             torneo.addJugador(player);
-    //         return torneo.getJugadores();
-    //     } else
-    //         throw new ConnectGameException("Jugador no valido");
-    // }
+            Torneo torneo = optionalTorneo.get();
+            if(torneo.getJugadores().size() >= torneo.getNJugadores()) 
+                throw new ConnectGameException("Torneo lleno.");
+            if(!torneo.playerAlreadyIn(player))
+                torneo.addJugador(player);
+            return torneo.getJugadores();
+        } else
+            throw new ConnectGameException("Jugador no valido");
+    }
+
+    public Torneo beginTorneo(String torneoId){
+        Optional<Torneo> optionalTorneo;
+        if(almacen_torneos.containsKey(torneoId))
+            optionalTorneo = Optional.of(almacen_torneos.get(torneoId));
+        else { 
+            optionalTorneo = null;
+            throw new BeginGameException("Ese torneo no existe");
+        }
+
+        optionalTorneo.orElseThrow(() -> new BeginGameException("Tournament with provided id doesn't exist"));
+
+        Torneo torneo = optionalTorneo.get();
+
+        if(torneo.getJugadores().size() == torneo.getNJugadores()){
+            return torneo;
+        } else throw new BeginGameException("Faltan jugadores.");
+    }    
 
     public List<String> listaTorneos(){
         List<String> lista = new ArrayList<String>();
@@ -71,5 +89,32 @@ public class TorneoService {
             }
         }
         return lista;
+    }
+
+    public String disconnectTorneo(String torneoId, String username){
+        if(username != null){
+            Optional<Torneo> optionalTorneo;
+            if(almacen_torneos.containsKey(torneoId))
+                optionalTorneo = Optional.of(almacen_torneos.get(torneoId));
+            else { 
+                optionalTorneo = null; 
+                throw new ConnectGameException("Ese torneo no existe"); 
+            }
+
+            optionalTorneo.orElseThrow(() -> new ConnectGameException("Tournament with provided id doesn't exist"));
+
+            Torneo torneo = optionalTorneo.get();
+            if(torneo.getEstadoTorneo() != EstadoPartidaEnum.NEW) throw new DisconnectGameException("No puedes salir de la partida.");
+            if(torneo.playerAlreadyIn(new Jugador(username))){
+                torneo.removePlayer(new Jugador(username));
+                if(torneo.getJugadores().size() == 0)
+                    almacen_torneos.remove(torneoId);
+
+                return username +" disconnected successfully from "+ torneoId;
+            }
+            else
+                throw new DisconnectGameException("Jugador no pertenece a la partida");
+        } else
+            throw new ConnectGameException("Jugador no valido");
     }
 }

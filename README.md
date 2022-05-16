@@ -663,7 +663,6 @@ Enviar un mensaje para jugar una carta /game/card/play/{roomId}
           "turno":<username>
         }
       
-                  
       
 Enviar un mensaje para robar n cartas game/card/draw/{roomId}
   - Suscribirse a /topic/jugada/{roomId}
@@ -785,3 +784,23 @@ Enviar botón de uno
     {
       <nombre_de_usuario_que_pulsa>
     }
+
+
+Enviar un mensaje para conectarse a un torneo /game/connect/torneo/{torneoId}
+  - Suscribirse a /topic/connect/torneo/{torneoId}
+    - Header : nombre de usuario
+    - Body : vacio
+  - Devuelve la lista de jugadores del torneo
+
+
+Enviar un mensaje para desconectarse de un torneo /game/disconnect/torneo/{torneoId}
+  - Suscribirse a /topic/disconnect/torneo/{torneoId}
+    - Header : nombre de usuario
+    - Body : vacio
+
+
+Enviar un mensaje para empezar un torneo /game/begin/torneo/{torneoId}
+  - No hay que suscribirse a ningún canal general
+    - Header : nombre de usuario
+    - Body : vacio
+  - Devuelve por /user/{username}/msg el código de partida de la semifinal a la que se tendrá que unir el usuario
