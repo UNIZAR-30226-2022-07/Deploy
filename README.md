@@ -823,3 +823,5 @@ Enviar un mensaje para empezar un torneo /game/begin/torneo/{torneoId}
     - Header : nombre de usuario
     - Body : vacio
   - Devuelve por /user/{username}/msg el código de partida de la semifinal a la que se tendrá que unir el usuario
+  - Hay que suscribirse a todos los canales asociados al id de partida que se mandan como si fuera una partida privada
+  - El jugador que esté primero de la lista hace begin de esa partida (?)
