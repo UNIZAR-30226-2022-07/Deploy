@@ -5,7 +5,14 @@ import java.util.List;
 
 
 public class Torneo{
-    ArrayList<Partida> torneo = new ArrayList<Partida>();
-    List<Jugador> jugadores = new ArrayList<Jugador>();
+    private ArrayList<Partida> torneo = new ArrayList<Partida>();
+    private List<Jugador> jugadores = new ArrayList<Jugador>();
 
-    public Torneo ()ArrayL
+    public Torneo (ArrayList<Partida> torneo){
+        this.torneo = torneo;
+    }
+
+    public void addJugador(Jugador j) {
+        jugadores.add(j);
+    }
+}
