@@ -601,6 +601,25 @@ Obtener torneos disponibles
       
     - Si va mal: codigo 4**, y por qué falla
 
+Jugar la final de un toneo
+
+  - Petición POST a : https://onep1.herokuapp.com/torneo/jugarFinal
+
+  - JSON: 
+          {
+            "username" : <nombre_del_usuario>,
+            "torneoId" : <id_Torneo>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+        <id_partida_final>
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+    
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
