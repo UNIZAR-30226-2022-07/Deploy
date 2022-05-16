@@ -324,6 +324,13 @@ public class GameController {
         }
     }
 
+    @MessageMapping("/buttonOne/{roomId}")
+    @SendTo("/topic/buttonOne/{roomId}")
+    @MessageExceptionHandler()
+    public String sendButtonOne(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
+        return Sender.enviar(new String(username));
+    }
+
     // @ExceptionHandler(Exception.class)
     // public ModelAndView handleException(NullPointerException ex)
     // {
