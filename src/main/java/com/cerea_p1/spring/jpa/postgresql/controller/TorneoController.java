@@ -48,4 +48,9 @@ public class TorneoController {
         }
         return ResponseEntity.ok(Sender.enviar(new InfoTorneoResponse(t.getIdTorneo(), t.getTiempoTurno(), s, t.getReglas())));
     }
+
+    @PostMapping("/torneo/getTorneos")
+    public ResponseEntity<?> getTorneos(){
+        return ResponseEntity.ok(Sender.enviar(torneoService.listaTorneos()));
+    }
 }
