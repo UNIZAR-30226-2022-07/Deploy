@@ -2,17 +2,43 @@ package com.cerea_p1.spring.jpa.postgresql.model.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Torneo{
-    private ArrayList<Partida> torneo = new ArrayList<Partida>();
+    private List<Partida> lista_partidas = new ArrayList<Partida>();
     private List<Jugador> jugadores = new ArrayList<Jugador>();
+    private String idTorneo;
 
-    public Torneo (ArrayList<Partida> torneo){
-        this.torneo = torneo;
+    public Torneo (List<Partida> torneo){
+        this.lista_partidas = torneo;
+        idTorneo = UUID.randomUUID().toString();
+    }
+
+    public String getIdTorneo(){
+        return idTorneo;
     }
 
     public void addJugador(Jugador j) {
         jugadores.add(j);
+    }
+
+    public boolean removePlayer(Jugador j){
+        if(jugadores.contains(j)){
+            jugadores.remove(j);
+            return true;
+        } else return false;
+    }
+
+    public List<Partida> getPartidas(){
+        return lista_partidas;
+    }
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public boolean playerAlreadyIn(Jugador p){
+        return jugadores.contains(p);
     }
 }

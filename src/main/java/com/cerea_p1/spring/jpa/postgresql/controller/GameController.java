@@ -226,14 +226,14 @@ public class GameController {
             if(jugador.getCartas().size() == 0){
                 Optional<Usuario> opU = userRepository.findByUsername(jugador.getNombre());
                 Usuario u = opU.get();
-                u.setPuntos(u.getPuntos()+20);
+                u.setPuntos(u.getPuntos()+30);
                 userRepository.save(u);
                 for(Jugador jj : p.getJugadores()){
                     if(!jj.getNombre().equals(jugador.getNombre())){
                         opU = userRepository.findByUsername(jj.getNombre());
                         u = opU.get();
-                        if(u.getPuntos()-5>0)
-                        u.setPuntos(u.getPuntos()-5);
+                        if(u.getPuntos()-3>0)
+                        u.setPuntos(u.getPuntos()-3);
                         else u.setPuntos(0);
                         userRepository.save(u);
                     }
@@ -260,26 +260,7 @@ public class GameController {
                 simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
                 return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
             }
-            p.siguienteTurno();
-            Jugador jugador = p.getJugador(new Jugador(username));
-            if(jugador.getCartas().size() == 0){
-                Optional<Usuario> opU = userRepository.findByUsername(jugador.getNombre());
-                Usuario u = opU.get();
-                u.setPuntos(u.getPuntos()+20);
-                userRepository.save(u);
-                for(Jugador jj : p.getJugadores()){
-                    if(!jj.getNombre().equals(jugador.getNombre())){
-                        opU = userRepository.findByUsername(jj.getNombre());
-                        u = opU.get();
-                        if(u.getPuntos()-5>0)
-                        u.setPuntos(u.getPuntos()-5);
-                        else u.setPuntos(0);
-                        userRepository.save(u);
-                    }
-                }
-                gameService.finJuego(roomId);
-                return Sender.enviar(new String("HA GANADO " + jugador.getNombre()));
-            }
+            p.siguienteTurno();           
 
             return Sender.enviar(new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
         } catch(Exception e){
