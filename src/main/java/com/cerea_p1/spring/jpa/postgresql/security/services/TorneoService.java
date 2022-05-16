@@ -117,4 +117,10 @@ public class TorneoService {
         } else
             throw new ConnectGameException("Jugador no valido");
     }
+
+    public String jugarFinal(String username, String torneoId){
+        Torneo t = almacen_torneos.get(torneoId);
+        Partida p = t.getPartidas().get(3);
+        return p.getId();
+    }
 }

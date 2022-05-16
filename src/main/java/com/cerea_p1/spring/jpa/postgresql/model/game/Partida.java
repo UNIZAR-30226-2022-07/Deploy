@@ -42,6 +42,7 @@ public class Partida {
         this.nJugadores = numJugadores;
         this.tTurno = tTurno;
         this.estado = EstadoPartidaEnum.NEW;
+        partidaPrivada = true;
         Carta carta = baraja.get(baraja.size()-1);
         while(carta.getColor() == Color.UNDEFINED){
             Collections.shuffle(baraja);
