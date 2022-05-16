@@ -51,4 +51,12 @@ public class Torneo{
     public void setEstadoTorneo(EstadoPartidaEnum e){
         this.estado = e;
     }
+
+    public int getTiempoTurno(){
+        return lista_partidas.get(0).getTTurno();
+    }
+
+    public List<Regla> getReglas(){
+        return lista_partidas.get(0).getReglas();
+    }
 }
