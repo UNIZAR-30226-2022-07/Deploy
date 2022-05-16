@@ -62,4 +62,14 @@ public class TorneoService {
     //     } else
     //         throw new ConnectGameException("Jugador no valido");
     // }
+
+    public List<String> listaTorneos(){
+        List<String> lista = new ArrayList<String>();
+        for(String s : almacen_torneos.keySet()){
+            if(almacen_torneos.get(s).getEstadoTorneo() == EstadoPartidaEnum.NEW){
+                lista.add(s);
+            }
+        }
+        return lista;
+    }
 }
