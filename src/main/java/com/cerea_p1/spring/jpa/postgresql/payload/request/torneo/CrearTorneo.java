@@ -15,4 +15,16 @@ public class CrearTorneo {
 
     @NotBlank
     private List<Regla> reglas;
+
+    public String getUsername(){
+        return username;
+    }
+
+    public int getTiempoTurno(){
+        return tiempoTurno;
+    }
+
+    public List<Regla> getReglas(){
+        return reglas;
+    }
 }

@@ -25,7 +25,7 @@ public class TorneoService {
         almacen_torneos = new ConcurrentHashMap<String,Torneo>();
     }
 
-    public Torneo crearTorneo(Jugador jugador, int tTurn, ArrayList<Regla> reglas) {
+    public Torneo crearTorneo(Jugador jugador, int tTurn, List<Regla> reglas) {
         List<Partida> lista_partidas = new ArrayList<Partida>();
         int nJugadores = 3;
 

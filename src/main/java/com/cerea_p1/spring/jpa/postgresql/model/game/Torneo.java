@@ -9,10 +9,12 @@ public class Torneo{
     private List<Partida> lista_partidas = new ArrayList<Partida>();
     private List<Jugador> jugadores = new ArrayList<Jugador>();
     private String idTorneo;
+    private EstadoPartidaEnum estado;
 
     public Torneo (List<Partida> torneo){
         this.lista_partidas = torneo;
         idTorneo = UUID.randomUUID().toString();
+        estado = EstadoPartidaEnum.NEW;
     }
 
     public String getIdTorneo(){
@@ -40,5 +42,13 @@ public class Torneo{
 
     public boolean playerAlreadyIn(Jugador p){
         return jugadores.contains(p);
+    }
+
+    public EstadoPartidaEnum getEstadoTorneo(){
+        return estado;
+    }
+
+    public void setEstadoTorneo(EstadoPartidaEnum e){
+        this.estado = e;
     }
 }
