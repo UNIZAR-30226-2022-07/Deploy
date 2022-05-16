@@ -202,8 +202,12 @@ public class Partida {
     public void jugarCarta(Carta c, String nombreJugador) {
         descartes.add(c);
         for (Jugador j : jugadores) {
-            if (j.getNombre().equals(nombreJugador))
+            if (j.getNombre().equals(nombreJugador)){
+                if(c.numero.equals(Numero.CAMBIO_SENTIDO)){
+                    cambioSentido();
+                }
                 j.deleteCarta(c);
+            }
         }
     }
 
