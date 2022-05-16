@@ -73,6 +73,19 @@ public class TorneoController {
         }
     }
 
+    @MessageMapping("/disconnect/torneo/{roomId}")
+	@SendTo("/topic/disconnect/torneo/{roomId}")
+    @MessageExceptionHandler()
+    public String disconnect(@DestinationVariable("torneoId") String roomId, @Header("username") String username) {
+        try{
+			logger.info("tournament connect request by " + username);
+			return Sender.enviar(torneoService.disconnectTorneo(roomId,username));
+        } catch(Exception e) {
+            logger.warning("Exception" + e.getMessage());
+          	return Sender.enviar(e);
+        }
+    }
+
     @MessageMapping("/begin/torneo/{torneoId}")
     @MessageExceptionHandler()
     public void begin(@DestinationVariable("torneoId") String torneoId, @Header("username") String username) {
@@ -90,19 +103,6 @@ public class TorneoController {
             }
         } catch(Exception e) {
             logger.warning("Exception" + e.getMessage());
-        }
-    }
-
-    @MessageMapping("/disconnect/torneo/{roomId}")
-	@SendTo("/topic/disconnect/torneo/{roomId}")
-    @MessageExceptionHandler()
-    public String disconnect(@DestinationVariable("torneoId") String roomId, @Header("username") String username) {
-        try{
-			logger.info("tournament connect request by " + username);
-			return Sender.enviar(torneoService.disconnectTorneo(roomId,username));
-        } catch(Exception e) {
-            logger.warning("Exception" + e.getMessage());
-          	return Sender.enviar(e);
         }
     }
 
