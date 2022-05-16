@@ -213,6 +213,9 @@ public class Partida {
 
     public void siguienteTurno(){
         index = (index+sentido)%nJugadores;
+        if(index <  0){
+            index = (index + nJugadores) % nJugadores;
+        }
     }
 
     public Jugador getTurno(){
