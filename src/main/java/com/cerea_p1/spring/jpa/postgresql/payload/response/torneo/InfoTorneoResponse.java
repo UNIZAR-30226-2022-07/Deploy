@@ -8,10 +8,10 @@ import java.util.List;
 public class InfoTorneoResponse {
     private String idTorneo;
     private int tiempoTurno;
-    private List<Jugador> jugadores;
+    private List<String> jugadores;
     private List<Regla> reglas;
 
-    public InfoTorneoResponse(String id, int t, List<Jugador> j, List<Regla> r){
+    public InfoTorneoResponse(String id, int t, List<String> j, List<Regla> r){
         this.idTorneo = id;
         this.tiempoTurno = t;
         this.jugadores = j;

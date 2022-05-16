@@ -1,5 +1,7 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.cerea_p1.spring.jpa.postgresql.model.game.Jugador;
@@ -40,6 +42,10 @@ public class TorneoController {
     public ResponseEntity<?> crearTorneo(@RequestBody CrearTorneo request){
         logger.info("crear un torneo");
         Torneo t = torneoService.crearTorneo(new Jugador(request.getUsername()), request.getTiempoTurno(), request.getReglas());
-        return ResponseEntity.ok(Sender.enviar(new InfoTorneoResponse(t.getIdTorneo(), t.getTiempoTurno(), t.getJugadores(), t.getReglas())));
+        List<String> s = new ArrayList<String>();
+        for(Jugador j : t.getJugadores()){
+            s.add(j.getNombre());
+        }
+        return ResponseEntity.ok(Sender.enviar(new InfoTorneoResponse(t.getIdTorneo(), t.getTiempoTurno(), s, t.getReglas())));
     }
 }
