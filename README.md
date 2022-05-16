@@ -544,6 +544,50 @@ Buscar una partida pública
   - Es necesario suscribirse a todos los canales asociados a la partida
   - Cualquier jugador debería poder comenzar la partida cuando se haya llenado (haya 4 jugadores)
 
+Crear un torneo
+ 
+  - Peticion POST a : https://onep1.herokuapp.com/torneo/createTorneo
+
+  - JSON: 
+          {
+            "username":<nombre_de_usuario>,
+            "tiempoTurno":<tiempo_de_turno>,
+            "reglas": [
+              {
+                [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
+              },
+              {
+                [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
+              }
+              ...
+            ]
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+       {
+          "idTorneo": <id_torneo>,
+          "tiempoTurno": <tiempo de turno>,
+          "jugadores": [
+            <nombre_jugador1>,
+            <nombre_jugador2>,
+            ...
+            
+          ],
+          "reglas": [
+            <regla1>,
+            <regla2>,
+            ...
+          ]
+        }
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+  - Para acceder a una partida pública hay que buscar un id de partida pública mediante este método y conectarse a él mediante connect
+  - Es necesario suscribirse a todos los canales asociados a la partida
+  - Cualquier jugador debería poder comenzar la partida cuando se haya llenado (haya 4 jugadores)
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
