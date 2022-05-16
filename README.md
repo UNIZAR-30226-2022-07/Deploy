@@ -233,6 +233,7 @@ Ranking de un Amigos
   - Petición POST a https://onep1.herokuapp.com/ranking/rankingAmigos
 
   - JSON: 
+  
           {
             "username": <nombre_del_usuario>
           } 
@@ -509,17 +510,19 @@ Eliminar una invitación a partida
 
   - Devuelve: 
     - Si va bien: codigo 200 
-      - Si está disponible la partida
-          {
-            "message": "Se ha eliminado la invitación a partida"
-          }
+	- Si está disponible la partida
+     
+		  {
+		    "message": "Se ha eliminado la invitación a partida"
+		  }
       
       o
 
-      - Si no está diponible esa partida
-          {
-            "message": "No se ha podido eliminar la invitación a partida"
-          }
+     - Si no está diponible esa partida
+    
+			  {
+			    "message": "No se ha podido eliminar la invitación a partida"
+			  }
           
       
     - Si va mal: codigo 4**, y por qué falla
@@ -534,7 +537,8 @@ Buscar una partida pública
 
   - Devuelve: 
     - Si va bien: codigo 200 
-       "f214755c-217b-4803-ab6e-d08ad7ff6696" 
+   
+      	 "f214755c-217b-4803-ab6e-d08ad7ff6696" 
        <codigo_de_la_patida>
           
       
@@ -549,6 +553,7 @@ Crear un torneo
   - Peticion POST a : https://onep1.herokuapp.com/torneo/createTorneo
 
   - JSON: 
+  
           {
             "username":<nombre_de_usuario>,
             "tiempoTurno":<tiempo_de_turno>,
@@ -565,21 +570,22 @@ Crear un torneo
 
   - Devuelve: 
     - Si va bien: codigo 200 
-       {
-          "idTorneo": <id_torneo>,
-          "tiempoTurno": <tiempo de turno>,
-          "jugadores": [
-            <nombre_jugador1>,
-            <nombre_jugador2>,
-            ...
-            
-          ],
-          "reglas": [
-            <regla1>,
-            <regla2>,
-            ...
-          ]
-        }
+    
+	       {
+		  "idTorneo": <id_torneo>,
+		  "tiempoTurno": <tiempo de turno>,
+		  "jugadores": [
+		    <nombre_jugador1>,
+		    <nombre_jugador2>,
+		    ...
+
+		  ],
+		  "reglas": [
+		    <regla1>,
+		    <regla2>,
+		    ...
+		  ]
+		}
           
       
     - Si va mal: codigo 4**, y por qué falla
@@ -605,7 +611,8 @@ Jugar la final de un toneo
 
   - Petición POST a : https://onep1.herokuapp.com/torneo/jugarFinal
 
-  - JSON: 
+  - JSON:
+   
           {
             "username" : <nombre_del_usuario>,
             "torneoId" : <id_Torneo>
@@ -652,35 +659,35 @@ Enviar un mensaje para desconectarse de una partida /game/disconnect/{roomId}
 Enviar un mensaje para jugar una carta /game/card/play/{roomId}
   - Suscribirse a /topic/jugada/{roomId}
     - Header : nombre de usuario
-    - Body :
- 
-        {
-          "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-          "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-        }
+    - Body :	
+
+			{
+			  "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+			  "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+			}
         
   - Devuelve:
     - Si va bien: 
-      - Devuelve por /topic/jugada/{roomId} un JSON con formato:
+    	- Devuelve por /topic/jugada/{roomId} un JSON con formato:
 
-        {
-          "carta": {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          "jugadores": [
-            {
-              "username": "<nombre>",
-              "numeroCartas": <numero_cartas>
-            }, 
-            {
-              "username": "<nombre>",
-              "numeroCartas": <numero_cartas>
-            },
-            ...
-          ],
-          "turno":<username>
-        }
+				{
+				  "carta": {
+					"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+					"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+				  },
+				  "jugadores": [
+					{
+					  "username": "<nombre>",
+					  "numeroCartas": <numero_cartas>
+					}, 
+					{
+					  "username": "<nombre>",
+					  "numeroCartas": <numero_cartas>
+					},
+					...
+				  ],
+				  "turno":<username>
+				}
       
       
 Enviar un mensaje para robar n cartas game/card/draw/{roomId}
@@ -688,46 +695,46 @@ Enviar un mensaje para robar n cartas game/card/draw/{roomId}
     - Header : nombre de usuario
     - Body :
  
-        {
-          "nCards" : <numero_cartas_a_robar>
-        }
+			{
+			  "nCards" : <numero_cartas_a_robar>
+			}
 
   - Devuelve:
     - Si va bien: 
-      - Devuelve por /topic/jugada/{roomId} un JSON con formato:
+    	- Devuelve por /topic/jugada/{roomId} un JSON con formato:
 
-        {
-          "carta": {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          "jugadores": [
-            {
-              "username": "<nombre>",
-              "numeroCartas": <numero_cartas>
-            }, 
-            {
-              "username": "<nombre>",
-              "numeroCartas": <numero_cartas>
-            },
-            ...
-          ],
-          "turno":<nombre_usuario>
-        }
+				{
+				  "carta": {
+					"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+					"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+				  },
+				  "jugadores": [
+					{
+					  "username": "<nombre>",
+					  "numeroCartas": <numero_cartas>
+					}, 
+					{
+					  "username": "<nombre>",
+					  "numeroCartas": <numero_cartas>
+					},
+					...
+				  ],
+				  "turno":<nombre_usuario>
+				}
 
       - Devuelve por /user/{username}/msg una lista de cartas:
 
-        [
-          {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          ...
-        ]
+			[
+			  {
+				"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+				"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+			  },
+			  {
+				"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+				"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+			  },
+			  ...
+			]
 
 Enviar un mensaje para pasar de turno (se usa en caso de robar cartas o que te hayan bloqueado etc, no al jugar una carta) game/pasarTurno/{roomId}
   - AL JUGAR UNA CARTA SE PASA EL TURNO SOLO
@@ -739,38 +746,38 @@ Enviar un mensaje para pasar de turno (se usa en caso de robar cartas o que te h
     - Si va bien: 
       - Devuelve por /topic/jugada/{roomId} un JSON con formato:
 
-        {
-          "carta": {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          "jugadores": [
-            {
-              "username": "<nombre>",
-              "numeroCartas": <numero_cartas>
-            }, 
-            {
-              "username": "<nombre>",
-              "numeroCartas": <numero_cartas>
-            },
-            ...
-          ],
-          "turno":<nombre_usuario>
-        }
+			{
+			  "carta": {
+				"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+				"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+			  },
+			  "jugadores": [
+				{
+				  "username": "<nombre>",
+				  "numeroCartas": <numero_cartas>
+				}, 
+				{
+				  "username": "<nombre>",
+				  "numeroCartas": <numero_cartas>
+				},
+				...
+			  ],
+			  "turno":<nombre_usuario>
+			}
 
       - Devuelve por /user/{username}/msg una lista de cartas:
 
-        [
-          {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          {
-            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
-            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
-          },
-          ...
-        ]
+			[
+			  {
+				"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+				"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+			  },
+			  {
+				"num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+				"col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+			  },
+			  ...
+			]
         
   
 Enviar un mensaje al chat de la partida /game/message/{roomId}
@@ -800,9 +807,10 @@ Enviar botón de uno
   - Body : vacio
 
   - Devuelve :
-    {
-      <nombre_de_usuario_que_pulsa>
-    }
+  
+		{
+		  <nombre_de_usuario_que_pulsa>
+		}
 
 
 Enviar un mensaje para conectarse a un torneo /game/connect/torneo/{torneoId}
