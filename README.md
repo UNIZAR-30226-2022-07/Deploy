@@ -699,8 +699,8 @@ Enviar un mensaje para pasar de turno (se usa en caso de robar cartas o que te h
         
   
 Enviar un mensaje al chat de la partida /game/message/{roomId}
-  -NUEVO ENDPOINT: Suscribirse a /topic/chat/{roomId}
-  -Header : nombre de usuario
+  - NUEVO ENDPOINT: Suscribirse a /topic/chat/{roomId}
+  - Header : <nombre_de_usuario>
   - Body :
   
         {
@@ -717,3 +717,14 @@ Enviar un mensaje al chat de la partida /game/message/{roomId}
   - El mensaje que se envíe se recibirá por el endpoint. 2 opciones para Frontend:
       - Mostrar nuevo mensaje, enviar mensaje a Backend, ignorar respuesta si lo he enviado yo.
       - Enviar mensaje a Backend, mostrar respuesta de Backend.
+
+
+Enviar botón de uno
+  - Suscribirse a /topic/buttonOne/{roomId}
+  - Header : <usuario_que_pulsa_boton>
+  - Body : vacio
+
+  - Devuelve :
+    {
+      <nombre_de_usuario_que_pulsa>
+    }
