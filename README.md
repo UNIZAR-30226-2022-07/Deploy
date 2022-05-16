@@ -510,19 +510,19 @@ Eliminar una invitación a partida
 
   - Devuelve: 
     - Si va bien: codigo 200 
-	- Si está disponible la partida
+		- Si está disponible la partida
      
-		  {
-		    "message": "Se ha eliminado la invitación a partida"
-		  }
+				  {
+					"message": "Se ha eliminado la invitación a partida"
+				  }
       
       o
 
-     - Si no está diponible esa partida
+    	 - Si no está diponible esa partida
     
-			  {
-			    "message": "No se ha podido eliminar la invitación a partida"
-			  }
+				  {
+					"message": "No se ha podido eliminar la invitación a partida"
+				  }
           
       
     - Si va mal: codigo 4**, y por qué falla
