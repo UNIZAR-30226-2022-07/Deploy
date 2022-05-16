@@ -584,9 +584,22 @@ Crear un torneo
       
     - Si va mal: codigo 4**, y por qué falla
 
-  - Para acceder a una partida pública hay que buscar un id de partida pública mediante este método y conectarse a él mediante connect
-  - Es necesario suscribirse a todos los canales asociados a la partida
-  - Cualquier jugador debería poder comenzar la partida cuando se haya llenado (haya 4 jugadores)
+Obtener torneos disponibles
+
+  - Peticion POST a : https://onep1.herokuapp.com/torneo/getTorneos
+
+  - JSON: vacio
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+        [
+          <id_torneo1>,
+          <id_torneo2>,
+          ...
+        ]
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
 
 ## Websockets
 
