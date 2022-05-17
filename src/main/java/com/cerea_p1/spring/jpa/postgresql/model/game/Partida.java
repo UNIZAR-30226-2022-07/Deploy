@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
+import com.cerea_p1.spring.postgresq.OneStompSessionHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -28,26 +29,23 @@ public class Partida  extends TimerTask {
     // true indica que la partida es privada, false indica que la partida es pública
     private boolean partidaPrivada;
     @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
     private Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         @Autowired
-        private SimpMessagingTemplate simpMessagingTemplate;
 
 		@Override
 		public void run() {
             System.out.println("HA SONADO LA ALARMA");
-            Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
-
-            // WebSocketClient client = new StandardWebSocketClient();
-
-            // WebSocketStompClient stompClient = new WebSocketStompClient(client);
-            // stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-
-            // StompSessionHandler sessionHandler = new StompSessionHandler();
-            // stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
-			simpMessagingTemplate.convertAndSend("https://onep1.herokuapp.com/topic/jugada/" + id, play);
+
+            WebSocketClient client = new StandardWebSocketClient();
+
+            WebSocketStompClient stompClient = new WebSocketStompClient(client);
+            stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+//Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            StompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler(id,getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
+            
 		}
         
     };
@@ -364,12 +362,19 @@ public class Partida  extends TimerTask {
     }
 
 	@Override
-	public void run() {
-		 Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+		public void run() {
+            System.out.println("HA SONADO LA ALARMA");
             
-		simpMessagingTemplate.convertAndSend("/topic/jugada/" + id, play);
-		
-	}
+
+            WebSocketClient client = new StandardWebSocketClient();
+
+            WebSocketStompClient stompClient = new WebSocketStompClient(client);
+            stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+//Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            StompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler(id,getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
+            
+		}
 
     public void startAlarma() {
         timer.schedule(task, tTurno*1000);
