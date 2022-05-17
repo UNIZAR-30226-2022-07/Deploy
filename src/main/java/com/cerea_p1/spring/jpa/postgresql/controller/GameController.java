@@ -20,6 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.stomp.StompCommand;
+import org.springframework.messaging.simp.stomp.StompHeaders;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.socket.client.WebSocketClient;
@@ -30,6 +34,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +42,7 @@ import java.util.logging.*;
 
 import javax.websocket.Session;
 
+import org.springframework.messaging.converter.MessageConversionException;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
@@ -59,13 +65,7 @@ public class GameController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    // private static String SERVER_URL = "ws://onep1.herokuapp.com";
-
-    // private WebSocketClient c = new StandardWebSocketClient();
-
-    // private WebSocketStompClient client =  new WebSocketStompClient(c);
-
-    // private Session sesion = client.connect(SERVER_URL, sessionHandler).get();
+    
 
     private static final Logger logger = Logger.getLogger("MyLog");
 
