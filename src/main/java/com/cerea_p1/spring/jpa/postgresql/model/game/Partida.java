@@ -6,9 +6,12 @@ import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.stomp.StompCommand;
+import org.springframework.messaging.simp.stomp.StompCommand;
+import org.springframework.messaging.simp.stomp.StompHeaders;
+import java.lang.reflect.Type;
+import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
@@ -42,8 +45,45 @@ public class Partida  extends TimerTask {
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
-            OneStompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler();
-            sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            StompSessionHandler sessionHandler = new StompSessionHandler() {
+                @Override
+                public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+                //    logger.info("New session established : " + session.getSessionId());
+                //    session.subscribe("/topic/messages", this);
+                  //  logger.info("Subscribed to /topic/messages");
+                    session.send("/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+                    //logger.info("Message sent to websocket server");
+                }
+
+                @Override
+                public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
+                 //   logger.error("Got an exception", exception);
+                }
+
+                @Override
+                public Type getPayloadType(StompHeaders headers) {
+                    return Jugada.class;
+                }
+
+                @Override
+                public void handleFrame(StompHeaders headers, Object payload) {
+                //   Message msg = (Message) payload;
+                    Jugada j = (Jugada) payload;
+                // logger.info("Received : " + msg.getText() + " from : " + msg.getFrom());
+                }
+
+                Jugada getJugada(Carta c, List<Jugador> j, String n){
+                // Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+                    return new Jugada(c,j,n);
+                }
+
+				@Override
+				public void handleTransportError(StompSession session, Throwable exception) {
+					// TODO Auto-generated method stub
+					
+				}
+            };
+            //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
@@ -371,8 +411,44 @@ public class Partida  extends TimerTask {
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
-            OneStompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler();
-            sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            StompSessionHandler sessionHandler = new StompSessionHandler() {
+                @Override
+                public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+                //    logger.info("New session established : " + session.getSessionId());
+                //    session.subscribe("/topic/messages", this);
+                  //  logger.info("Subscribed to /topic/messages");
+                    session.send("/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+                    //logger.info("Message sent to websocket server");
+                }
+
+                @Override
+                public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
+                 //   logger.error("Got an exception", exception);
+                }
+
+                @Override
+                public Type getPayloadType(StompHeaders headers) {
+                    return Jugada.class;
+                }
+
+                @Override
+                public void handleFrame(StompHeaders headers, Object payload) {
+                //   Message msg = (Message) payload;
+                    Jugada j = (Jugada) payload;
+                // logger.info("Received : " + msg.getText() + " from : " + msg.getFrom());
+                }
+
+                Jugada getJugada(Carta c, List<Jugador> j, String n){
+                // Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+                    return new Jugada(c,j,n);
+                }
+
+				@Override
+				public void handleTransportError(StompSession session, Throwable exception) {
+					// TODO Auto-generated method stub
+					
+				}
+            };
             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
