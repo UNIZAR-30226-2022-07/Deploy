@@ -3,8 +3,6 @@ package com.cerea_p1.spring.jpa.postgresql.model.game;
 import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
-import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
-import com.cerea_p1.spring.postgresq.OneStompSessionHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
