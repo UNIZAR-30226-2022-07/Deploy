@@ -46,4 +46,12 @@ public class Jugador {
         Jugador j = (Jugador)o;
         return Objects.equals(j.getNombre(), this.nombre);
     }
+
+    public List<Carta> getMano() {
+        return mano;
+    }
+
+    public void setMano(List<Carta> mano) {
+        this.mano = mano;
+    }
 }

@@ -165,16 +165,27 @@ public class GameController {
         try{
             logger.info("cambiar mano de " + request.getPlayer1() + " con " + request.getPlayer2() );
 
-            Partida game = gameService.getPartida(roomId);
+            Partida game = gameService.getPartida(request.getGameId());
+            Jugador j1 = new Jugador(request.getPlayer1());
+            Jugador j2 = new Jugador(request.getPlayer2());
+
+            if(game.playerAlreadyIn(j1) && game.playerAlreadyIn(j2)){
+                List<Carta> mano1 = j1.getCartas();
+                List<Carta> mano2 = j2.getCartas();
+                j1.setMano(mano2);
+                j2.setMano(mano1);
+            } else {
+                return ResponseEntity.badRequest().body("Alguno de los jugadores no pertenece a la partida");
+            }
             
             //Enviar cartas robadas al solicitante
-            Jugador jugador = game.getJugador(new Jugador(username));
-            simpMessagingTemplate.convertAndSendToUser(username, "/msg", gameService.drawCards(roomId, jugador, nCards));
+            simpMessagingTemplate.convertAndSendToUser(j1.getNombre(), "/msg", j1.getMano());
+            simpMessagingTemplate.convertAndSendToUser(j2.getNombre(), "/msg", j2.getMano());
             
-            return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores(), game.getTurno().getNombre()));
+            return ResponseEntity.ok(new MessageResponse("Se han cambiado las manos"));
         } catch(Exception e){
             logger.warning("Exception" + e.getMessage());
-            return Sender.enviar(e);
+            return ResponseEntity.badRequest().body(Sender.enviar(e));
         }
     }
 

@@ -625,7 +625,29 @@ Jugar la final de un toneo
       
     - Si va mal: codigo 4**, y por qué falla
 
-    
+Cambiar las manos con otro jugador
+
+  - Petición POST a : https://onep1.herokuapp.com/game/cambiarManos
+
+  - JSON:
+   
+          {
+            "gameId" : <game_id>,
+            "player1" : <username1>,
+            "player2" : <username2>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+
+        {
+          "message" : "Se han cambiado las manos"
+        }
+
+      - Envia por el canal /user/{username}/msg la nueva mano asignada
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
 
 ## Websockets
 
