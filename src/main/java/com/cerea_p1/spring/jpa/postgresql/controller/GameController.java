@@ -297,7 +297,7 @@ public class GameController {
     @MessageExceptionHandler()
     public String pasarTurno(@DestinationVariable("roomId") String roomId, @Header("username") String username) {
         try{
-           
+           System.out.println("turno pasado");
             Partida p = gameService.getPartida(roomId);
             if(!p.getTurno().getNombre().equals(username)){
                 simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
