@@ -7,7 +7,12 @@ import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.stomp.StompSessionHandler;
+import org.springframework.web.socket.client.WebSocketClient;
+import org.springframework.web.socket.client.standard.StandardWebSocketClient;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 public class Partida  extends TimerTask {
     private int nJugadores;
@@ -33,8 +38,16 @@ public class Partida  extends TimerTask {
 		public void run() {
             System.out.println("HA SONADO LA ALARMA");
             Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+
+            // WebSocketClient client = new StandardWebSocketClient();
+
+            // WebSocketStompClient stompClient = new WebSocketStompClient(client);
+            // stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+
+            // StompSessionHandler sessionHandler = new StompSessionHandler();
+            // stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
-			simpMessagingTemplate.convertAndSend("/topic/jugada/" + id, play);
+			simpMessagingTemplate.convertAndSend("https://onep1.herokuapp.com/topic/jugada/" + id, play);
 		}
         
     };
