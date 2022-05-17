@@ -25,13 +25,23 @@ import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 public class OneStompSessionHandler extends StompSessionHandlerAdapter {
 
     private Logger logger = LogManager.getLogger(OneStompSessionHandler.class);
+    private String id ;
+    private Carta c;
+    private List<Jugador> j;
+    private String n;
+    public OneStompSessionHandler(String id, Carta c, List<Jugador> j, String n){
+        this.id = id;
+        this.c = c;
+        this.j = j;
+        this.n = n;
+    }
 
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         logger.info("New session established : " + session.getSessionId());
     //    session.subscribe("/topic/messages", this);
         logger.info("Subscribed to /topic/messages");
-    //    session.send("/app/chat", getSampleMessage());
+        session.send("/topic/jugada"+id, getJugada(c, j, n));
         logger.info("Message sent to websocket server");
     }
 

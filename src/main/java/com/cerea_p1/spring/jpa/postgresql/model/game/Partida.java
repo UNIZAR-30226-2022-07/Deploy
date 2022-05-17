@@ -3,6 +3,7 @@ package com.cerea_p1.spring.jpa.postgresql.model.game;
 import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
+import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -41,7 +42,8 @@ public class Partida  extends TimerTask {
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
-            StompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler(id,getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            OneStompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler();
+            sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
@@ -369,7 +371,8 @@ public class Partida  extends TimerTask {
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
-            StompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler(id,getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            OneStompSessionHandler sessionHandler = new com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler();
+            sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
