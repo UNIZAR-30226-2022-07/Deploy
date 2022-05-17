@@ -2,7 +2,14 @@ package com.cerea_p1.spring.jpa.postgresql.model.game;
 
 import java.util.*;
 
-public class Partida {
+import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
+import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
+public class Partida  extends TimerTask {
     private int nJugadores;
     private List<Jugador> jugadores;
     private List<Carta> baraja;
@@ -15,6 +22,22 @@ public class Partida {
     private int sentido;
     // true indica que la partida es privada, false indica que la partida es pública
     private boolean partidaPrivada;
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+    private Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+        @Autowired
+        private SimpMessagingTemplate simpMessagingTemplate;
+
+		@Override
+		public void run() {
+            System.out.println("HA SONADO LA ALARMA");
+            Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            
+			simpMessagingTemplate.convertAndSend("/topic/jugada/" + id, play);
+		}
+        
+    };
 
     public Partida(boolean tipoPartida) {
         jugadores = new ArrayList<Jugador>();
@@ -325,5 +348,21 @@ public class Partida {
 
     public void cambioSentido(){
         sentido = - sentido;
+    }
+
+	@Override
+	public void run() {
+		 Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            
+		simpMessagingTemplate.convertAndSend("/topic/jugada/" + id, play);
+		
+	}
+
+    public void startAlarma() {
+        timer.schedule(task, tTurno*1000);
+    }
+
+    public void cancelarAlarma(){
+        timer.cancel();
     }
 }

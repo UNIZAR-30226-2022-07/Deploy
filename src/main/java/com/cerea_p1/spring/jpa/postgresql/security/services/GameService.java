@@ -5,13 +5,11 @@ import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.exception.*;
 import lombok.AllArgsConstructor;
 
-import org.hibernate.mapping.Set;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.security.KeyStore.Entry;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -148,6 +146,7 @@ public class GameService {
                 almacen_invitaciones.get(s).remove(new Invitacion_almacen("", gameId));
             }
         }
+        game.startAlarma();
         if(game.getJugadores().size() == game.getNJugadores()){
             game.repartirManos();
             return game;
@@ -167,9 +166,12 @@ public class GameService {
             if(!p.tieneCarta(card)) {
                 throw new GameException("El jugador " + p.getNombre() + " no contiene la carta " + card);
             }
+            game.cancelarAlarma();
+            
             game.jugarCarta(card,p.getNombre());
             game.siguienteTurno();
             Jugada play = new Jugada(game.getUltimaCartaJugada(),game.getJugadores(), game.getTurno().getNombre());
+            game.startAlarma();
             return play;
         } else { 
             optionalGame = null;
