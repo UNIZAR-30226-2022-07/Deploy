@@ -2,6 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CambiarManos;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DeleteGameInvitation;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
@@ -157,6 +158,24 @@ public class GameController {
     public ResponseEntity<?> getPartidaPublica(){
         logger.info("buscando partida publica");
         return ResponseEntity.ok(Sender.enviar(gameService.getPartidaPublica().getId()));
+    }
+
+    @PostMapping("/game/cambiarManos")
+    public ResponseEntity<?> cambiarManos(@RequestBody CambiarManos request) {
+        try{
+            logger.info("cambiar mano de " + request.getPlayer1() + " con " + request.getPlayer2() );
+
+            Partida game = gameService.getPartida(roomId);
+            
+            //Enviar cartas robadas al solicitante
+            Jugador jugador = game.getJugador(new Jugador(username));
+            simpMessagingTemplate.convertAndSendToUser(username, "/msg", gameService.drawCards(roomId, jugador, nCards));
+            
+            return Sender.enviar(new Jugada(game.getUltimaCartaJugada(), game.getJugadores(), game.getTurno().getNombre()));
+        } catch(Exception e){
+            logger.warning("Exception" + e.getMessage());
+            return Sender.enviar(e);
+        }
     }
 
     @MessageMapping("/connect/{roomId}")
