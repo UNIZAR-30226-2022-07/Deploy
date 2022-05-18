@@ -494,7 +494,7 @@ public class Partida  extends TimerTask {
 
             try {
                 StringEntity params = new StringEntity("details={\"name\":\"admin\",\"password\":\"admin123\"} ");
-                post.addHeader("content-type", "application/x-www-form-urlencoded");
+                post.addHeader("content-type", "application/json");
                 post.setEntity(params);
             } catch (UnsupportedEncodingException e1) {
                 // TODO Auto-generated catch block
@@ -574,7 +574,7 @@ public class Partida  extends TimerTask {
 
             try {
                 StringEntity params = new StringEntity("details={\"name\":\"admin\",\"password\":\"admin123\"} ");
-                post.addHeader("content-type", "application/x-www-form-urlencoded");
+                post.addHeader("content-type", "application/json");
                 post.setEntity(params);
                // post.setEntity(new UrlEncodedFormEntity(urlParameters));
             } catch (UnsupportedEncodingException e) {
