@@ -99,10 +99,6 @@ public class Partida  extends TimerTask {
             HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
 
             // add request parameter, form parameters
-            List<NameValuePair> urlParameters = new ArrayList<>();
-            urlParameters.add(new BasicNameValuePair("username", "admin"));
-            urlParameters.add(new BasicNameValuePair("password", "admin123"));
-           // urlParameters.add(new BasicNameValuePair("custom", "secret"));
 
             try {
                 StringEntity params = new StringEntity("details={\"username\":\"admin\",\"password\":\"admin123\"} ");
@@ -115,7 +111,7 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
+            //    headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
                 
             } catch(Exception e){
@@ -504,7 +500,7 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
+         //       headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
                
             } catch(Exception e){
@@ -587,8 +583,10 @@ public class Partida  extends TimerTask {
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
                     
-                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
-                System.out.println(EntityUtils.toString(response.getEntity()));
+            //    headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
+                System.out.println(headers.toString()));
+             
+                  System.out.println(EntityUtils.toString(response.getEntity()));
                 
             } catch(Exception e) {
                 System.out.println(e.getMessage());
