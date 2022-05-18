@@ -54,7 +54,7 @@ public class Partida  extends TimerTask {
             
 
             WebSocketClient client = new StandardWebSocketClient();
-
+            StompHeaders headers = new StompHeaders();
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
             //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
@@ -115,12 +115,12 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-
+                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
             } catch(Exception e){
                 System.out.println("Excepcion alarma " + e.getMessage());
             }
-            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
+            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler, headers);
             
 		}
     };
@@ -442,7 +442,7 @@ public class Partida  extends TimerTask {
             
 
             WebSocketClient client = new StandardWebSocketClient();
-
+            StompHeaders headers = new StompHeaders();
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
             //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
@@ -503,12 +503,12 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-
+                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
             } catch(Exception e){
                 System.out.println("Excepcion alarma " + e.getMessage());
             }
-            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
+            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler,headers);
             
 		}
 
@@ -523,7 +523,7 @@ public class Partida  extends TimerTask {
 
             WebSocketClient client = new StandardWebSocketClient();
             StompHeaders headers = new StompHeaders();
-            headers.add("Authorization","Bearer admin");
+            
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -584,12 +584,13 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-
+                    
+                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
-
+            
             stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
             
 		}
