@@ -584,7 +584,11 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-                System.out.println(response.getParams().getParameter("accessToken"));
+
+                
+
+      
+                System.out.println(response.getParams());
                 headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(headers.toString());
              
