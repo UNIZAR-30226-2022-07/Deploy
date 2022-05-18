@@ -6,16 +6,19 @@ import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
+
+import java.io.IOException;
 import java.lang.reflect.Type;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.messaging.WebSocketStompClient;
+import org.springframework.web.socket.messaging.WebSocketStompClient; 
 
 public class Partida  extends TimerTask {
     private int nJugadores;
@@ -41,6 +44,8 @@ public class Partida  extends TimerTask {
             
 
             WebSocketClient client = new StandardWebSocketClient();
+            StompHeaders headers = new StompHeaders();
+            headers.add("Authorization","Bearer admin");
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -84,7 +89,7 @@ public class Partida  extends TimerTask {
 				}
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
-            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler);
+            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
             
 		}
         
@@ -402,7 +407,7 @@ public class Partida  extends TimerTask {
     }
 
 	@Override
-		public void run() {
+		public void run(){
             System.out.println("HA SONADO LA ALARMA");
             
 
@@ -449,12 +454,13 @@ public class Partida  extends TimerTask {
 					
 				}
             };
+            
             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
 
     public void startAlarma() {
-        task = new TimerTask() {
+        TimerTask task = new TimerTask() {
         @Autowired
 
 		@Override
@@ -463,6 +469,8 @@ public class Partida  extends TimerTask {
             
 
             WebSocketClient client = new StandardWebSocketClient();
+            StompHeaders headers = new StompHeaders();
+            headers.add("Authorization","Bearer admin");
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -506,7 +514,7 @@ public class Partida  extends TimerTask {
 				}
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
-            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler);
+            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
             
 		}
         
