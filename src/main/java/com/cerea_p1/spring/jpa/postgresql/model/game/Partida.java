@@ -539,7 +539,7 @@ public class Partida  extends TimerTask {
             
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
-        //    stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+            stompClient.setMessageConverter(new MappingJackson2MessageConverter());
             StompSessionHandler sessionHandler = new StompSessionHandler() {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
