@@ -25,7 +25,7 @@ public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfi
         messages
                 .simpTypeMatchers(SimpMessageType.CONNECT,
                         SimpMessageType.DISCONNECT, SimpMessageType.OTHER, SimpMessageType.SUBSCRIBE, SimpMessageType.MESSAGE, SimpMessageType.UNSUBSCRIBE).permitAll()
-                .anyMessage().authenticated();
+                .anyMessage();
     }
  
     @Override
