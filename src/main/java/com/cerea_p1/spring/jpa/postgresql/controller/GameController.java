@@ -193,6 +193,8 @@ public class GameController {
             }
             
             //Enviar cartas robadas al solicitante
+            logger.info(j1.getMano().toString());
+            logger.info(j2.getMano().toString());
             simpMessagingTemplate.convertAndSendToUser(j1.getNombre(), "/msg", j1.getMano());
             simpMessagingTemplate.convertAndSendToUser(j2.getNombre(), "/msg", j2.getMano());
             
