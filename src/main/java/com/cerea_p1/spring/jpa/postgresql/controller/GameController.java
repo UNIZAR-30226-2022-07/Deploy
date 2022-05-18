@@ -182,6 +182,8 @@ public class GameController {
             Partida game = gameService.getPartida(request.getGameId());
             Jugador j1 = new Jugador(request.getPlayer1());
             Jugador j2 = new Jugador(request.getPlayer2());
+            j1 = game.getJugador(j1);
+            j2 = game.getJugador(j2);
 
             if(game.playerAlreadyIn(j1) && game.playerAlreadyIn(j2)){
                 List<Carta> mano1 = j1.getCartas();
@@ -195,8 +197,8 @@ public class GameController {
             //Enviar cartas robadas al solicitante
             logger.info(j1.getMano().toString());
             logger.info(j2.getMano().toString());
-            simpMessagingTemplate.convertAndSendToUser(j1.getNombre(), "/msg", j1.getMano());
-            simpMessagingTemplate.convertAndSendToUser(j2.getNombre(), "/msg", j2.getMano());
+            simpMessagingTemplate.convertAndSendToUser(j1.getNombre(), "/msg", "mano: "+j1.getMano());
+            simpMessagingTemplate.convertAndSendToUser(j2.getNombre(), "/msg", "mano: "+j2.getMano());
             
             return ResponseEntity.ok(new MessageResponse("Se han cambiado las manos"));
         } catch(Exception e){
