@@ -454,6 +454,63 @@ public class Partida  extends TimerTask {
 		}
 
     public void startAlarma() {
+        task = new TimerTask() {
+        @Autowired
+
+		@Override
+		public void run() {
+            System.out.println("HA SONADO LA ALARMA");
+            
+
+            WebSocketClient client = new StandardWebSocketClient();
+
+            WebSocketStompClient stompClient = new WebSocketStompClient(client);
+            stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+//Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            StompSessionHandler sessionHandler = new StompSessionHandler() {
+                @Override
+                public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+                //    logger.info("New session established : " + session.getSessionId());
+                //    session.subscribe("/topic/messages", this);
+                  //  logger.info("Subscribed to /topic/messages");
+                    session.send("/topic/jugada/"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+                    //logger.info("Message sent to websocket server");
+                }
+
+                @Override
+                public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
+                 //   logger.error("Got an exception", exception);
+                }
+
+                @Override
+                public Type getPayloadType(StompHeaders headers) {
+                    return Jugada.class;
+                }
+
+                @Override
+                public void handleFrame(StompHeaders headers, Object payload) {
+                //   Message msg = (Message) payload;
+                    Jugada j = (Jugada) payload;
+                // logger.info("Received : " + msg.getText() + " from : " + msg.getFrom());
+                }
+
+                Jugada getJugada(Carta c, List<Jugador> j, String n){
+                // Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+                    return new Jugada(c,j,n);
+                }
+
+				@Override
+				public void handleTransportError(StompSession session, Throwable exception) {
+					// TODO Auto-generated method stub
+					
+				}
+            };
+            //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler);
+            
+		}
+        
+    };
         timer.schedule(task, tTurno*1000);
     }
 

@@ -308,7 +308,7 @@ public class GameController {
 
             return Sender.enviar(new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
         } catch(Exception e){
-            logger.warning("Exception" + e.getMessage());
+            logger.warning("Exception " + e.getMessage());
             return Sender.enviar(e);
         }
     }
