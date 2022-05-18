@@ -28,6 +28,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
+import org.springframework.web.socket.WebSocketHttpHeaders;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient; 
@@ -536,7 +537,7 @@ public class Partida  extends TimerTask {
 
             WebSocketClient client = new StandardWebSocketClient();
             StompHeaders headers = new StompHeaders();
-            
+            WebSocketHttpHeaders headers2 = new WebSocketHttpHeaders();
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -602,8 +603,9 @@ public class Partida  extends TimerTask {
                 JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
                 System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 
-                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers).get();
+                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", headers2, sessionHandler).get();
                 sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
             } catch(Exception e) {
                 System.out.println(e.getMessage());
