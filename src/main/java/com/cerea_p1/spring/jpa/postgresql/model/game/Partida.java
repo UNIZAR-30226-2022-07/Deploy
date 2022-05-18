@@ -5,6 +5,14 @@ import java.util.*;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -13,6 +21,7 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
@@ -415,7 +424,7 @@ public class Partida  extends TimerTask {
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-//Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
             StompSessionHandler sessionHandler = new StompSessionHandler() {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
@@ -454,7 +463,28 @@ public class Partida  extends TimerTask {
 					
 				}
             };
-            
+            HttpPost post = new HttpPost("https://onep1.herokuapp/signin");
+
+            // add request parameter, form parameters
+            List<NameValuePair> urlParameters = new ArrayList<>();
+            urlParameters.add(new BasicNameValuePair("username", "admin"));
+            urlParameters.add(new BasicNameValuePair("password", "admin123"));
+           // urlParameters.add(new BasicNameValuePair("custom", "secret"));
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            } catch (UnsupportedEncodingException e1) {
+                // TODO Auto-generated catch block
+                System.out.println("Excepcion alarma " + e1.getMessage());
+            }
+
+            try (CloseableHttpClient httpClient = HttpClients.createDefault();
+                CloseableHttpResponse response = httpClient.execute(post)) {
+
+                System.out.println(EntityUtils.toString(response.getEntity()));
+            } catch(Exception e){
+                System.out.println("Excepcion alarma " + e.getMessage());
+            }
             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
@@ -508,6 +538,30 @@ public class Partida  extends TimerTask {
 				}
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+           // CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpPost post = new HttpPost("https://onep1.herokuapp/signin");
+
+            // add request parameter, form parameters
+            List<NameValuePair> urlParameters = new ArrayList<>();
+            urlParameters.add(new BasicNameValuePair("username", "admin"));
+            urlParameters.add(new BasicNameValuePair("password", "admin123"));
+           // urlParameters.add(new BasicNameValuePair("custom", "secret"));
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                System.out.println("Excepcion alarma " + e.getMessage());
+            }
+
+            try (CloseableHttpClient httpClient = HttpClients.createDefault();
+                CloseableHttpResponse response = httpClient.execute(post)) {
+
+                System.out.println(EntityUtils.toString(response.getEntity()));
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+
             stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
             
 		}

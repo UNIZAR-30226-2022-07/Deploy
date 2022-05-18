@@ -30,9 +30,6 @@ public class JwtUtils {
     return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
   public boolean validateJwtToken(String authToken) {
-    if(authToken.equals("admin")) {
-      return true;
-    }
     try {
       Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
       return true;
