@@ -26,6 +26,8 @@ import org.springframework.messaging.simp.stomp.StompHeaders;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URI;
+
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.socket.WebSocketHttpHeaders;
@@ -565,11 +567,6 @@ public class Partida  extends TimerTask {
                 // logger.info("Received : " + msg.getText() + " from : " + msg.getFrom());
                 }
 
-                Jugada getJugada(Carta c, List<Jugador> j, String n){
-                // Jugada play = new Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
-                    return new Jugada(c,j,n);
-                }
-
 				@Override
 				public void handleTransportError(StompSession session, Throwable exception) {
 					// TODO Auto-generated method stub
@@ -607,7 +604,7 @@ public class Partida  extends TimerTask {
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 
-                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
+                StompSession sessionHandler2 = stompClient.connect(new URI("ws://onep1.herokuapp.com/onep1-game").getPath(), sessionHandler, headers).get();
                 sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
             } catch(Exception e) {
                 System.out.println(e.getMessage());
