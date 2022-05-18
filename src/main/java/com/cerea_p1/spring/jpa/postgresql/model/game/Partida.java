@@ -573,7 +573,7 @@ public class Partida  extends TimerTask {
     
 
             try {
-                StringEntity params = new StringEntity("details={\"name\":\"admin\",\"password\":\"admin123\"} ");
+                StringEntity params = new StringEntity("{\"name\":\"admin\",\"password\":\"admin123\"} ");
                 post.addHeader("content-type", "application/json");
                 post.setEntity(params);
                // post.setEntity(new UrlEncodedFormEntity(urlParameters));
