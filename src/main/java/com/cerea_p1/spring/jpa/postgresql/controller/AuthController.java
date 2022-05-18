@@ -55,7 +55,7 @@ public class AuthController {
 
 	@Autowired
 	private JavaMailSender javaMailSender;
-	@PostMapping(path = "/signin", consumes = "application/x-www-form-urlencoded")
+	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		
 		Authentication authentication = authenticationManager.authenticate( 
