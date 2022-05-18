@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
+import com.google.gson.JsonObject;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -584,11 +585,11 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-
+                //JsonObject cosa = new JsonObject(response.getEntity());
                 
 
       
-                System.out.println(response.getParams());
+                System.out.println(response.getEntity());
                 headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(headers.toString());
              
