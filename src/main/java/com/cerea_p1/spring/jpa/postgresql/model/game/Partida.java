@@ -474,20 +474,14 @@ public class Partida  extends TimerTask {
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-//Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
             StompSessionHandler sessionHandler = new StompSessionHandler() {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                //    logger.info("New session established : " + session.getSessionId());
-                //    session.subscribe("/topic/messages", this);
-                  //  logger.info("Subscribed to /topic/messages");
                     session.send("/game/pasarTurno/"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
-                    //logger.info("Message sent to websocket server");
                 }
 
                 @Override
                 public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-                 //   logger.error("Got an exception", exception);
                 }
 
                 @Override
