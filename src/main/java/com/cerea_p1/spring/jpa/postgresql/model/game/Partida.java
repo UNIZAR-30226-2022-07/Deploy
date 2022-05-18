@@ -111,7 +111,8 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-            //    headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
+                System.out.println(response.getParams().getParameter("accessToken"));
+                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
                 
             } catch(Exception e){
@@ -500,7 +501,8 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-         //       headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
+                System.out.println(response.getParams().getParameter("accessToken"));
+                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
                
             } catch(Exception e){
@@ -582,8 +584,8 @@ public class Partida  extends TimerTask {
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-                    
-            //    headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
+                System.out.println(response.getParams().getParameter("accessToken"));
+                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(headers.toString());
              
                   System.out.println(EntityUtils.toString(response.getEntity()));
