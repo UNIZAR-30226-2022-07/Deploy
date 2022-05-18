@@ -84,7 +84,7 @@ public class Partida  extends TimerTask {
 				}
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
-            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler);
+            stompClient.connect("https://onep1.herokuapp.com/onep1-game", sessionHandler);
             
 		}
         
@@ -506,7 +506,7 @@ public class Partida  extends TimerTask {
 				}
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
-            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler);
+            stompClient.connect("https://onep1.herokuapp.com/onep1-game", sessionHandler);
             
 		}
         
