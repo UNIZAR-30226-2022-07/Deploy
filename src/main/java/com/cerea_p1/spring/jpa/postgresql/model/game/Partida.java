@@ -600,7 +600,7 @@ public class Partida  extends TimerTask {
                 //JsonObject cosa = new JsonObject(response.getEntity());
                 
                 JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-                System.out.println(jsonResp.get("accessToken"));
+                System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 
             } catch(Exception e) {
