@@ -117,10 +117,11 @@ public class Partida  extends TimerTask {
                 CloseableHttpResponse response = httpClient.execute(post)) {
                 headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
+                stompClient.connect("ws://onep1.herokuapp.com", sessionHandler, headers);
             } catch(Exception e){
                 System.out.println("Excepcion alarma " + e.getMessage());
             }
-            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler, headers);
+            
             
 		}
     };
@@ -505,10 +506,11 @@ public class Partida  extends TimerTask {
                 CloseableHttpResponse response = httpClient.execute(post)) {
                 headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
+                stompClient.connect("ws://onep1.herokuapp.com", sessionHandler,headers);
             } catch(Exception e){
                 System.out.println("Excepcion alarma " + e.getMessage());
             }
-            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler,headers);
+            
             
 		}
 
@@ -587,11 +589,12 @@ public class Partida  extends TimerTask {
                     
                 headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
                 System.out.println(EntityUtils.toString(response.getEntity()));
+                stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
             
-            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
+            
             
 		}
         
