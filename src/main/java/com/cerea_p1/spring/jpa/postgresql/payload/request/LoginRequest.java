@@ -9,6 +9,11 @@ public class LoginRequest {
 	@NotBlank
 	private String password;
 
+	public LoginRequest(String u, String p){
+		username = u;
+		password = p;
+	}
+
 	public String getUsername() {
 		return username;
 	}
