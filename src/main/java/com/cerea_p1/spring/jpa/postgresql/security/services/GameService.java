@@ -190,10 +190,12 @@ public class GameService {
         optionalGame.orElseThrow(() -> new BeginGameException("Game with provided id doesn't exist"));
 
         Partida game = optionalGame.get();
+        game.cancelarAlarma();
         List<Carta> cards_drawn = game.robarCartas(player.getNombre(), nCards);
-        for(Carta c : cards_drawn)
+        for(Carta c : cards_drawn) {
             player.addCarta(c);
-        
+        }
+        game.startAlarma();
         return cards_drawn;
     }
 
