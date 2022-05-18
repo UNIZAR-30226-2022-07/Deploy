@@ -463,7 +463,7 @@ public class Partida  extends TimerTask {
 					
 				}
             };
-            HttpPost post = new HttpPost("https://onep1.herokuapp/signin");
+            HttpPost post = new HttpPost("https://onep1.herokuapp.com/signin");
 
             // add request parameter, form parameters
             List<NameValuePair> urlParameters = new ArrayList<>();
@@ -539,7 +539,7 @@ public class Partida  extends TimerTask {
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
            // CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost post = new HttpPost("https://onep1.herokuapp/signin");
+            HttpPost post = new HttpPost("https://onep1.herokuapp.com/signin");
 
             // add request parameter, form parameters
             List<NameValuePair> urlParameters = new ArrayList<>();
