@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -104,7 +105,9 @@ public class Partida  extends TimerTask {
            // urlParameters.add(new BasicNameValuePair("custom", "secret"));
 
             try {
-                post.setEntity(new UrlEncodedFormEntity(urlParameters));
+                StringEntity params = new StringEntity("details={\"name\":\"admin\",\"password\":\"admin123\"} ");
+                post.addHeader("content-type", "application/x-www-form-urlencoded");
+                post.setEntity(params);
             } catch (UnsupportedEncodingException e1) {
                 // TODO Auto-generated catch block
                 System.out.println("Excepcion alarma " + e1.getMessage());
@@ -490,7 +493,9 @@ public class Partida  extends TimerTask {
            // urlParameters.add(new BasicNameValuePair("custom", "secret"));
 
             try {
-                post.setEntity(new UrlEncodedFormEntity(urlParameters));
+                StringEntity params = new StringEntity("details={\"name\":\"admin\",\"password\":\"admin123\"} ");
+                post.addHeader("content-type", "application/x-www-form-urlencoded");
+                post.setEntity(params);
             } catch (UnsupportedEncodingException e1) {
                 // TODO Auto-generated catch block
                 System.out.println("Excepcion alarma " + e1.getMessage());
@@ -564,9 +569,14 @@ public class Partida  extends TimerTask {
             urlParameters.add(new BasicNameValuePair("username", "admin"));
             urlParameters.add(new BasicNameValuePair("password", "admin123"));
            // urlParameters.add(new BasicNameValuePair("custom", "secret"));
+           
+    
 
             try {
-                post.setEntity(new UrlEncodedFormEntity(urlParameters));
+                StringEntity params = new StringEntity("details={\"name\":\"admin\",\"password\":\"admin123\"} ");
+                post.addHeader("content-type", "application/x-www-form-urlencoded");
+                post.setEntity(params);
+               // post.setEntity(new UrlEncodedFormEntity(urlParameters));
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 System.out.println("Excepcion alarma " + e.getMessage());
