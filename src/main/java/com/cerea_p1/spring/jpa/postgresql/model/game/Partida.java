@@ -48,31 +48,27 @@ public class Partida  extends TimerTask {
     @Autowired
     private Timer timer = new Timer();
     TimerTask task = new TimerTask() {
-        @Autowired
-
-	@Override
-	public void run(){
+    @Autowired
+        
+        @Override
+		public void run() {
             System.out.println("HA SONADO LA ALARMA");
             
 
             WebSocketClient client = new StandardWebSocketClient();
             StompHeaders headers = new StompHeaders();
+            
+
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-            //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
             StompSessionHandler sessionHandler = new StompSessionHandler() {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                //    logger.info("New session established : " + session.getSessionId());
-                //    session.subscribe("/topic/messages", this);
-                  //  logger.info("Subscribed to /topic/messages");
-                    session.send("/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
-                    //logger.info("Message sent to websocket server");
+                    session.send("/game/pasarTurno/"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
                 }
 
                 @Override
                 public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-                 //   logger.error("Got an exception", exception);
                 }
 
                 @Override
@@ -98,31 +94,48 @@ public class Partida  extends TimerTask {
 					
 				}
             };
+            //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+           // CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
 
             // add request parameter, form parameters
+            List<NameValuePair> urlParameters = new ArrayList<>();
+            urlParameters.add(new BasicNameValuePair("username", "admin"));
+            urlParameters.add(new BasicNameValuePair("password", "admin123"));
+           // urlParameters.add(new BasicNameValuePair("custom", "secret"));
+           
+    
 
             try {
-                StringEntity params = new StringEntity("details={\"username\":\"admin\",\"password\":\"admin123\"} ");
+                StringEntity params = new StringEntity("{\"username\":\"admin\",\"password\":\"admin123\"} ");
                 post.addHeader("content-type", "application/json");
                 post.setEntity(params);
-            } catch (UnsupportedEncodingException e1) {
+               // post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
-                System.out.println("Excepcion alarma " + e1.getMessage());
+                System.out.println("Excepcion alarma " + e.getMessage());
             }
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-                System.out.println(response.getParams().getParameter("accessToken"));
-                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
-                System.out.println(EntityUtils.toString(response.getEntity()));
+                //JsonObject cosa = new JsonObject(response.getEntity());
                 
-            } catch(Exception e){
-                System.out.println("Excepcion alarma " + e.getMessage());
+                JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
+      
+                System.out.println(response.getEntity() + " " + jsonResp.get("accessToken"));
+                headers.add("Authorization","Bearer " + jsonResp.get("accessToken"));
+                System.out.println(headers.toString());
+             
+                  System.out.println(EntityUtils.toString(response.getEntity()));
+                
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
             }
-            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler, headers);
+            
+            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
             
 		}
+        
     };
 
     public Partida(boolean tipoPartida) {
@@ -436,29 +449,25 @@ public class Partida  extends TimerTask {
         sentido = - sentido;
     }
 
-	@Override
-		public void run(){
+		@Override
+		public void run() {
             System.out.println("HA SONADO LA ALARMA");
             
 
             WebSocketClient client = new StandardWebSocketClient();
             StompHeaders headers = new StompHeaders();
+            
+
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-            //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
             StompSessionHandler sessionHandler = new StompSessionHandler() {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                //    logger.info("New session established : " + session.getSessionId());
-                //    session.subscribe("/topic/messages", this);
-                  //  logger.info("Subscribed to /topic/messages");
-                    session.send("/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
-                    //logger.info("Message sent to websocket server");
+                    session.send("/game/pasarTurno/"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
                 }
 
                 @Override
                 public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-                 //   logger.error("Got an exception", exception);
                 }
 
                 @Override
@@ -484,6 +493,8 @@ public class Partida  extends TimerTask {
 					
 				}
             };
+            //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
+           // CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
 
             // add request parameter, form parameters
@@ -491,27 +502,37 @@ public class Partida  extends TimerTask {
             urlParameters.add(new BasicNameValuePair("username", "admin"));
             urlParameters.add(new BasicNameValuePair("password", "admin123"));
            // urlParameters.add(new BasicNameValuePair("custom", "secret"));
+           
+    
 
             try {
-                StringEntity params = new StringEntity("details={\"username\":\"admin\",\"password\":\"admin123\"} ");
+                StringEntity params = new StringEntity("{\"username\":\"admin\",\"password\":\"admin123\"} ");
                 post.addHeader("content-type", "application/json");
                 post.setEntity(params);
-            } catch (UnsupportedEncodingException e1) {
+               // post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
-                System.out.println("Excepcion alarma " + e1.getMessage());
+                System.out.println("Excepcion alarma " + e.getMessage());
             }
 
             try (CloseableHttpClient httpClient = HttpClients.createDefault();
                 CloseableHttpResponse response = httpClient.execute(post)) {
-                System.out.println(response.getParams().getParameter("accessToken"));
-                headers.add("Authorization","Bearer " + response.getParams().getParameter("accessToken").toString());
-                System.out.println(EntityUtils.toString(response.getEntity()));
-               
-            } catch(Exception e){
-                System.out.println("Excepcion alarma " + e.getMessage());
+                //JsonObject cosa = new JsonObject(response.getEntity());
+                
+                JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
+      
+                System.out.println(response.getEntity() + " " + jsonResp.get("accessToken"));
+                headers.add("Authorization","Bearer " + jsonResp.get("accessToken"));
+                System.out.println(headers.toString());
+             
+                  System.out.println(EntityUtils.toString(response.getEntity()));
+                
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
             }
             
-             stompClient.connect("ws://onep1.herokuapp.com", sessionHandler,headers);
+            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
+            
 		}
 
     public void startAlarma() {
@@ -591,7 +612,7 @@ public class Partida  extends TimerTask {
                 JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
       
                 System.out.println(response.getEntity() + " " + jsonResp.get("accessToken"));
-                headers.add("Authorization","Bearer " + response.getEntity());
+                headers.add("Authorization","Bearer " + jsonResp.get("accessToken"));
                 System.out.println(headers.toString());
              
                   System.out.println(EntityUtils.toString(response.getEntity()));
