@@ -121,13 +121,8 @@ public class Partida  extends TimerTask {
                 //JsonObject cosa = new JsonObject(response.getEntity());
                 
                 JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-      
-                System.out.println(response.getEntity() + " " + jsonResp.get("accessToken"));
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken"));
-                System.out.println(headers.toString());
-             
-                  System.out.println(EntityUtils.toString(response.getEntity()));
-                
+    
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -520,12 +515,7 @@ public class Partida  extends TimerTask {
                 //JsonObject cosa = new JsonObject(response.getEntity());
                 
                 JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-      
-                System.out.println(response.getEntity() + " " + jsonResp.get("accessToken"));
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken"));
-                System.out.println(headers.toString());
-             
-                  System.out.println(EntityUtils.toString(response.getEntity()));
                 
             } catch(Exception e) {
                 System.out.println(e.getMessage());
@@ -610,12 +600,7 @@ public class Partida  extends TimerTask {
                 //JsonObject cosa = new JsonObject(response.getEntity());
                 
                 JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-      
-                System.out.println(response.getEntity() + " " + jsonResp.get("accessToken"));
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken"));
-                System.out.println(headers.toString());
-             
-                  System.out.println(EntityUtils.toString(response.getEntity()));
                 
             } catch(Exception e) {
                 System.out.println(e.getMessage());
