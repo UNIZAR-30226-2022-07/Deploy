@@ -51,7 +51,7 @@ public class Partida  extends TimerTask {
                 //    logger.info("New session established : " + session.getSessionId());
                 //    session.subscribe("/topic/messages", this);
                   //  logger.info("Subscribed to /topic/messages");
-                    session.send("/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+                    session.send("htttps://onep1.herokuapp.com/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
                     //logger.info("Message sent to websocket server");
                 }
 
