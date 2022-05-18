@@ -604,7 +604,7 @@ public class Partida  extends TimerTask {
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 
-                StompSession sessionHandler2 = stompClient.connect(new URI("ws://onep1.herokuapp.com/onep1-game").getPath(), sessionHandler, headers).get();
+                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
                 sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
             } catch(Exception e) {
                 System.out.println(e.getMessage());

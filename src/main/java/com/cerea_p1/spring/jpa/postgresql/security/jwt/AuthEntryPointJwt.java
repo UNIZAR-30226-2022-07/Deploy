@@ -26,7 +26,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
       throws IOException, ServletException {
 
 
-     // response.addHeader("WWW-Authenticate", "Basic realm=\"" +  + "\"");
+      response.addHeader("Autenticacion", "Not possible to authenticate");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter writer = response.getWriter();
         writer.println("HTTP Status 401 - " + authException.getMessage());
