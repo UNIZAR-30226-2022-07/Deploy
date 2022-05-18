@@ -47,25 +47,23 @@ public class Partida  extends TimerTask {
     TimerTask task = new TimerTask() {
         @Autowired
 
-		@Override
-		public void run() {
+	@Override
+	public void run(){
             System.out.println("HA SONADO LA ALARMA");
             
 
             WebSocketClient client = new StandardWebSocketClient();
-            StompHeaders headers = new StompHeaders();
-            headers.add("Authorization","Bearer admin");
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-//Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
+            //Jugada(getUltimaCartaJugada(),getJugadores(), getTurno().getNombre());
             StompSessionHandler sessionHandler = new StompSessionHandler() {
                 @Override
                 public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
                 //    logger.info("New session established : " + session.getSessionId());
                 //    session.subscribe("/topic/messages", this);
                   //  logger.info("Subscribed to /topic/messages");
-                    session.send("/game/pasarTurno/"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+                    session.send("/topic/jugada"+id, getJugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
                     //logger.info("Message sent to websocket server");
                 }
 
@@ -97,11 +95,31 @@ public class Partida  extends TimerTask {
 					
 				}
             };
-            //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
-            stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
+            HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
+
+            // add request parameter, form parameters
+            List<NameValuePair> urlParameters = new ArrayList<>();
+            urlParameters.add(new BasicNameValuePair("username", "admin"));
+            urlParameters.add(new BasicNameValuePair("password", "admin123"));
+           // urlParameters.add(new BasicNameValuePair("custom", "secret"));
+
+            try {
+                post.setEntity(new UrlEncodedFormEntity(urlParameters));
+            } catch (UnsupportedEncodingException e1) {
+                // TODO Auto-generated catch block
+                System.out.println("Excepcion alarma " + e1.getMessage());
+            }
+
+            try (CloseableHttpClient httpClient = HttpClients.createDefault();
+                CloseableHttpResponse response = httpClient.execute(post)) {
+
+                System.out.println(EntityUtils.toString(response.getEntity()));
+            } catch(Exception e){
+                System.out.println("Excepcion alarma " + e.getMessage());
+            }
+            stompClient.connect("ws://onep1.herokuapp.com", sessionHandler);
             
 		}
-        
     };
 
     public Partida(boolean tipoPartida) {
@@ -463,7 +481,7 @@ public class Partida  extends TimerTask {
 					
 				}
             };
-            HttpPost post = new HttpPost("https://onep1.herokuapp.com/signin");
+            HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
 
             // add request parameter, form parameters
             List<NameValuePair> urlParameters = new ArrayList<>();
@@ -539,7 +557,7 @@ public class Partida  extends TimerTask {
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
            // CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost post = new HttpPost("https://onep1.herokuapp.com/signin");
+            HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
 
             // add request parameter, form parameters
             List<NameValuePair> urlParameters = new ArrayList<>();
