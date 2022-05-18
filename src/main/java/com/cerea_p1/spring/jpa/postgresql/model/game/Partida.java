@@ -26,6 +26,8 @@ import org.springframework.messaging.simp.stomp.StompHeaders;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URI;
+
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.socket.WebSocketHttpHeaders;
@@ -605,7 +607,7 @@ public class Partida  extends TimerTask {
                 headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
                 
-                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", headers2, sessionHandler).get();
+                StompSession sessionHandler2 = stompClient.connect(URI.create("ws://onep1.herokuapp.com/onep1-game"), headers2, headers, sessionHandler).get();
                 sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
             } catch(Exception e) {
                 System.out.println(e.getMessage());
