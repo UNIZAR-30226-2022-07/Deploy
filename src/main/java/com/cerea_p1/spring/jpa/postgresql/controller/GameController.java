@@ -109,6 +109,7 @@ public class GameController {
 
     @PostMapping("/server/pasarTurno")
     public ResponseEntity<?> serverPasarTurno(@RequestBody ServerPasarTurno request){
+        logger.info("Ha llegado el método del server");
         simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), new Jugada(request.getUltimaCarta(), request.getJugadores(), request.getTurno()));
         return ResponseEntity.ok("GG");
     }
