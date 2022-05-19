@@ -1,5 +1,6 @@
 package com.cerea_p1.spring.jpa.postgresql.controller;
 
+import java.lang.ProcessHandle.Info;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -59,7 +60,15 @@ public class TorneoController {
 
     @PostMapping("/torneo/getTorneos")
     public ResponseEntity<?> getTorneos(){
-        return ResponseEntity.ok(Sender.enviar(torneoService.listaTorneos()));
+        List<InfoTorneoResponse> listaInfoTorneos = new ArrayList<InfoTorneoResponse>();
+        for(Torneo t : torneoService.listaTorneos()) {
+            List<String> s = new ArrayList<String>();
+            for(Jugador j : t.getJugadores()){
+                s.add(j.getNombre());
+            }
+            listaInfoTorneos.add(new InfoTorneoResponse(t.getIdTorneo(), t.getTiempoTurno(), s, t.getReglas()));
+        }
+        return ResponseEntity.ok(Sender.enviar(listaInfoTorneos));
     }
 
     @PostMapping("/torneo/jugarFinal")

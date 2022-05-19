@@ -87,12 +87,20 @@ public class TorneoService {
         } else throw new BeginGameException("Faltan jugadores.");
     }    
 
-    public List<String> listaTorneos(){
+    public List<String> listaIdTorneos(){
         List<String> lista = new ArrayList<String>();
         for(String s : almacen_torneos.keySet()){
             if(almacen_torneos.get(s).getEstadoTorneo() == EstadoPartidaEnum.NEW){
                 lista.add(s);
             }
+        }
+        return lista;
+    }
+
+    public List<Torneo> listaTorneos(){
+        List<Torneo> lista = new ArrayList<Torneo>();
+        for(Torneo t : almacen_torneos.values()){
+            lista.add(t);
         }
         return lista;
     }
