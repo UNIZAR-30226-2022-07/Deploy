@@ -514,7 +514,7 @@ public class Partida  extends TimerTask {
     }
 
     public void cancelarAlarma(){
-        timer.cancel();
+        task.cancel();
         timer.purge();
     }
 }
