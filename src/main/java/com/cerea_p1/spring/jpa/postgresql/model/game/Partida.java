@@ -592,6 +592,7 @@ public class Partida  extends TimerTask {
    
            try {
                StringEntity params = new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":" + Sender.enviar(getJugadores()) + "\", \"turno\":\""+getTurno().getNombre()+"\"}");
+               System.out.println(params);
                post.addHeader("content-type", "application/json");
                post.setEntity(params);
                // post.setEntity(new UrlEncodedFormEntity(urlParameters));
