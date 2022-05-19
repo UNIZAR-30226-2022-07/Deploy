@@ -454,7 +454,7 @@ public class Partida  extends TimerTask {
 
         WebSocketClient client = new StandardWebSocketClient();
         StompHeaders headers = new StompHeaders();
-        
+        WebSocketHttpHeaders headers2 = new WebSocketHttpHeaders();
 
         WebSocketStompClient stompClient = new WebSocketStompClient(client);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
@@ -518,13 +518,17 @@ public class Partida  extends TimerTask {
             //JsonObject cosa = new JsonObject(response.getEntity());
             
             JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-            headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
-            
+                System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
+                headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                
+                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
+                sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
         
-        stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
+        // stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler,headers);
         
     }
 
