@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
+import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -493,7 +494,7 @@ public class Partida  extends TimerTask {
         };
         //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
         // CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
+        HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno");
 
         // add request parameter, form parameters
         List<NameValuePair> urlParameters = new ArrayList<>();
@@ -504,7 +505,7 @@ public class Partida  extends TimerTask {
 
 
         try {
-            StringEntity params = new StringEntity("{\"username\":\"admin\",\"password\":\"admin123\"} ");
+            StringEntity params = new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":" + Sender.enviar(getJugadores()) + "\", \"turno\":\""+getTurno().getNombre()+"\"}");
             post.addHeader("content-type", "application/json");
             post.setEntity(params);
             // post.setEntity(new UrlEncodedFormEntity(urlParameters));
@@ -517,13 +518,13 @@ public class Partida  extends TimerTask {
             CloseableHttpResponse response = httpClient.execute(post)) {
             //JsonObject cosa = new JsonObject(response.getEntity());
             
-            JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-                System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
-                headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
-                headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
-                
-                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
-                sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+        //    JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
+         //       System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
+                // headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                // headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                System.out.println(response.getEntity().toString());
+            //    StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
+            //    sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -579,40 +580,40 @@ public class Partida  extends TimerTask {
             };
             //sessionHandler.setCosas(id, getUltimaCartaJugada(),getJugadores(),getTurno().getNombre());
            // CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost post = new HttpPost("https://onep1.herokuapp.com/api/auth/signin");
+           HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno");
 
-            // add request parameter, form parameters
-            List<NameValuePair> urlParameters = new ArrayList<>();
-            urlParameters.add(new BasicNameValuePair("username", "admin"));
-            urlParameters.add(new BasicNameValuePair("password", "admin123"));
+           // add request parameter, form parameters
+           List<NameValuePair> urlParameters = new ArrayList<>();
+           urlParameters.add(new BasicNameValuePair("username", "admin"));
+           urlParameters.add(new BasicNameValuePair("password", "admin123"));
            // urlParameters.add(new BasicNameValuePair("custom", "secret"));
            
-    
-
-            try {
-                StringEntity params = new StringEntity("{\"username\":\"admin\",\"password\":\"admin123\"} ");
-                post.addHeader("content-type", "application/json");
-                post.setEntity(params);
+   
+   
+           try {
+               StringEntity params = new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":" + Sender.enviar(getJugadores()) + "\", \"turno\":\""+getTurno().getNombre()+"\"}");
+               post.addHeader("content-type", "application/json");
+               post.setEntity(params);
                // post.setEntity(new UrlEncodedFormEntity(urlParameters));
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                System.out.println("Excepcion alarma " + e.getMessage());
-            }
-
-            try (CloseableHttpClient httpClient = HttpClients.createDefault();
-                CloseableHttpResponse response = httpClient.execute(post)) {
-                //JsonObject cosa = new JsonObject(response.getEntity());
-                
-                JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
-                System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
-                headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
-                headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
-                
-                StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
-                sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
+           } catch (UnsupportedEncodingException e) {
+               // TODO Auto-generated catch block
+               System.out.println("Excepcion alarma " + e.getMessage());
+           }
+   
+           try (CloseableHttpClient httpClient = HttpClients.createDefault();
+               CloseableHttpResponse response = httpClient.execute(post)) {
+               //JsonObject cosa = new JsonObject(response.getEntity());
+               
+           //    JsonObject jsonResp = new Gson().fromJson(EntityUtils.toString(response.getEntity()), JsonObject.class);
+            //       System.out.println(jsonResp.get("accessToken").toString().replace("\"",""));
+                   // headers.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                   // headers2.add("Authorization","Bearer " + jsonResp.get("accessToken").toString().replace("\"",""));
+                   System.out.println(response.getEntity().toString());
+               //    StompSession sessionHandler2 = stompClient.connect("ws://onep1.herokuapp.com/onep1-game", sessionHandler, headers).get();
+               //    sessionHandler2.send("/game/pasarTurno/"+id, new Jugada(getUltimaCartaJugada(), getJugadores(), getTurno().getNombre()));
+           } catch(Exception e) {
+               System.out.println(e.getMessage());
+           }
             
             
             

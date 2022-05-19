@@ -2,6 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.controller;
 
 import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.ServerPasarTurno;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CambiarManos;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DeleteGameInvitation;
@@ -104,6 +105,12 @@ public class GameController {
         if(s == ""){
             return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));
         } else return ResponseEntity.ok(s);
+    }
+
+    @PostMapping("/server/pasarTurno")
+    public ResponseEntity<?> serverPasarTurno(@RequestBody ServerPasarTurno request){
+        simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), new Jugada(request.getUltimaCarta(), request.getJugadores(), request.getTurno()));
+        return ResponseEntity.ok("GG");
     }
 
     @PostMapping("/game/getInfoPartida")
