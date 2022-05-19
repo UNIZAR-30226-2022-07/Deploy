@@ -16,12 +16,12 @@ public class ServerPasarTurno {
     private Carta ultimaCarta;
     
     @NotBlank
-    private List<Jugador> jugadores;
+    private List<String> jugadores;
 
     @NotBlank
     private String turno;
 
-    public ServerPasarTurno(String i, Carta c, List<Jugador> j, String t){
+    public ServerPasarTurno(String i, Carta c, List<String> j, String t){
         this.idPartida = i;
         this.ultimaCarta = c;
         this.jugadores = j;
@@ -36,7 +36,7 @@ public class ServerPasarTurno {
         return ultimaCarta;
     }
 
-    public List<Jugador> getJugadores(){
+    public List<String> getJugadores(){
         return jugadores;
     }
 

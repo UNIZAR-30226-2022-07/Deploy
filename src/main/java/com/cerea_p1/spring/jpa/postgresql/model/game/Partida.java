@@ -593,7 +593,16 @@ public class Partida  extends TimerTask {
    
    
            try {
-               StringEntity params = new StringEntity(Sender.enviar(new ServerPasarTurno(id,getUltimaCartaJugada(),getJugadores(),getTurno().toString())));//new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":" + Sender.enviar(getJugadores()) + "\", \"turno\":\""+getTurno().getNombre()+"\"}");
+                String s = "\"" + getJugadores().get(0).getNombre()+"\"";
+                boolean first = true;
+                for(Jugador j : getJugadores()){
+                    if(first) first = false;
+                    else{
+                        s +=",\""+ j.getNombre()+"\"";
+                    }
+                }
+
+               StringEntity params = new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":[" + s + "], \"turno\":\""+getTurno().getNombre()+"\"}");
                System.out.println(params.toString());
                post.addHeader("content-type", "application/json");
                post.setEntity(params);
