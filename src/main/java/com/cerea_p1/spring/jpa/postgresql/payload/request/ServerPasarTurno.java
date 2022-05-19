@@ -21,6 +21,13 @@ public class ServerPasarTurno {
     @NotBlank
     private String turno;
 
+    public ServerPasarTurno(String i, Carta c, List<Jugador> j, String t){
+        this.idPartida = i;
+        this.ultimaCarta = c;
+        this.jugadores = j;
+        this.turno = t;
+    }
+
     public String getIdPartida(){
         return idPartida;
     }

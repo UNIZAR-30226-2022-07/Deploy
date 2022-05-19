@@ -2,6 +2,7 @@ package com.cerea_p1.spring.jpa.postgresql.model.game;
 
 import java.util.*;
 
+import com.cerea_p1.spring.jpa.postgresql.payload.request.ServerPasarTurno;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
@@ -592,7 +593,7 @@ public class Partida  extends TimerTask {
    
    
            try {
-               StringEntity params = new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":" + Sender.enviar(getJugadores()) + "\", \"turno\":\""+getTurno().getNombre()+"\"}");
+               StringEntity params = new StringEntity(Sender.enviar(new ServerPasarTurno(id,getUltimaCartaJugada(),getJugadores(),getTurno().toString())));//new StringEntity("{\"idPartida\":\""+ id + "\",\"carta\":\"{ \"numero\":\""+ getUltimaCartaJugada().getNumero() +"\" , \"color\":\""+ getUltimaCartaJugada().getColor() + "\"},\"jugadores\":" + Sender.enviar(getJugadores()) + "\", \"turno\":\""+getTurno().getNombre()+"\"}");
                System.out.println(params.toString());
                post.addHeader("content-type", "application/json");
                post.setEntity(params);
