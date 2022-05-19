@@ -25,6 +25,7 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.socket.client.WebSocketClient;
@@ -111,7 +112,9 @@ public class GameController {
     public ResponseEntity<?> serverPasarTurno(@RequestBody ServerPasarTurno request){
         logger.info("Ha llegado el método del server");
         Partida p = gameService.getPartida(request.getIdPartida());
-        simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), request.getTurno());
+        p.siguienteTurno();
+        simpMessagingTemplate.convertAndSend("/topic/game/pasarTurno/"+request.getIdPartida(), new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
+        
         return ResponseEntity.ok("GG");
     }
 
