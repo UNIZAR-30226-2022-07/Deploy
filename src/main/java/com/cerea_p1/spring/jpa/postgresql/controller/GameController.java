@@ -111,7 +111,7 @@ public class GameController {
     public ResponseEntity<?> serverPasarTurno(@RequestBody ServerPasarTurno request){
         logger.info("Ha llegado el método del server");
         Partida p = gameService.getPartida(request.getIdPartida());
-        simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), new Jugada(p.getUltimaCartaJugada(), p.getJugadores(), p.getTurno().toString()));
+        simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), request.getTurno());
         return ResponseEntity.ok("GG");
     }
 

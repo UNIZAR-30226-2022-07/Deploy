@@ -18,8 +18,8 @@ public class ServerPasarTurno {
     // @NotBlank
     // private List<Jugador> jugadores;
 
-    // @NotBlank
-    // private String turno;
+    @NotBlank
+    private String turno;
 
     // public ServerPasarTurno(String i, Carta c, List<Jugador> j, String t){
     //     this.idPartida = i;
@@ -27,11 +27,11 @@ public class ServerPasarTurno {
     //     // this.jugadores = j;
     //     // this.turno = t;
     // }
-    public ServerPasarTurno(String i){
+    public ServerPasarTurno(String i, String t){
         this.idPartida = i;
         // this.ultimaCarta = c;
         // this.jugadores = j;
-        // this.turno = t;
+        this.turno = t;
     }
 
     public String getIdPartida(){
@@ -46,7 +46,7 @@ public class ServerPasarTurno {
     //     return jugadores;
     // }
 
-    // public String getTurno(){
-    //     return turno;
-    // }
+    public String getTurno(){
+        return turno;
+    }
 }
