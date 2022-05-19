@@ -514,7 +514,7 @@ public class Partida  extends TimerTask {
                     s +=",\""+ j.getNombre()+"\"";
                 }
             }
-            StringEntity params = new StringEntity(Sender.enviar(new ServerPasarTurno(id, getUltimaCartaJugada(), getJugadores(), getTurno().getNombre())));
+            StringEntity params = new StringEntity(Sender.enviar(new ServerPasarTurno(id)));
 
             System.out.println(params.toString());
             post.addHeader("content-type", "application/json");
