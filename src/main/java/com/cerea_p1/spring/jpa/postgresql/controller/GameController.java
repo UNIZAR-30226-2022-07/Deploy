@@ -110,7 +110,8 @@ public class GameController {
     @PostMapping(value = "/server/pasarTurno", consumes = {"application/json","application/x-www-form-urlencoded"})
     public ResponseEntity<?> serverPasarTurno(@RequestBody ServerPasarTurno request){
         logger.info("Ha llegado el método del server");
-        simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), new Jugada(request.getUltimaCarta(), request.getJugadores(), request.getTurno()));
+        Partida p = gameService.getPartida(request.getIdPartida());
+        simpMessagingTemplate.convertAndSend("/game/pasarTurno/"+request.getIdPartida(), new Jugada(p.getUltimaCartaJugada(), p.getJugadores(), p.getTurno().toString()));
         return ResponseEntity.ok("GG");
     }
 
