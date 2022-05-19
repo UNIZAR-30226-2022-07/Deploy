@@ -380,7 +380,7 @@ Partidas de un usuario
   - JSON:
 
           {
-            "playerName": <nombre_del_usuario>
+            "username": <nombre_del_usuario>
           }
 
   - Devuelve: 
