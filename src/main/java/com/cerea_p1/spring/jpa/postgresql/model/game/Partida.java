@@ -514,6 +514,8 @@ public class Partida  extends TimerTask {
     }
 
     public void cancelarAlarma(){
-        task.cancel();
+        while(!task.cancel()){
+            System.out.println("No se puede cancelar la alarma");
+        }
     }
 }
