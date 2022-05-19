@@ -113,6 +113,7 @@ public class GameController {
         logger.info("Ha llegado el método del server");
         Partida p = gameService.getPartida(request.getIdPartida());
         p.siguienteTurno();
+        p.startAlarma();
         simpMessagingTemplate.convertAndSend("/topic/jugada/"+request.getIdPartida(), new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
         
         return ResponseEntity.ok("GG");
