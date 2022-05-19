@@ -438,38 +438,10 @@ public class Partida  extends TimerTask {
         
 
         WebSocketClient client = new StandardWebSocketClient();
-        StompHeaders headers = new StompHeaders();
-        WebSocketHttpHeaders headers2 = new WebSocketHttpHeaders();
-        
+      
 
         WebSocketStompClient stompClient = new WebSocketStompClient(client);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-        StompSessionHandler sessionHandler = new StompSessionHandler() {
-            @Override
-            public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                System.out.println("Se ha conectado");
-                
-            }
-
-            @Override
-            public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-            }
-
-            @Override
-            public Type getPayloadType(StompHeaders headers) {
-                return Jugada.class;
-            }
-
-            @Override
-            public void handleFrame(StompHeaders headers, Object payload) {
-            }
-
-            @Override
-            public void handleTransportError(StompSession session, Throwable exception) {
-                // TODO Auto-generated method stub
-                
-            }
-        };
         HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno"); 
 
         try {
@@ -506,39 +478,11 @@ public class Partida  extends TimerTask {
             System.out.println("HA SONADO LA ALARMA");
             
 
-            WebSocketClient client = new StandardWebSocketClient();
-            StompHeaders headers = new StompHeaders();
-            WebSocketHttpHeaders headers2 = new WebSocketHttpHeaders();
-            
+            WebSocketClient client = new StandardWebSocketClient();            
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
             stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-            StompSessionHandler sessionHandler = new StompSessionHandler() {
-                @Override
-                public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                    System.out.println("Se ha conectado");
-                    
-                }
-
-                @Override
-                public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-                }
-
-                @Override
-                public Type getPayloadType(StompHeaders headers) {
-                    return Jugada.class;
-                }
-
-                @Override
-                public void handleFrame(StompHeaders headers, Object payload) {
-                }
-
-				@Override
-				public void handleTransportError(StompSession session, Throwable exception) {
-					// TODO Auto-generated method stub
-					
-				}
-            };
+            
            HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno"); 
    
            try {
