@@ -450,7 +450,9 @@ public class Partida  extends TimerTask {
     }
         
     public void startAlarma() {
+        System.out.println("Empezar alarma");
         timer.cancel();
+        System.out.println("Timer cancelado");
         timer = new Timer();
         task = new TimerTask() {
 		@Override
