@@ -322,7 +322,7 @@ public class GameController {
                 simpMessagingTemplate.convertAndSendToUser(username, "/msg", "No es tu turno");
                 return Sender.enviar(new String("ALGUIEN HA INTENTADO JUGAR Y NO ERA SU TURNO"));
             }
-            p.siguienteTurno();           
+            p.siguienteTurno();
             p.startAlarma();
             return Sender.enviar(new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
         } catch(Exception e){
