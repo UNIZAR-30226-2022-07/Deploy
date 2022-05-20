@@ -64,4 +64,13 @@ public class Torneo{
     public List<Regla> getReglas(){
         return lista_partidas.get(0).getReglas();
     }
+
+    public boolean isSemifinal(String idPartida) {
+        for (int i=0; i<lista_partidas.size()-2; ++i) {
+            if(lista_partidas.get(i).getId().equals(idPartida)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

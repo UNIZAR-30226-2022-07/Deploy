@@ -7,6 +7,7 @@ import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CambiarManos;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.CreateGameRequest;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DeleteGameInvitation;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetMano;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.InfoGame;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
@@ -130,6 +131,17 @@ public class GameController {
                 j.add(g.getNombre());
             }
             return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getNJugadores(), p.getTTurno(), j, p.getReglas())));
+        } else return ResponseEntity.badRequest().body("Esa partida no existe");
+    }
+
+    @PostMapping("/game/getManoJugador")
+    public ResponseEntity<?> getManoJugador(@RequestBody GetMano request){
+        if(gameService.existPartida(request.getIdPartida())){
+            
+            Partida p = gameService.getPartida(request.getIdPartida());
+            Jugador jugador = p.getJugador(new Jugador(request.getNombre()));
+            simpMessagingTemplate.convertAndSendToUser(jugador.getNombre(), "/msg", "mano: "+jugador.getMano());
+            return ResponseEntity.ok(new MessageResponse("Mano enviada"));
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
 

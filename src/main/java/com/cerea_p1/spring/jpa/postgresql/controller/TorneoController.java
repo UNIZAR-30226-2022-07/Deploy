@@ -8,6 +8,7 @@ import com.cerea_p1.spring.jpa.postgresql.model.game.Jugador;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Partida;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Torneo;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.JugarCarta;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.CheckSemifinal;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.CrearTorneo;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.JugarFinal;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.torneo.InfoTorneoResponse;
@@ -77,6 +78,14 @@ public class TorneoController {
         return ResponseEntity.ok(torneoService.jugarFinal(request.getUsername(), request.getTorneoId()));
     }
 
+    @PostMapping("/torneo/game/isSemifinal")
+    public ResponseEntity<?> isSemifinal(@RequestBody CheckSemifinal request){
+        if(torneoService.existeTorneo(request.getIdTorneo())){
+            boolean isSemifinal = torneoService.isSemifinal(request.getIdPartida(), request.getIdTorneo());
+            return ResponseEntity.ok(Sender.enviar(isSemifinal));
+        } else return ResponseEntity.badRequest().body("Ese torneo no existe");
+    }
+
     @MessageMapping("/connect/torneo/{roomId}")
 	@SendTo("/topic/connect/torneo/{roomId}")
     @MessageExceptionHandler()
@@ -122,5 +131,4 @@ public class TorneoController {
             logger.warning("Exception" + e.getMessage());
         }
     }
-
 }

@@ -105,6 +105,14 @@ public class TorneoService {
         return lista;
     }
 
+    public boolean existeTorneo(String torneoId){
+        return almacen_torneos.containsKey(torneoId);
+    }
+
+    public Torneo getTorneo(String torneoId) {
+        return almacen_torneos.get(torneoId);
+    }
+
     public String disconnectTorneo(String torneoId, String username){
         if(username != null){
             Optional<Torneo> optionalTorneo;
@@ -136,5 +144,10 @@ public class TorneoService {
         Torneo t = almacen_torneos.get(torneoId);
         Partida p = t.getPartidas().get(3);
         return p.getId();
+    }
+
+    public boolean isSemifinal(String idPartida, String idTorneo) {
+        Torneo t = getTorneo(idTorneo);
+        return t.isSemifinal(idPartida);
     }
 }
