@@ -51,7 +51,7 @@ public class Partida  extends TimerTask {
     // true indica que la partida es privada, false indica que la partida es pública
     private boolean partidaPrivada;
     @Autowired
-    private Timer timer;
+    private Timer timer = new Timer();
     TimerTask task = new TimerTask() {
         
         @Override
