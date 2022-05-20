@@ -450,16 +450,11 @@ public class Partida  extends TimerTask {
     }
         
     public void startAlarma() {
-        System.out.println("Empezar alarma");
         timer.cancel();
-        System.out.println("Timer cancelado");
         timer = new Timer();
         task = new TimerTask() {
 		@Override
 		public void run() {
-            System.out.println("HA SONADO LA ALARMA");
-            
-
             WebSocketClient client = new StandardWebSocketClient();            
 
             WebSocketStompClient stompClient = new WebSocketStompClient(client);
@@ -490,7 +485,6 @@ public class Partida  extends TimerTask {
         
     };
         timer.schedule(task, tTurno*1000);
-        System.out.println("Alarma empezada");
     }
 
     public void cancelarAlarma(){

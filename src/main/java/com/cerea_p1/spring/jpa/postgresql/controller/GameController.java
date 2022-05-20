@@ -105,7 +105,7 @@ public class GameController {
         String s = gameService.getPartidasUser(getPartidas.getUsername());
         if(s == ""){
             return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));
-        } else return ResponseEntity.ok(s);
+        } else return ResponseEntity.ok(Sender.enviar(s));
     }
 
     @PostMapping(value = "/server/pasarTurno", consumes = {"application/json","application/x-www-form-urlencoded"})
