@@ -572,20 +572,20 @@ Crear un torneo
     - Si va bien: codigo 200 
     
 	       {
-		  "idTorneo": <id_torneo>,
-		  "tiempoTurno": <tiempo de turno>,
-		  "jugadores": [
-		    <nombre_jugador1>,
-		    <nombre_jugador2>,
-		    ...
+		      "idTorneo": <id_torneo>,
+          "tiempoTurno": <tiempo de turno>,
+          "jugadores": [
+            <nombre_jugador1>,
+            <nombre_jugador2>,
+            ...
 
-		  ],
-		  "reglas": [
-		    <regla1>,
-		    <regla2>,
-		    ...
-		  ]
-		}
+          ],
+          "reglas": [
+            <regla1>,
+            <regla2>,
+            ...
+          ]
+        }
           
       
     - Si va mal: codigo 4**, y por qué falla
@@ -598,10 +598,23 @@ Obtener torneos disponibles
 
   - Devuelve: 
     - Si va bien: codigo 200 
+
         [
-          <id_torneo1>,
-          <id_torneo2>,
-          ...
+          {
+            "idTorneo": <id_torneo>,
+            "tiempoTurno": <tiempo de turno>,
+            "jugadores": [
+              <nombre_jugador1>,
+              <nombre_jugador2>,
+              ...
+
+            ],
+            "reglas": [
+              <regla1>,
+              <regla2>,
+              ...
+            ]
+          }
         ]
           
       
