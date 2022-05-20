@@ -120,7 +120,7 @@ public class Partida  extends TimerTask {
         reglas = new ArrayList<Regla>();
         partidaPrivada = tipoPartida;
         Carta carta = baraja.get(baraja.size()-1);
-        while(carta.getColor() == Color.UNDEFINED){
+        while(carta.getColor() == Color.UNDEFINED || carta.getNumero() == Numero.BLOQUEO || carta.getNumero() == Numero.MAS_DOS){
             Collections.shuffle(baraja);
             carta = baraja.get(baraja.size()-1);
         }
@@ -141,7 +141,7 @@ public class Partida  extends TimerTask {
         this.estado = EstadoPartidaEnum.NEW;
         partidaPrivada = true;
         Carta carta = baraja.get(baraja.size()-1);
-        while(carta.getColor() == Color.UNDEFINED){
+        while(carta.getColor() == Color.UNDEFINED || carta.getNumero() == Numero.BLOQUEO || carta.getNumero() == Numero.MAS_DOS){
             Collections.shuffle(baraja);
             carta = baraja.get(baraja.size()-1);
         }
@@ -453,8 +453,6 @@ public class Partida  extends TimerTask {
         timer.cancel();
         timer = new Timer();
         task = new TimerTask() {
-    //    @Autowired
-
 		@Override
 		public void run() {
             System.out.println("HA SONADO LA ALARMA");
@@ -486,13 +484,11 @@ public class Partida  extends TimerTask {
            } catch(Exception e) {
                System.out.println(e.getMessage());
            }
-            
-            
-            
 		}
         
     };
         timer.schedule(task, tTurno*1000);
+        System.out.println("Alarma empezada");
     }
 
     public void cancelarAlarma(){
