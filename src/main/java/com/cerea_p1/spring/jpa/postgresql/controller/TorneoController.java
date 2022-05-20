@@ -61,7 +61,7 @@ public class TorneoController {
     public ResponseEntity<?> getTorneos(){
         List<InfoTorneoResponse> listaInfoTorneos = new ArrayList<InfoTorneoResponse>();
         for(Torneo t : torneoService.listaTorneos()) {
-            logger.info(Sender.enviar(t));
+            logger.info(Sender.enviar("TORNEO: " +t));
             List<String> s = new ArrayList<String>();
             for(Jugador j : t.getJugadores()){
                 s.add(j.getNombre());

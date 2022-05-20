@@ -29,7 +29,7 @@ public class OneStompSessionHandler extends StompSessionHandlerAdapter {
     private Carta c;
     private List<Jugador> j;
     private String n;
-    public OneStompSessionHandler(String id, Carta c, List<Jugador> j, String n){
+    public void setCosas(String id, Carta c, List<Jugador> j, String n){
         this.id = id;
         this.c = c;
         this.j = j;
