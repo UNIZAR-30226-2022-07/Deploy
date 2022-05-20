@@ -120,7 +120,7 @@ public class Partida  extends TimerTask {
         reglas = new ArrayList<Regla>();
         partidaPrivada = tipoPartida;
         Carta carta = baraja.get(baraja.size()-1);
-        while(carta.getColor() == Color.UNDEFINED || carta.getNumero() == Numero.BLOQUEO || carta.getNumero() == Numero.MAS_DOS){
+        while(carta.getColor() == Color.UNDEFINED){
             Collections.shuffle(baraja);
             carta = baraja.get(baraja.size()-1);
         }
@@ -141,7 +141,7 @@ public class Partida  extends TimerTask {
         this.estado = EstadoPartidaEnum.NEW;
         partidaPrivada = true;
         Carta carta = baraja.get(baraja.size()-1);
-        while(carta.getColor() == Color.UNDEFINED || carta.getNumero() == Numero.BLOQUEO || carta.getNumero() == Numero.MAS_DOS){
+        while(carta.getColor() == Color.UNDEFINED){
             Collections.shuffle(baraja);
             carta = baraja.get(baraja.size()-1);
         }
