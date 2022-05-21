@@ -141,7 +141,7 @@ public class GameController {
             
             Partida p = gameService.getPartida(request.getIdPartida());
             Jugador jugador = p.getJugador(new Jugador(request.getNombre()));
-            simpMessagingTemplate.convertAndSendToUser(jugador.getNombre(), "/msg", "mano: "+jugador.getMano());
+            simpMessagingTemplate.convertAndSendToUser(jugador.getNombre(), "/msg", Sender.enviar(jugador.getMano()));
             return ResponseEntity.ok(new MessageResponse("Mano enviada"));
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
