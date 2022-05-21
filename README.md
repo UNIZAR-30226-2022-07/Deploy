@@ -710,6 +710,27 @@ Obtener la mano de un jugador
       
     - Si va mal: codigo 4**, y por qué falla
 
+Torneos de un usuario
+
+  - Peticion POST a : https://onep1.herokuapp.com/torneo/getTorneosActivos
+
+  - JSON:
+
+          {
+            "username": <nombre_del_usuario>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+     
+          
+          {
+            "partidas": <codigo_partida>
+          }
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game
