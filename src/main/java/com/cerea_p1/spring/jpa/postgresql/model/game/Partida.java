@@ -484,7 +484,7 @@ public class Partida  extends TimerTask {
 		}
         
     };
-        timer.schedule(task, tTurno*1000);
+        timer.schedule(task, (tTurno+2)*1000);
     }
 
     public void cancelarAlarma(){
