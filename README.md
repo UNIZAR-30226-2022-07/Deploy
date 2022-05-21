@@ -387,7 +387,9 @@ Partidas de un usuario
     - Si va bien: codigo 200 
      
           
-            <codigo de partida>
+          {
+            "partidas": <codigo_partida>
+          }
           
       
     - Si va mal: codigo 4**, y por qué falla
