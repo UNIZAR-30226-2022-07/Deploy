@@ -662,6 +662,49 @@ Cambiar las manos con otro jugador
       
     - Si va mal: codigo 4**, y por qué falla
 
+
+Saber si una partida es una semifinal de un torneo o no
+  - Petición POST a : https://onep1.herokuapp.com/torneo/game/isSemifinal
+
+  - JSON:
+   
+          {
+            "idPartida" : <game_id>,
+            "idTorneo" : <username1>,
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+
+        {
+          "true" o "false"
+        }     
+      
+    - Si va mal: codigo 4**, y por qué falla
+
+Obtener la mano de un jugador
+
+  - Petición POST a : https://onep1.herokuapp.com/game/getManoJugador
+
+  - JSON:
+   
+          {
+            "username" : <nombre_del_usuario>,
+            "isPartida" : <id_partida>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+
+        {
+          "message" : "Mano enviada"
+        }
+
+      - Envia por el canal /user/{username}/msg la mano del jugador
+          
+      
+    - Si va mal: codigo 4**, y por qué falla
+
 ## Websockets
 
 Endpoint al que se debe conectar el websocket: https://onep1.herokuapp.com/onep1-game

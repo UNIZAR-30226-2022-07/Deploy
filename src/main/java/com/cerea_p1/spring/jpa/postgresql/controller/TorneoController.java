@@ -62,7 +62,6 @@ public class TorneoController {
     public ResponseEntity<?> getTorneos(){
         List<InfoTorneoResponse> listaInfoTorneos = new ArrayList<InfoTorneoResponse>();
         for(Torneo t : torneoService.listaTorneos()) {
-            logger.info(Sender.enviar("TORNEO: " +t));
             List<String> s = new ArrayList<String>();
             for(Jugador j : t.getJugadores()){
                 s.add(j.getNombre());
@@ -86,8 +85,8 @@ public class TorneoController {
         } else return ResponseEntity.badRequest().body("Ese torneo no existe");
     }
 
-    @MessageMapping("/connect/torneo/{roomId}")
-	@SendTo("/topic/connect/torneo/{roomId}")
+    @MessageMapping("/connect/torneo/{torneoId}")
+	@SendTo("/topic/connect/torneo/{torneoId}")
     @MessageExceptionHandler()
     public String connect(@DestinationVariable("torneoId") String roomId, @Header("username") String username) {
         try{
@@ -99,8 +98,8 @@ public class TorneoController {
         }
     }
 
-    @MessageMapping("/disconnect/torneo/{roomId}")
-	@SendTo("/topic/disconnect/torneo/{roomId}")
+    @MessageMapping("/disconnect/torneo/{torneoId}")
+	@SendTo("/topic/disconnect/torneo/{torneoId}")
     @MessageExceptionHandler()
     public String disconnect(@DestinationVariable("torneoId") String roomId, @Header("username") String username) {
         try{
