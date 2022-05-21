@@ -659,7 +659,10 @@ Cambiar las manos con otro jugador
           "message" : "Se han cambiado las manos"
         }
 
-      - Envia por el canal /user/{username}/msg la nueva mano asignada
+      - Envia por el canal /user/{username}/msg la nueva mano asignada en formato:
+		
+	    mano: [NUEVE ROJO, BLOQUEO AZUL, MAS_CUATRO UNDEFINED]
+
           
       
     - Si va mal: codigo 4**, y por qué falla
@@ -692,7 +695,7 @@ Obtener la mano de un jugador
    
           {
             "username" : <nombre_del_usuario>,
-            "isPartida" : <id_partida>
+            "idPartida" : <id_partida>
           }
 
   - Devuelve: 
