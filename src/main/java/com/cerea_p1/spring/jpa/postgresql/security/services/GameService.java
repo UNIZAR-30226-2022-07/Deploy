@@ -229,6 +229,8 @@ public class GameService {
                 almacen_invitaciones.get(s).remove(new Invitacion_almacen("", idPartida));
             }
         }
+        Partida p = almacen_partidas.get(idPartida);
+        p.cancelarAlarma();
         if(almacen_partidas.containsKey(idPartida))
         almacen_partidas.remove(idPartida);
     }
