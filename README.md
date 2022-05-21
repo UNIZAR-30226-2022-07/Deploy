@@ -774,7 +774,7 @@ Enviar un mensaje para robar n cartas game/card/draw/{roomId}
     - Body :
  
 			{
-			  "nCards" : <numero_cartas_a_robar>
+			  <numero_cartas_a_robar>
 			}
 
   - Devuelve:
