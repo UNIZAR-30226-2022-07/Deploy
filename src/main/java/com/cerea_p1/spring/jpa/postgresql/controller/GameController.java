@@ -138,6 +138,7 @@ public class GameController {
     @PostMapping("/game/getManoJugador")
     public ResponseEntity<?> getManoJugador(@RequestBody GetMano request){
         logger.info("Mano del jugador " + request.getNombre() + " en la partida " + request.getIdPartida() );
+        if(request.getNombre() == null || request.getIdPartida() == null) return ResponseEntity.badRequest().body("Campos no válidos");
         if(gameService.existPartida(request.getIdPartida())){
             logger.info("Existe la partida");
             Partida p = gameService.getPartida(request.getIdPartida());

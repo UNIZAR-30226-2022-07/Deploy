@@ -146,6 +146,15 @@ public class TorneoService {
         return p.getId();
     }
 
+    public String getTorneosUser(String user){
+        for(Torneo t : almacen_torneos.values()){
+            if(t.playerAlreadyIn(new Jugador(user))){
+                return t.getIdTorneo();
+            }
+        }
+        return "";
+    }
+
     public boolean isSemifinal(String idPartida, String idTorneo) {
         Torneo t = getTorneo(idTorneo);
         return t.isSemifinal(idPartida);

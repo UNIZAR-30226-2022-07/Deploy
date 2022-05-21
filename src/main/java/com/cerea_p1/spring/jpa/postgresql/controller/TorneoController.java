@@ -7,11 +7,14 @@ import java.util.logging.Logger;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Jugador;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Partida;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Torneo;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.JugarCarta;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.CheckSemifinal;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.CrearTorneo;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.JugarFinal;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.torneo.InfoTorneoResponse;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.PartidasResponse;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.services.TorneoService;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
@@ -83,6 +86,15 @@ public class TorneoController {
             boolean isSemifinal = torneoService.isSemifinal(request.getIdPartida(), request.getIdTorneo());
             return ResponseEntity.ok(Sender.enviar(isSemifinal));
         } else return ResponseEntity.badRequest().body("Ese torneo no existe");
+    }
+
+    @PostMapping("/torneo/getTorneosActivos")
+    public ResponseEntity<?> getPartidas(@RequestBody GetPartidas request){
+    //    System.out.println(getPartidas.getUsername());
+        String s = torneoService.getTorneosUser(request.getUsername());
+        if(s == ""){
+            return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));
+        } else return ResponseEntity.ok(new PartidasResponse(s));
     }
 
     @MessageMapping("/connect/torneo/{torneoId}")
