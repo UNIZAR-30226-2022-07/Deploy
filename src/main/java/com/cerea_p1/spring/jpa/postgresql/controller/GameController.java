@@ -13,6 +13,7 @@ import com.cerea_p1.spring.jpa.postgresql.payload.request.game.InfoGame;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.PartidasResponse;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
 
@@ -106,7 +107,7 @@ public class GameController {
         String s = gameService.getPartidasUser(getPartidas.getUsername());
         if(s == ""){
             return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));
-        } else return ResponseEntity.ok(Sender.enviar(s));
+        } else return ResponseEntity.ok(new PartidasResponse(s));
     }
 
     @PostMapping(value = "/server/pasarTurno", consumes = {"application/json","application/x-www-form-urlencoded"})
