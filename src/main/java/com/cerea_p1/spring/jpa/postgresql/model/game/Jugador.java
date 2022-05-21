@@ -54,4 +54,9 @@ public class Jugador {
     public void setMano(List<Carta> mano) {
         this.mano = mano;
     }
+
+    @Override
+    public String toString(){
+        return nombre + " " + mano;
+    }
 }
