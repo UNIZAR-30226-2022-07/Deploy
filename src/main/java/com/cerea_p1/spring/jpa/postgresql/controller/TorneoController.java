@@ -136,7 +136,7 @@ public class TorneoController {
 
                 // enviar a cada jugador la partida correspondiente
                 logger.info("semifinal: "+partidas_torneo.get(j/3).getId());
-                simpMessagingTemplate.convertAndSendToUser(jugadores.get(j).getNombre(), "/msg", partidas_torneo.get(j/3));
+                simpMessagingTemplate.convertAndSendToUser(jugadores.get(j).getNombre(), "/msg", partidas_torneo.get(j/3).getId());
                 logger.info(jugadores.get(j).getNombre() + " " + partidas_torneo.get(j/3));
             }
         } catch(Exception e) {
