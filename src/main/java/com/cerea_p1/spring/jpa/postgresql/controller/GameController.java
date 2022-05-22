@@ -444,7 +444,7 @@ public class GameController {
     @PostMapping("/torneo/jugarFinal")
     public ResponseEntity<?> jugarFinal(@RequestBody JugarFinal request){
         logger.info("Finalista " + request.getUsername());
-        return ResponseEntity.ok(torneoService.jugarFinal(request.getUsername(), request.getTorneoId()));
+        return ResponseEntity.ok(Sender.enviar(torneoService.jugarFinal(request.getUsername(), request.getTorneoId())));
     }
 
     @PostMapping("/torneo/game/isSemifinal")
