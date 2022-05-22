@@ -456,7 +456,7 @@ public class GameController {
     }
 
     @PostMapping("/torneo/getTorneosActivos")
-    public ResponseEntity<?> getTorneos(@RequestBody GetPartidas request){
+    public ResponseEntity<?> getTorneosActivos(@RequestBody GetPartidas request){
     //    System.out.println(getPartidas.getUsername());
         String s = torneoService.getTorneosUser(request.getUsername());
         if(s == ""){
