@@ -130,6 +130,9 @@ public class TorneoController {
             logger.info("begin tournament request by " + username);
             Torneo torneo = torneoService.beginTorneo(torneoId);
             List<Partida> partidas_torneo = torneo.getPartidas();
+            if(partidas_torneo == null) {
+                logger.info("no hay partidas de torneo");
+            }
             for(Partida p : partidas_torneo) {
                 logger.info("partida torneo"+p.toString());
             }
