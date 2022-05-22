@@ -130,13 +130,20 @@ public class TorneoController {
             logger.info("begin tournament request by " + username);
             Torneo torneo = torneoService.beginTorneo(torneoId);
             List<Partida> partidas_torneo = torneo.getPartidas();
+            for(Partida p : partidas_torneo) {
+                logger.info("partida torneo"+p.toString());
+            }
             List<Jugador> jugadores = torneo.getJugadores();
+            for(Jugador j : jugadores) {
+                logger.info("jugador torneo"+j.getNombre());
+            }
             for(int j = 0; j<torneo.getNJugadores(); ++j){
                 logger.info("send to " + jugadores.get(j).getNombre());
 
                 // enviar a cada jugador la partida correspondiente
+                logger.info("semifinal: "+partidas_torneo.get(j/3));
                 simpMessagingTemplate.convertAndSendToUser(jugadores.get(j).getNombre(), "/msg", partidas_torneo.get(j/3));
-                System.out.println(jugadores.get(j).getNombre() + " " + partidas_torneo.get(j/3));
+                logger.info(jugadores.get(j).getNombre() + " " + partidas_torneo.get(j/3));
             }
         } catch(Exception e) {
             logger.warning("Exception" + e.getMessage());
