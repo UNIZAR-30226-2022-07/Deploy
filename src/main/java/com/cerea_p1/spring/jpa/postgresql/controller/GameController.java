@@ -28,30 +28,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.stomp.StompCommand;
-import org.springframework.messaging.simp.stomp.StompHeaders;
-import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandler;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.socket.client.WebSocketClient;
-import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.messaging.WebSocketStompClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.*;
 
-import javax.websocket.Session;
-
-import org.springframework.messaging.converter.MessageConversionException;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.stereotype.Controller;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
@@ -457,7 +445,6 @@ public class GameController {
 
     @PostMapping("/torneo/getTorneosActivos")
     public ResponseEntity<?> getTorneosActivos(@RequestBody GetPartidas request){
-    //    System.out.println(getPartidas.getUsername());
         String s = torneoService.getTorneosUser(request.getUsername());
         if(s == ""){
             return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));

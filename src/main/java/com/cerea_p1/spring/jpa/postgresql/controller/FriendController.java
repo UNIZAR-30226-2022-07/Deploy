@@ -70,8 +70,7 @@ public class FriendController {
 	public ResponseEntity<?> getInvitacionesAmistad(@RequestBody GetFriendRequest getfriendRequest) {
 		logger.info("user1=" + getfriendRequest.getUsername() );
 		if ( (!userRepository.existsByUsername(getfriendRequest.getUsername())) ) {
-			return ResponseEntity.badRequest()
-					.body(new MessageResponse("Error: No se pudo encontrar el usuario"));
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: No se pudo encontrar el usuario"));
 		
 		}else {
 			logger.info("Restricciones cumplidas");

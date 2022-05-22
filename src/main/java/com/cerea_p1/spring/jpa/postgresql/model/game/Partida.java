@@ -3,7 +3,6 @@ package com.cerea_p1.spring.jpa.postgresql.model.game;
 import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.ServerPasarTurno;
-import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,22 +11,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.simp.stomp.StompCommand;
-import org.springframework.messaging.simp.stomp.StompCommand;
-import org.springframework.messaging.simp.stomp.StompHeaders;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.net.URI;
-
-import org.springframework.messaging.simp.stomp.StompSession;
-import org.springframework.messaging.simp.stomp.StompSessionHandler;
-import org.springframework.web.socket.WebSocketHttpHeaders;
-import org.springframework.web.socket.client.WebSocketClient;
-import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.messaging.WebSocketStompClient; 
+import java.io.UnsupportedEncodingException; 
 
 public class Partida  extends TimerTask {
     private int nJugadores;
@@ -49,40 +34,6 @@ public class Partida  extends TimerTask {
         @Override
         public void run() {
             System.out.println("HA SONADO LA ALARMA");
-            
-            WebSocketClient client = new StandardWebSocketClient();
-            StompHeaders headers = new StompHeaders();
-            WebSocketHttpHeaders headers2 = new WebSocketHttpHeaders();
-            
-
-            WebSocketStompClient stompClient = new WebSocketStompClient(client);
-            stompClient.setMessageConverter(new MappingJackson2MessageConverter());
-            StompSessionHandler sessionHandler = new StompSessionHandler() {
-                @Override
-                public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-                    System.out.println("Se ha conectado");
-                    
-                }
-
-                @Override
-                public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload, Throwable exception) {
-                }
-
-                @Override
-                public Type getPayloadType(StompHeaders headers) {
-                    return Jugada.class;
-                }
-
-                @Override
-                public void handleFrame(StompHeaders headers, Object payload) {
-                }
-
-                @Override
-                public void handleTransportError(StompSession session, Throwable exception) {
-                    // TODO Auto-generated method stub
-                    
-                }
-            };
 
             HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno"); 
 
@@ -419,10 +370,7 @@ public class Partida  extends TimerTask {
     @Override
     public void run() {
         System.out.println("HA SONADO LA ALARMA");
-    
-        WebSocketClient client = new StandardWebSocketClient();
-        WebSocketStompClient stompClient = new WebSocketStompClient(client);
-        stompClient.setMessageConverter(new MappingJackson2MessageConverter());
+
         HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno"); 
 
         try {
@@ -447,16 +395,11 @@ public class Partida  extends TimerTask {
         task = new TimerTask() {
 		@Override
 		public void run() {
-            WebSocketClient client = new StandardWebSocketClient();            
-
-            WebSocketStompClient stompClient = new WebSocketStompClient(client);
-            stompClient.setMessageConverter(new MappingJackson2MessageConverter());
             
            HttpPost post = new HttpPost("https://onep1.herokuapp.com/server/pasarTurno"); 
    
            try {
                 
-
                StringEntity params = new StringEntity(Sender.enviar(new ServerPasarTurno(id,getTurno().getNombre())));
                System.out.println(params.toString());
                post.addHeader("content-type", "application/json");
