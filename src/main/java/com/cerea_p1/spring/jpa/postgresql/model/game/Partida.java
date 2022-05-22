@@ -4,22 +4,14 @@ import java.util.*;
 
 import com.cerea_p1.spring.jpa.postgresql.payload.request.ServerPasarTurno;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
-import com.cerea_p1.spring.jpa.postgresql.security.websocket.OneStompSessionHandler;
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompCommand;
