@@ -10,12 +10,17 @@ import com.cerea_p1.spring.jpa.postgresql.payload.request.game.DisconnectRequest
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetMano;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.GetPartidas;
 import com.cerea_p1.spring.jpa.postgresql.payload.request.game.InfoGame;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.CheckSemifinal;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.CrearTorneo;
+import com.cerea_p1.spring.jpa.postgresql.payload.request.torneo.JugarFinal;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.InfoPartida;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.cerea_p1.spring.jpa.postgresql.payload.response.PartidasResponse;
+import com.cerea_p1.spring.jpa.postgresql.payload.response.torneo.InfoTorneoResponse;
 import com.cerea_p1.spring.jpa.postgresql.repository.UsuarioRepository;
 import com.cerea_p1.spring.jpa.postgresql.security.services.GameService;
+import com.cerea_p1.spring.jpa.postgresql.security.services.TorneoService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +67,7 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 @Controller
 public class GameController {
     private final GameService gameService = new GameService();
+    private final TorneoService torneoService = new TorneoService();
 
     @Autowired
 	UsuarioRepository userRepository;
@@ -411,28 +417,96 @@ public class GameController {
         return Sender.enviar(new String(username));
     }
 
-    // @ExceptionHandler(Exception.class)
-    // public ModelAndView handleException(NullPointerException ex)
-    // {
-    //     //Do something additional if required
-    //     ModelAndView modelAndView = new ModelAndView();
-    //     modelAndView.setViewName("error");
-    //     modelAndView.addObject("message", ex.getMessage());
-    //     return modelAndView;
-    // }
+    @PostMapping("/torneo/createTorneo")
+    public ResponseEntity<?> crearTorneo(@RequestBody CrearTorneo request){
+        logger.info("crear un torneo");
+        Torneo t = torneoService.crearTorneo(new Jugador(request.getUsername()), request.getTiempoTurno(), request.getReglas(), gameService);
+        List<String> s = new ArrayList<String>();
+        for(Jugador j : t.getJugadores()){
+            s.add(j.getNombre());
+        }
+        return ResponseEntity.ok(Sender.enviar(new InfoTorneoResponse(t.getIdTorneo(), t.getTiempoTurno(), s, t.getReglas())));
+    }
 
-    /*@PostMapping("/connect/random")
-    public ResponseEntity<Game> connectRandom(@RequestBody Player player) throws GameException{
-        log.info("connect random {}", player);
-        return ResponseEntity.ok(gameService.connectToRandomGame(player));
-    }*/
+    @PostMapping("/torneo/getTorneos")
+    public ResponseEntity<?> getTorneos(){
+        List<InfoTorneoResponse> listaInfoTorneos = new ArrayList<InfoTorneoResponse>();
+        for(Torneo t : torneoService.listaTorneos()) {
+            List<String> s = new ArrayList<String>();
+            for(Jugador j : t.getJugadores()){
+                s.add(j.getNombre());
+            }
+            listaInfoTorneos.add(new InfoTorneoResponse(t.getIdTorneo(), t.getTiempoTurno(), s, t.getReglas()));
+        }
+        return ResponseEntity.ok(Sender.enviar(listaInfoTorneos));
+    }
 
-  /*  @PostMapping("/sow")
-    public ResponseEntity<Partida> sow(@RequestBody Sow sow) throws GameException {
-        logger.info("sow: {}", sow);
-        Partida game = gameService.sow(sow);
+    @PostMapping("/torneo/jugarFinal")
+    public ResponseEntity<?> jugarFinal(@RequestBody JugarFinal request){
+        logger.info("Finalista " + request.getUsername());
+        return ResponseEntity.ok(torneoService.jugarFinal(request.getUsername(), request.getTorneoId()));
+    }
 
-        simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getId(), game);
-        return ResponseEntity.ok(game);
-    }*/
+    @PostMapping("/torneo/game/isSemifinal")
+    public ResponseEntity<?> isSemifinal(@RequestBody CheckSemifinal request){
+        if(torneoService.existeTorneo(request.getIdTorneo())){
+            boolean isSemifinal = torneoService.isSemifinal(request.getIdPartida(), request.getIdTorneo());
+            return ResponseEntity.ok(Sender.enviar(isSemifinal));
+        } else return ResponseEntity.badRequest().body("Ese torneo no existe");
+    }
+
+    @PostMapping("/torneo/getTorneosActivos")
+    public ResponseEntity<?> getTorneos(@RequestBody GetPartidas request){
+    //    System.out.println(getPartidas.getUsername());
+        String s = torneoService.getTorneosUser(request.getUsername());
+        if(s == ""){
+            return ResponseEntity.ok(new MessageResponse("No hay partidas para el usuario"));
+        } else return ResponseEntity.ok(new PartidasResponse(s));
+    }
+
+    @MessageMapping("/connect/torneo/{torneoId}")
+	@SendTo("/topic/connect/torneo/{torneoId}")
+    @MessageExceptionHandler()
+    public String connectTorneo(@DestinationVariable("torneoId") String roomId, @Header("username") String username) {
+        try{
+			logger.info("tournament connect request by " + username);
+			return Sender.enviar(torneoService.connectToTorneo(new Jugador(username), roomId));
+        } catch(Exception e) {
+            logger.warning("Exception" + e.getMessage());
+          	return Sender.enviar(e);
+        }
+    }
+
+    @MessageMapping("/disconnect/torneo/{torneoId}")
+	@SendTo("/topic/disconnect/torneo/{torneoId}")
+    @MessageExceptionHandler()
+    public String disconnectTorneo(@DestinationVariable("torneoId") String roomId, @Header("username") String username) {
+        try{
+			logger.info("tournament connect request by " + username);
+			return Sender.enviar(torneoService.disconnectTorneo(roomId,username));
+        } catch(Exception e) {
+            logger.warning("Exception" + e.getMessage());
+          	return Sender.enviar(e);
+        }
+    }
+
+    @MessageMapping("/begin/torneo/{torneoId}")
+    @MessageExceptionHandler()
+    public void beginTorneo(@DestinationVariable("torneoId") String torneoId, @Header("username") String username) {
+        try{
+            logger.info("begin tournament request by " + username);
+            Torneo torneo = torneoService.beginTorneo(torneoId);
+            List<Partida> partidas_torneo = torneo.getPartidas();
+            List<Jugador> jugadores = torneo.getJugadores();
+            for(int j = 0; j<torneo.getNJugadores(); ++j){
+                logger.info("send to " + jugadores.get(j).getNombre());
+
+                // enviar a cada jugador la partida correspondiente
+                simpMessagingTemplate.convertAndSendToUser(jugadores.get(j).getNombre(), "/msg", partidas_torneo.get(j/3).getId());
+                logger.info(jugadores.get(j).getNombre() + " " + partidas_torneo.get(j/3));
+            }
+        } catch(Exception e) {
+            logger.warning("Exception" + e.getMessage());
+        }
+    }
 }

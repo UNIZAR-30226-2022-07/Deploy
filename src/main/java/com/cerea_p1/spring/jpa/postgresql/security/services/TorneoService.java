@@ -22,14 +22,11 @@ public class TorneoService {
 
     private ConcurrentHashMap<String,Torneo> almacen_torneos;
 
-    @Autowired
-    private GameService gameService;
-
     public TorneoService(){
         almacen_torneos = new ConcurrentHashMap<String,Torneo>();
     }
 
-    public Torneo crearTorneo(Jugador jugador, int tTurn, List<Regla> reglas) {
+    public Torneo crearTorneo(Jugador jugador, int tTurn, List<Regla> reglas, GameService gameService) {
         List<Partida> lista_partidas = new ArrayList<Partida>();
         int nJugadores = 3;
 
@@ -38,6 +35,7 @@ public class TorneoService {
         lista_partidas.add(new Partida(nJugadores,tTurn, reglas));
         lista_partidas.add(new Partida(nJugadores,tTurn, reglas));
         lista_partidas.add(new Partida(nJugadores,tTurn, reglas));
+        
         for(Partida p : lista_partidas){
             gameService.addPartida(p);
         }
