@@ -710,6 +710,47 @@ Obtener la mano de un jugador
       
     - Si va mal: codigo 4**, y por qué falla
 
+Obtener ultima jugada de una partida
+
+  - Petición POST a : https://onep1.herokuapp.com/game/getManoJugador
+
+  - JSON:
+   
+          {
+            "username" : <nombre_del_usuario>,
+            "idPartida" : <id_partida>
+          }
+
+  - Devuelve: 
+    - Si va bien: codigo 200 
+
+        {
+          "message" : "Ultima jugada enviada"
+        }
+
+      - Envia por el canal /user/{username}/msg la ultima jugada con el formato:
+
+        {
+            "carta": {
+            "num" : [CERO, UNO, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, BLOQUEO, MAS_DOS, CAMBIO_SENTIDO, CAMBIO_COLOR, MAS_CUATRO],
+            "col" : [ROJO, AMARILLO, AZUL, VERDE, UNDEFINED]
+            },
+            "jugadores": [
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            }, 
+            {
+              "username": "<nombre>",
+              "numeroCartas": <numero_cartas>
+            },
+            ...
+            ],
+            "turno":<username>
+          }
+      
+    - Si va mal: codigo 4**, y por qué falla
+
 Torneos de un usuario
 
   - Peticion POST a : https://onep1.herokuapp.com/torneo/getTorneosActivos

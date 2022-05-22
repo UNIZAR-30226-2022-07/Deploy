@@ -135,6 +135,23 @@ public class GameController {
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
 
+    @PostMapping("/game/getUltimaJugada")
+    public ResponseEntity<?> getUltimaJugada(@RequestBody GetMano request){
+        logger.info("Ultima jugada en la partida " + request.getIdPartida() );
+        if(request.getUsername() == null || request.getIdPartida() == null) return ResponseEntity.badRequest().body("Campos no válidos");
+        if(gameService.existPartida(request.getIdPartida())){
+            Partida p = gameService.getPartida(request.getIdPartida());
+            if(p.playerAlreadyIn(new Jugador(request.getUsername()))){
+                Jugador jugador = p.getJugador(new Jugador(request.getUsername()));
+                logger.info("Se obtiene el jugador " + jugador);
+                simpMessagingTemplate.convertAndSendToUser(jugador.getNombre(), "/msg", new Jugada(p.getUltimaCartaJugada(),p.getJugadores(), p.getTurno().getNombre()));
+                return ResponseEntity.ok(new MessageResponse("Ultima jugada enviada"));
+            } else {
+                return ResponseEntity.badRequest().body("El jugador no está en la partida.");
+            }
+        } else return ResponseEntity.badRequest().body("Esa partida no existe");
+    }
+
     @PostMapping("/game/getManoJugador")
     public ResponseEntity<?> getManoJugador(@RequestBody GetMano request){
         logger.info("Mano del jugador " + request.getUsername() + " en la partida " + request.getIdPartida() );
