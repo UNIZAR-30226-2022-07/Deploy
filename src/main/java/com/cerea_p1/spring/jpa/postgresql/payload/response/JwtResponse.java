@@ -1,10 +1,6 @@
 
 package com.cerea_p1.spring.jpa.postgresql.payload.response;
 
-import java.util.List;
-import java.util.ArrayList;
-import com.cerea_p1.spring.jpa.postgresql.model.Usuario;
-
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";

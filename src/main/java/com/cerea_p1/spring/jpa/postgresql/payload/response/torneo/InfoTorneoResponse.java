@@ -1,6 +1,5 @@
 package com.cerea_p1.spring.jpa.postgresql.payload.response.torneo;
 
-import com.cerea_p1.spring.jpa.postgresql.model.game.Jugador;
 import com.cerea_p1.spring.jpa.postgresql.model.game.Regla;
 
 import java.util.List;

@@ -3,9 +3,6 @@ package com.cerea_p1.spring.jpa.postgresql.model;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import java.util.*;
 import javax.persistence.CascadeType;
 
@@ -35,7 +32,6 @@ public class Usuario {
         @JoinColumn(name = "receptor", referencedColumnName = "correo_electronico", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "emisor", referencedColumnName = "correo_electronico", nullable = false)})
         @ManyToMany(cascade = {CascadeType.PERSIST})
-    // @PreRemove
     public List<Usuario> invitacionesRecibidas;
 
     @ManyToMany(mappedBy = "invitacionesRecibidas")

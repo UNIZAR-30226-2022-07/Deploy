@@ -1,18 +1,13 @@
 package com.cerea_p1.spring.jpa.postgresql.security.services;
 
 import com.cerea_p1.spring.jpa.postgresql.model.game.*;
-import com.cerea_p1.spring.jpa.postgresql.payload.response.Jugada;
 import com.cerea_p1.spring.jpa.postgresql.exception.*;
 import lombok.AllArgsConstructor;
 
-import org.hibernate.mapping.Set;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.security.KeyStore.Entry;
 import java.util.List;
 import java.util.ArrayList;
 
