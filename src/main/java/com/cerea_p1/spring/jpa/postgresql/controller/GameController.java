@@ -137,13 +137,13 @@ public class GameController {
 
     @PostMapping("/game/getManoJugador")
     public ResponseEntity<?> getManoJugador(@RequestBody GetMano request){
-        logger.info("Mano del jugador " + request.getNombre() + " en la partida " + request.getIdPartida() );
-        if(request.getNombre() == null || request.getIdPartida() == null) return ResponseEntity.badRequest().body("Campos no válidos");
+        logger.info("Mano del jugador " + request.getUsername() + " en la partida " + request.getIdPartida() );
+        if(request.getUsername() == null || request.getIdPartida() == null) return ResponseEntity.badRequest().body("Campos no válidos");
         if(gameService.existPartida(request.getIdPartida())){
             logger.info("Existe la partida");
             Partida p = gameService.getPartida(request.getIdPartida());
-            if(p.playerAlreadyIn(new Jugador(request.getNombre()))){
-                Jugador jugador = p.getJugador(new Jugador(request.getNombre()));
+            if(p.playerAlreadyIn(new Jugador(request.getUsername()))){
+                Jugador jugador = p.getJugador(new Jugador(request.getUsername()));
                 logger.info("Se obtiene el jugador " + jugador);
                 simpMessagingTemplate.convertAndSendToUser(jugador.getNombre(), "/msg", Sender.enviar(jugador.getMano()));
                 return ResponseEntity.ok(new MessageResponse("Mano enviada"));
