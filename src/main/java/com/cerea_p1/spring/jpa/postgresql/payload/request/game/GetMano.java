@@ -9,7 +9,7 @@ public class GetMano {
     @NotBlank
     private String idPartida;
 
-    public String getNombre(){
+    public String getUsername(){
         return username;
     }
 
