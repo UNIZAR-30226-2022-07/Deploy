@@ -19,12 +19,10 @@ public class GameService {
 
     private ConcurrentHashMap<String,Partida> almacen_partidas;
     private ConcurrentHashMap<String,List<Invitacion_almacen>> almacen_invitaciones;
-  //  private ConcurrentHashMap<String, Partida> partidas_publicas;
 
     public GameService(){
         almacen_partidas = new ConcurrentHashMap<String,Partida>();
         almacen_invitaciones = new ConcurrentHashMap<String,List<Invitacion_almacen>>();
-    //    partidas_publicas = new ConcurrentHashMap<String,Partida>();
     }
 
     public Partida getPartida(String gameId) {
@@ -54,7 +52,6 @@ public class GameService {
     public Partida crearPartidaPublica() {
         Partida game = new Partida(false);
         game.setId(UUID.randomUUID().toString());
-    //    game.addJugador(jugador);
         game.setEstado(EstadoPartidaEnum.NEW);
         game.setNJugadores(4);
         game.setTTurno(20);
