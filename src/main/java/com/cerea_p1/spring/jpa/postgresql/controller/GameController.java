@@ -489,7 +489,7 @@ public class GameController {
                 logger.info("send to " + jugadores.get(j).getNombre());
 
                 // enviar a cada jugador la partida correspondiente
-                simpMessagingTemplate.convertAndSendToUser(jugadores.get(j).getNombre(), "/msg", partidas_torneo.get(j/3).getId());
+                simpMessagingTemplate.convertAndSendToUser(jugadores.get(j).getNombre(), "/msg", new String(partidas_torneo.get(j/3).getId()));
                 logger.info(jugadores.get(j).getNombre() + " " + partidas_torneo.get(j/3));
             }
         } catch(Exception e) {
