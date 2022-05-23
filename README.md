@@ -423,7 +423,8 @@ Información de la partida
                 [CERO_SWITCH, CRAZY_7, PROGRESSIVE_DRAW, CHAOS_DRAW, BLOCK_DRAW, REPEAT_DRAW]
               }
               ...
-            ]
+            ],
+            "estado": <estado> (NEW, IN_PROGRESS, FINISHED)
           }
       
     - Si va mal: codigo 4**, y por qué falla

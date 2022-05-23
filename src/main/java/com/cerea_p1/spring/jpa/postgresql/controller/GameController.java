@@ -125,7 +125,7 @@ public class GameController {
             for(Jugador g : p.getJugadores()){
                 j.add(g.getNombre());
             }
-            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getNJugadores(), p.getTTurno(), j, p.getReglas())));
+            return ResponseEntity.ok(Sender.enviar(new InfoPartida(p.getNJugadores(), p.getTTurno(), j, p.getReglas(), p.getEstado())));
         } else return ResponseEntity.badRequest().body("Esa partida no existe");
     }
 
