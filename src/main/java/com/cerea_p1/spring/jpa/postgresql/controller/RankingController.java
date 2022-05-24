@@ -20,7 +20,6 @@ import com.cerea_p1.spring.jpa.postgresql.security.jwt.JwtUtils;
 
 import com.cerea_p1.spring.jpa.postgresql.utils.Sender;
 
-import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
