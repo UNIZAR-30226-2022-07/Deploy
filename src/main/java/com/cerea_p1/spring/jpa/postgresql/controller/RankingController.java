@@ -68,12 +68,14 @@ public class RankingController {
             List<String> l2 = new ArrayList<String>();
             Optional<Usuario> opU = userRepository.findByUsername(amigosRequest.getUsername());
             Usuario u = opU.get();
+            boolean añadido = false;
             if(l1.size() > 0){
                 for(String s : l1){
                     String[] textElements = s.split(",");
                     if(!textElements[1].equals(u.getUsername())){
-                        if(Integer.valueOf(textElements[1]) < u.getPuntos()){
+                        if(Integer.valueOf(textElements[1]) < u.getPuntos() && ! añadido){
                             l2.add(u.getUsername()+","+u.getPuntos()+","+u.getPais());
+                            añadido = true;
                         }
                         l2.add(s);
                     }
