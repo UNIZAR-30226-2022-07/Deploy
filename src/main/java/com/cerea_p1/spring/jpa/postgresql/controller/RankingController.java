@@ -71,10 +71,12 @@ public class RankingController {
             if(l1.size() > 0){
                 for(String s : l1){
                     String[] textElements = s.split(",");
-                    if(Integer.valueOf(textElements[1]) < u.getPuntos()){
-                        l2.add(u.getUsername()+","+u.getPuntos()+","+u.getPais());
+                    if(!textElements[1].equals(u.getUsername())){
+                        if(Integer.valueOf(textElements[1]) < u.getPuntos()){
+                            l2.add(u.getUsername()+","+u.getPuntos()+","+u.getPais());
+                        }
+                        l2.add(s);
                     }
-                    l2.add(s);
                 }
             } else {
                 l2.add(u.getUsername()+","+u.getPuntos()+","+u.getPais());
